@@ -5,6 +5,7 @@ A full-stack web application for the University of Guelph Rocketry Club featurin
 ## 🚀 Features
 
 ### Public Features
+
 - **Modern Landing Page**: Attractive homepage with club information
 - **Projects Showcase**: Display of past and current rocketry projects
 - **Team Information**: Meet the team members and executives
@@ -12,6 +13,7 @@ A full-stack web application for the University of Guelph Rocketry Club featurin
 - **Join Information**: How to get involved with the club
 
 ### Member Features (Authentication Required)
+
 - **User Authentication**: Secure login/register system with JWT tokens
 - **Team Management**: Create, join, and manage project teams
 - **Project Updates**: Teams can log progress and keep members updated
@@ -19,6 +21,7 @@ A full-stack web application for the University of Guelph Rocketry Club featurin
 - **AI Chatbot Assistant**: Get help with rocketry questions and club information
 
 ### AI Chatbot
+
 - **Smart Assistant**: OpenAI-powered chatbot with rocketry knowledge
 - **Conversation History**: Save and resume conversations
 - **Context Aware**: Understands club-specific information and projects
@@ -27,6 +30,7 @@ A full-stack web application for the University of Guelph Rocketry Club featurin
 ## 🛠️ Technology Stack
 
 ### Frontend
+
 - **React 18** with Vite for fast development
 - **Tailwind CSS** for modern, responsive styling
 - **React Router** for client-side routing
@@ -34,6 +38,7 @@ A full-stack web application for the University of Guelph Rocketry Club featurin
 - **Context API** for state management
 
 ### Backend
+
 - **FastAPI** for high-performance Python API
 - **SQLAlchemy ORM** for database management
 - **JWT Authentication** for secure user sessions
@@ -49,6 +54,7 @@ A full-stack web application for the University of Guelph Rocketry Club featurin
 ## 🚀 Quick Start
 
 ### 1. Clone the Repository
+
 ```bash
 git clone <repository-url>
 cd rocket-guelph
@@ -57,27 +63,32 @@ cd rocket-guelph
 ### 2. Backend Setup
 
 #### Navigate to backend directory
+
 ```bash
 cd backend
 ```
 
 #### Create virtual environment
+
 ```bash
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
 #### Install dependencies
+
 ```bash
 pip install -r requirements.txt
 ```
 
 #### Configure environment variables
+
 ```bash
 cp .env.example .env
 ```
 
 Edit `.env` file and add your configuration:
+
 ```bash
 # Required for authentication
 SECRET_KEY=your-super-secret-jwt-key-change-this-in-production
@@ -91,37 +102,44 @@ DATABASE_URL=sqlite:///./rocketry.db
 ```
 
 #### Start the backend server
+
 ```bash
 cd app
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 The API will be available at `http://localhost:8000`
+
 - API Documentation: `http://localhost:8000/docs`
 
 ### 3. Frontend Setup
 
 #### Navigate to frontend directory (in new terminal)
+
 ```bash
 cd frontend
 ```
 
 #### Install dependencies
+
 ```bash
 npm install
 ```
 
 #### Configure environment variables
+
 ```bash
 cp .env.example .env
 ```
 
 Edit `.env` file:
+
 ```bash
 VITE_API_URL=http://localhost:8000/api
 ```
 
 #### Start the development server
+
 ```bash
 npm run dev
 ```
@@ -131,12 +149,14 @@ The website will be available at `http://localhost:5173`
 ## 📚 API Documentation
 
 ### Authentication Endpoints
+
 - `POST /api/auth/register` - Register new user
 - `POST /api/auth/login` - User login
 - `GET /api/auth/me` - Get current user info
 - `PATCH /api/auth/me` - Update user profile
 
 ### Team Management
+
 - `GET /api/teams` - List all teams
 - `POST /api/teams` - Create new team
 - `GET /api/teams/{id}` - Get team details
@@ -144,12 +164,14 @@ The website will be available at `http://localhost:5173`
 - `POST /api/teams/{id}/leave` - Leave a team
 
 ### Project Updates
+
 - `GET /api/project-updates` - List all updates
 - `POST /api/project-updates` - Create new update
 - `GET /api/project-updates/team/{team_id}` - Get team updates
 - `GET /api/project-updates/my-updates` - Get user's updates
 
 ### Chatbot
+
 - `POST /api/chatbot/chat` - Send message to chatbot
 - `GET /api/chatbot/conversations` - List conversations
 - `POST /api/chatbot/conversations` - Create conversation
@@ -161,23 +183,27 @@ The website will be available at `http://localhost:5173`
 ### For Club Members
 
 #### Getting Started
+
 1. Visit the website and click "Login" or "Register"
 2. Create your account with your university email
 3. Explore the dashboard to see available teams
 
 #### Joining Teams
+
 1. Go to "Teams" page from navigation
 2. Browse available teams and their projects
 3. Click "Join Team" to become a member
 4. Start collaborating and posting updates
 
 #### Using Project Updates
+
 1. Navigate to your team's detail page
 2. Click "Add Update" to log progress
 3. Include update type, description, and any relevant links
 4. Team members will see your updates in real-time
 
 #### AI Chatbot Assistant
+
 1. Click the robot icon (🤖) in the bottom-right corner
 2. Ask questions about rocketry, club activities, or projects
 3. The assistant can help with:
@@ -189,12 +215,14 @@ The website will be available at `http://localhost:5173`
 ### For Team Leaders
 
 #### Creating Teams
+
 1. From the Teams page, click "Create New Team"
 2. Provide team name, description, and project details
 3. Set team as public or private
 4. Invite members or let them join publicly
 
 #### Managing Projects
+
 1. Regularly post project updates to keep team informed
 2. Use different update types: progress, milestone, issue, announcement
 3. Monitor team member activities and contributions
@@ -202,6 +230,7 @@ The website will be available at `http://localhost:5173`
 ## 🔧 Development
 
 ### Project Structure
+
 ```
 rocket-guelph/
 ├── frontend/                 # React frontend application
@@ -225,13 +254,16 @@ rocket-guelph/
 ```
 
 ### API Documentation
+
 The FastAPI backend automatically generates OpenAPI documentation available at:
+
 - Swagger UI: `http://localhost:8000/docs`
 - ReDoc: `http://localhost:8000/redoc`
 
 ## 🚀 Deployment
 
 ### Backend Deployment
+
 1. Set up production environment variables
 2. Use a production WSGI server like Gunicorn:
    ```bash
@@ -239,6 +271,7 @@ The FastAPI backend automatically generates OpenAPI documentation available at:
    ```
 
 ### Frontend Deployment
+
 1. Build the production bundle:
    ```bash
    npm run build
@@ -246,6 +279,7 @@ The FastAPI backend automatically generates OpenAPI documentation available at:
 2. Deploy the `dist/` folder to your static hosting service
 
 ### Environment Variables for Production
+
 ```bash
 # Backend
 DATABASE_URL=postgresql://production_db_url
@@ -272,6 +306,7 @@ This project is licensed under the MIT License.
 ## 🆘 Support
 
 For technical support or questions about the club:
+
 - Email: [club-email@uoguelph.ca]
 - Discord: [Discord Server Link]
 - Issues: Open a GitHub issue for bug reports
@@ -293,6 +328,7 @@ Built with ❤️ by the University of Guelph Rocketry Club
 ## 🛠️ Technology Stack
 
 ### Backend
+
 - **FastAPI** - Modern, fast web framework for APIs
 - **SQLAlchemy** - SQL toolkit and ORM
 - **SQLite** - Database (easily upgradeable to PostgreSQL)
@@ -301,6 +337,7 @@ Built with ❤️ by the University of Guelph Rocketry Club
 - **Python-dotenv** - Environment variable management
 
 ### Frontend
+
 - **React 18** - UI library
 - **Vite** - Build tool and dev server
 - **React Router** - Client-side routing
@@ -312,22 +349,26 @@ Built with ❤️ by the University of Guelph Rocketry Club
 ### Backend Setup
 
 1. **Navigate to backend directory:**
+
    ```bash
    cd rocket-guelph/backend
    ```
 
 2. **Create and activate virtual environment:**
+
    ```bash
    python -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
 
 3. **Install dependencies:**
+
    ```bash
    pip install -r requirements.txt
    ```
 
 4. **Set up environment variables:**
+
    ```bash
    cp .env.example .env
    # Edit .env with your configuration
@@ -344,11 +385,13 @@ API documentation at `http://localhost:8000/docs`
 ### Frontend Setup
 
 1. **Navigate to frontend directory:**
+
    ```bash
    cd rocket-guelph/frontend
    ```
 
 2. **Install dependencies:**
+
    ```bash
    npm install
    ```
@@ -394,28 +437,34 @@ VITE_API_URL=http://localhost:8000/api
 ## 📡 API Endpoints
 
 ### Projects
+
 - `GET /api/projects` - List all projects
 - `GET /api/projects/{id}` - Get project details
 - `POST /api/projects` - Create new project
 
 ### News
+
 - `GET /api/news` - List all news articles
 - `GET /api/news/{id}` - Get article details
 - `POST /api/news` - Create new article
 
 ### Team
+
 - `GET /api/execs` - List executive team members
 - `GET /api/execs/{id}` - Get executive details
 - `POST /api/execs` - Add new executive
 
 ### Sponsors
+
 - `GET /api/sponsors` - List all sponsors
 - `POST /api/sponsor-inquiries` - Submit sponsor inquiry
 
 ### Contact
+
 - `POST /api/contact` - Submit contact form
 
 ### Discord
+
 - `GET /api/discord/invite` - Get Discord invite link
 - `POST /api/discord/join-request` - Submit join request
 
@@ -430,32 +479,40 @@ VITE_API_URL=http://localhost:8000/api
 ## 🗄️ Database Schema
 
 ### Projects
+
 - ID, title, description, image_url, status, created_at
 
 ### News Articles
+
 - ID, title, content, image_url, published_at
 
 ### Executives
+
 - ID, name, position, bio, image_url, email
 
 ### Sponsors
+
 - ID, name, logo_url, website_url, tier
 
 ### Sponsor Inquiries
+
 - ID, company_name, contact_name, email, phone, message, created_at, status
 
 ### Contact Messages
+
 - ID, name, email, subject, message, created_at, status
 
 ## 🚀 Deployment
 
 ### Backend Deployment
+
 1. Set up production database (PostgreSQL recommended)
 2. Configure production environment variables
 3. Deploy to cloud provider (Heroku, DigitalOcean, AWS, etc.)
 4. Run database migrations
 
 ### Frontend Deployment
+
 1. Build the production bundle: `npm run build`
 2. Deploy to static hosting (Netlify, Vercel, GitHub Pages)
 3. Configure environment variables for production API URL

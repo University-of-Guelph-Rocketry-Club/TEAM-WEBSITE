@@ -5,10 +5,12 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-rocket-red rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-sm">🚀</span>
-              </div>
-              <span className="font-bold text-xl">UofG Rocketry Club</span>
+              <img 
+                src="/Images/rocketrylogo.jpg" 
+                alt="UofG Rocketry Club Logo" 
+                className="w-8 h-8 rounded-full object-cover"
+              />
+              <span className="font-bold text-xl font-poppins">UofG Rocketry Club</span>
             </div>
             <p className="text-gray-300 mb-4 max-w-md">
               Building the future of aerospace engineering through hands-on rocketry projects, 

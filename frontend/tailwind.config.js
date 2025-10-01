@@ -22,6 +22,7 @@ export default {
       },
       fontFamily: {
         'display': ['Inter', 'system-ui', 'sans-serif'],
+        'poppins': ['Poppins', 'sans-serif'],
       }
     },
   },

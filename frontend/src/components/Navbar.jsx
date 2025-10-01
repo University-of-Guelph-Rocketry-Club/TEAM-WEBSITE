@@ -36,10 +36,12 @@ const Navbar = () => {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link to="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-rocket-red rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-sm">🚀</span>
-              </div>
-              <span className="font-bold text-xl text-gray-900">UofG Rocketry</span>
+              <img 
+                src="/Images/rocketrylogo.jpg" 
+                alt="UofG Rocketry Club Logo" 
+                className="h-8 object-contain"
+              />
+              <span className="font-bold text-xl text-gray-900 font-poppins">UofG Rocketry</span>
             </Link>
           </div>
 
@@ -50,7 +52,7 @@ const Navbar = () => {
               <Link
                 key={path}
                 to={path}
-                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                className={`px-3 py-2 rounded-md text-sm font-medium font-poppins transition-colors ${
                   isActive(path)
                     ? 'bg-primary-100 text-primary-700'
                     : 'text-gray-700 hover:text-primary-600 hover:bg-gray-50'
@@ -65,7 +67,7 @@ const Navbar = () => {
               <Link
                 key={path}
                 to={path}
-                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                className={`px-3 py-2 rounded-md text-sm font-medium font-poppins transition-colors ${
                   isActive(path)
                     ? 'bg-primary-100 text-primary-700'
                     : 'text-gray-700 hover:text-primary-600 hover:bg-gray-50'
@@ -87,7 +89,7 @@ const Navbar = () => {
                       {user?.first_name?.[0]?.toUpperCase() || user?.email?.[0]?.toUpperCase() || 'U'}
                     </span>
                   </div>
-                  <span className="text-sm font-medium">{user?.first_name || 'User'}</span>
+                  <span className="text-sm font-medium font-poppins">{user?.first_name || 'User'}</span>
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
@@ -97,14 +99,14 @@ const Navbar = () => {
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border">
                     <Link
                       to="/dashboard"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 font-poppins"
                       onClick={() => setUserMenuOpen(false)}
                     >
                       Dashboard
                     </Link>
                     <button
                       onClick={handleLogout}
-                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 font-poppins"
                     >
                       Sign Out
                     </button>
@@ -115,13 +117,13 @@ const Navbar = () => {
               <div className="flex space-x-4">
                 <Link
                   to="/login"
-                  className="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium"
+                  className="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium font-poppins"
                 >
                   Sign In
                 </Link>
                 <Link
                   to="/register"
-                  className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
+                  className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-md text-sm font-medium font-poppins transition-colors"
                 >
                   Sign Up
                 </Link>
@@ -155,7 +157,7 @@ const Navbar = () => {
                 <Link
                   key={path}
                   to={path}
-                  className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
+                  className={`block px-3 py-2 rounded-md text-base font-medium font-poppins transition-colors ${
                     isActive(path)
                       ? 'bg-primary-100 text-primary-700'
                       : 'text-gray-700 hover:text-primary-600 hover:bg-gray-50'
@@ -171,7 +173,7 @@ const Navbar = () => {
                 <Link
                   key={path}
                   to={path}
-                  className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
+                  className={`block px-3 py-2 rounded-md text-base font-medium font-poppins transition-colors ${
                     isActive(path)
                       ? 'bg-primary-100 text-primary-700'
                       : 'text-gray-700 hover:text-primary-600 hover:bg-gray-50'
@@ -191,7 +193,7 @@ const Navbar = () => {
                   </div>
                   <button
                     onClick={handleLogout}
-                    className="block w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50"
+                    className="block w-full text-left px-3 py-2 text-base font-medium font-poppins text-gray-700 hover:text-primary-600 hover:bg-gray-50"
                   >
                     Sign Out
                   </button>
@@ -200,14 +202,14 @@ const Navbar = () => {
                 <div className="border-t pt-3 mt-3 space-y-1">
                   <Link
                     to="/login"
-                    className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50"
+                    className="block px-3 py-2 text-base font-medium font-poppins text-gray-700 hover:text-primary-600 hover:bg-gray-50"
                     onClick={() => setIsOpen(false)}
                   >
                     Sign In
                   </Link>
                   <Link
                     to="/register"
-                    className="block px-3 py-2 text-base font-medium bg-primary-600 text-white rounded-md hover:bg-primary-700"
+                    className="block px-3 py-2 text-base font-medium font-poppins bg-primary-600 text-white rounded-md hover:bg-primary-700"
                     onClick={() => setIsOpen(false)}
                   >
                     Sign Up
