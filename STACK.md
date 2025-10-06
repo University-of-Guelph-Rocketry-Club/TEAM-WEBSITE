@@ -3,10 +3,6 @@
 ## 🚀 Project Overview
 Full-stack web application for the University of Guelph Rocketry Club featuring AI-powered chatbot, member management, project showcases, and sponsor integration.
 
-## 🎯 Live Deployment
-- **Frontend**: https://demorocketryguelphweb.onrender.com
-- **Backend API**: https://demo-rocketry-website.onrender.com
-- **Repository**: https://github.com/Nickbravo21/FAKE-WEBSITE
 
 ---
 
