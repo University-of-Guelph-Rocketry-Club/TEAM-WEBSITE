@@ -25,3 +25,79 @@ body {
     @apply text-3xl font-bold text-gray-900 mb-6;
   }
 }
+
+@keyframes water-slide {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* translucent animated "water" input */
+.water-input {
+  background: linear-gradient(120deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02), rgba(255,255,255,0.06));
+  background-size: 200% 200%;
+  animation: water-slide 8s ease-in-out infinite;
+  backdrop-filter: blur(6px);
+}
+
+/* chat container backdrop - softer, more transparent white + blur */
+.chat-backdrop {
+  position: relative;
+  max-width: 420px;
+  max-height: 620px;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  background: rgba(255,255,255,0.65); /* more transparent than before */
+  backdrop-filter: blur(12px) saturate(120%);
+  border-radius: 24px;
+  border: 1px solid rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* typing indicator */
+.chat-backdrop .typing {
+  font-style: italic;
+  color: rgba(55,65,81,0.8);
+  opacity: 0.95;
+}
+
+/* ensure water-input focus does not become opaque white */
+.water-input:focus {
+  outline: none;
+  box-shadow: 0 6px 18px rgba(37,99,235,0.12);
+  background: linear-gradient(120deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03), rgba(255,255,255,0.08));
+  color: #fff;
+}
+
+/* messages area should not push footer out of view */
+.chat-backdrop .flex-1 {
+  min-height: 0; /* critical for proper flex scroll behavior */
+}
+
+/* keep header fixed above scroll area */
+.chat-backdrop .sticky {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  backdrop-filter: blur(8px);
+}
+
+/* ensure anchor inside chatbot looks like site links */
+.chat-backdrop a {
+  color: #0ea5a3; /* adjust to primary color if needed */
+  text-decoration: underline;
+}
+
+/* tweak bubble rounding */
+.rounded-2xl {
+  border-radius: 18px;
+}
+
+/* make header round */
+.rounded-t-3xl {
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+}

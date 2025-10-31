@@ -186,7 +186,7 @@ class ChatMessage(ChatMessageBase):
     timestamp: datetime
     
     class Config:
-        orm_mode = True
+        from_attributes = True  # Updated from orm_mode = True for Pydantic v2
 
 class ConversationBase(BaseModel):
     title: str = "New Conversation"
@@ -196,13 +196,13 @@ class ConversationCreate(ConversationBase):
 
 class Conversation(ConversationBase):
     id: int
-    user_id: int
+    user_id: Optional[int] = None  # Make user_id optional
     created_at: datetime
     updated_at: datetime
     messages: List[ChatMessage] = []
     
     class Config:
-        orm_mode = True
+        from_attributes = True  # Updated from orm_mode = True for Pydantic v2
 
 class ChatResponse(BaseModel):
     message: ChatMessage

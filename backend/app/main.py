@@ -1,10 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .routers import (
+from app.routers import (
     projects, news, contact, execs, sponsors, sponsor_inquiries, 
     discord, auth, teams, project_updates, chatbot
 )
-from .db import engine, Base
+from app.db import engine, Base
 import os
 from dotenv import load_dotenv
 
