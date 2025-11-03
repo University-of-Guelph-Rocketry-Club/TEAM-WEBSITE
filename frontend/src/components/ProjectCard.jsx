@@ -27,13 +27,9 @@ const ProjectCard = ({ project }) => {
           </span>
         </div>
         
-        <p className="text-gray-600 line-clamp-3 mb-4">
+        <p className="text-gray-600 line-clamp-3">
           {project.description}
         </p>
-        
-        <button className="btn-primary w-full">
-          Learn More
-        </button>
       </div>
     </div>
   )

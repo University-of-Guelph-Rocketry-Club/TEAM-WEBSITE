@@ -33,9 +33,103 @@ const Home = () => {
     <div>
       <Hero />
       
+      {/* Vision & Mission Section */}
+      <Section 
+        title="University of Guelph Rocketry Club" 
+        subtitle="Building and giving University of Guelph students fun rocketry experiences. We are working on entering Launch Canada for 2026 and developing a CubeSat project for land surveying research."
+      >
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="space-y-6">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl p-6 text-white">
+                <div className="text-3xl font-bold">4</div>
+                <div className="text-sm opacity-90">Departments</div>
+              </div>
+              <div className="bg-gradient-to-br from-green-500 to-blue-500 rounded-xl p-6 text-white">
+                <div className="text-3xl font-bold">50+</div>
+                <div className="text-sm opacity-90">Active Members</div>
+              </div>
+              <div className="bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl p-6 text-white">
+                <div className="text-3xl font-bold">2025</div>
+                <div className="text-sm opacity-90">Est. Year</div>
+              </div>
+              <div className="bg-gradient-to-br from-orange-500 to-red-500 rounded-xl p-6 text-white">
+                <div className="text-3xl font-bold">∞</div>
+                <div className="text-sm opacity-90">Possibilities</div>
+              </div>
+            </div>
+            
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold text-gray-900">Our Departments</h3>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                  <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                    <span className="text-blue-600">💻</span>
+                  </div>
+                  <span className="font-medium">Software</span>
+                </div>
+                <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                  <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                    <span className="text-green-600">⚡</span>
+                  </div>
+                  <span className="font-medium">Avionics</span>
+                </div>
+                <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                  <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">
+                    <span className="text-red-600">🚀</span>
+                  </div>
+                  <span className="font-medium">Rocketry</span>
+                </div>
+                <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                  <div className="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center">
+                    <span className="text-yellow-600">💰</span>
+                  </div>
+                  <span className="font-medium">Finance</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Media Showcase Area */}
+          <div className="space-y-6">
+            {/* Your actual rocket launch video! - Large Portrait View */}
+            <video 
+              controls 
+              className="w-full h-96 md:h-[500px] lg:h-[600px] rounded-2xl object-cover"
+              
+            >
+              <source src="/Videos/rocket launch.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            
+            <div className="grid grid-cols-3 gap-4">
+              <div className="bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl h-20 flex items-center justify-center">
+                <div className="text-center text-blue-600">
+                  <div className="text-xl">📸</div>
+                  <div className="text-xs">Gallery</div>
+                </div>
+              </div>
+              <div className="bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl h-20 flex items-center justify-center">
+                <div className="text-center text-purple-600">
+                  <div className="text-xl">🛰️</div>
+                  <div className="text-xs">CubeSat</div>
+                </div>
+              </div>
+              <div className="bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl h-20 flex items-center justify-center">
+                <div className="text-center text-orange-600">
+                  <div className="text-xl">🏆</div>
+                  <div className="text-xs">Awards</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Section>
+
       <Section 
         title="Featured Projects" 
-        subtitle="Discover our latest rocketry innovations and engineering achievements"
+        subtitle="CubeSat development, rocket launches, and educational programs for UofG students"
+        background="gray"
       >
         {loading ? (
           <div className="text-center">Loading projects...</div>
@@ -56,7 +150,6 @@ const Home = () => {
       <Section 
         title="Latest News" 
         subtitle="Stay updated with our competitions, achievements, and club activities"
-        background="gray"
       >
         {loading ? (
           <div className="text-center">Loading news...</div>
@@ -90,58 +183,85 @@ const Home = () => {
 
       <Section 
         title="Join Our Community" 
-        subtitle="Connect with passionate students and be part of the future of aerospace"
+        subtitle="Connect with passionate UofG students and build the future of aerospace"
+        background="gray"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-          <DiscordAccess />
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Discord Community */}
+          <div className="lg:col-span-2">
+            <DiscordAccess />
+          </div>
           
+          {/* Social Links */}
           <div className="space-y-6">
-            <div className="text-center lg:text-left">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                Ready to Launch Your Future? 🚀
-              </h3>
-              <p className="text-gray-600 mb-6">
-                Whether you're an engineering student, aerospace enthusiast, or just curious about rocketry, 
-                there's a place for you in our club. Join us for hands-on projects, competitions, 
-                and networking opportunities.
-              </p>
+            <h3 className="text-xl font-bold text-gray-900">Connect With Us</h3>
+            <div className="space-y-4">
+              <a href="https://discord.gg/unfT4UpR" target="_blank" rel="noopener noreferrer" 
+                 className="flex items-center space-x-3 p-4 bg-indigo-50 rounded-xl hover:bg-indigo-100 transition-colors">
+                <div className="w-12 h-12 bg-indigo-500 rounded-xl flex items-center justify-center text-white text-xl">
+                  💬
+                </div>
+                <div>
+                  <div className="font-semibold text-gray-900">Discord</div>
+                  <div className="text-sm text-gray-600">Join our community</div>
+                </div>
+              </a>
+              
+              <a href="https://www.linkedin.com/company/uofg-rocketry-club/posts/" target="_blank" rel="noopener noreferrer"
+                 className="flex items-center space-x-3 p-4 bg-blue-50 rounded-xl hover:bg-blue-100 transition-colors">
+                <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white text-xl">
+                  💼
+                </div>
+                <div>
+                  <div className="font-semibold text-gray-900">LinkedIn</div>
+                  <div className="text-sm text-gray-600">Professional updates</div>
+                </div>
+              </a>
+              
+              <a href="https://www.instagram.com/guelph_rockets" target="_blank" rel="noopener noreferrer"
+                 className="flex items-center space-x-3 p-4 bg-pink-50 rounded-xl hover:bg-pink-100 transition-colors">
+                <div className="w-12 h-12 bg-pink-500 rounded-xl flex items-center justify-center text-white text-xl">
+                  📸
+                </div>
+                <div>
+                  <div className="font-semibold text-gray-900">Instagram</div>
+                  <div className="text-sm text-gray-600">Photos & videos</div>
+                </div>
+              </a>
             </div>
             
-            <div className="space-y-4">
-              <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
-                  <span className="text-primary-600 font-bold">✓</span>
-                </div>
-                <span className="text-gray-700">Hands-on rocket building experience</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
-                  <span className="text-primary-600 font-bold">✓</span>
-                </div>
-                <span className="text-gray-700">National and international competitions</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
-                  <span className="text-primary-600 font-bold">✓</span>
-                </div>
-                <span className="text-gray-700">Networking with industry professionals</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
-                  <span className="text-primary-600 font-bold">✓</span>
-                </div>
-                <span className="text-gray-700">Leadership and project management skills</span>
-              </div>
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-4">
-              <a href="/join" className="btn-primary text-center">
-                Apply to Join
-              </a>
-              <a href="/team" className="btn-secondary text-center">
-                Meet the Team
+            <div className="pt-4">
+              <a href="/join" className="btn-primary w-full text-center block">
+                Join the Club 🚀
               </a>
             </div>
+          </div>
+        </div>
+        
+        {/* Feature Highlights */}
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="text-center p-6 bg-white rounded-2xl shadow-sm">
+            <div className="text-3xl mb-3">🛰️</div>
+            <h4 className="font-semibold text-gray-900 mb-2">CubeSat Project</h4>
+            <p className="text-sm text-gray-600">Building satellites that survey land for real-world applications</p>
+          </div>
+          
+          <div className="text-center p-6 bg-white rounded-2xl shadow-sm">
+            <div className="text-3xl mb-3">🚀</div>
+            <h4 className="font-semibold text-gray-900 mb-2">Rocket Launches</h4>
+            <p className="text-sm text-gray-600">Hands-on experience with rocket design and competition launches</p>
+          </div>
+          
+          <div className="text-center p-6 bg-white rounded-2xl shadow-sm">
+            <div className="text-3xl mb-3">📚</div>
+            <h4 className="font-semibold text-gray-900 mb-2">Education</h4>
+            <p className="text-sm text-gray-600">Learning programs specifically designed for UofG students</p>
+          </div>
+          
+          <div className="text-center p-6 bg-white rounded-2xl shadow-sm">
+            <div className="text-3xl mb-3">🤝</div>
+            <h4 className="font-semibold text-gray-900 mb-2">Community</h4>
+            <p className="text-sm text-gray-600">Building lasting connections with fellow rocketry enthusiasts</p>
           </div>
         </div>
       </Section>

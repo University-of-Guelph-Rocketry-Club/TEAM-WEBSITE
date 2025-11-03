@@ -7,7 +7,7 @@ from ..db import get_db
 from ..models import Conversation as ConversationModel, ChatMessage as ChatMessageModel, User as UserModel
 from ..schemas import Conversation, ChatMessage, ChatMessageCreate, ChatResponse, ConversationCreate
 from ..auth import get_current_active_user
-from .team_info import TEAM_MEMBERS_INFO, PAGE_INFO
+from .team_info import TEAM_MEMBERS_INFO, PAGE_INFO, CLUB_INFO
 from datetime import datetime, timezone
 
 router = APIRouter()
@@ -21,9 +21,12 @@ SYSTEM_PROMPT = os.getenv(
 
 def get_team_context():
     """Generate context about team members for the chatbot"""
-    context = "Team Information:\n\n"
+    context = f"Club: {CLUB_INFO['name']}\n"
+    context += f"Vision: {CLUB_INFO['vision']}\n"
+    context += f"Departments: {', '.join(CLUB_INFO['departments'])}\n\n"
+    context += "Executive Team:\n"
     for exec in TEAM_MEMBERS_INFO["executives"]:
-        context += f"- {exec['name']} ({exec['role']}): {exec['bio']}\n"
+        context += f"- {exec['name']}: {exec['role']}\n"
     return context
 
 def get_page_context():
@@ -167,15 +170,140 @@ async def send_message(
         # Add the current user message (already saved; ok to append again)
         messages.append({"role": "user", "content": message.content})
 
-        # Call OpenAI
-        response = await client.chat.completions.create(
-            model=os.getenv("CHATBOT_MODEL", "gpt-3.5-turbo"),
-            messages=messages,
-            max_tokens=500,
-            temperature=0.7
-        )
+        # Call OpenAI with fallback for demo
+        try:
+            # Check if we have a valid API key
+            api_key = os.getenv("OPENAI_API_KEY")
+            if not api_key or api_key.startswith("sk-placeholder"):
+                raise Exception("No valid OpenAI API key available")
+                
+            response = await client.chat.completions.create(
+                model=os.getenv("CHATBOT_MODEL", "gpt-3.5-turbo"),
+                messages=messages,
+                max_tokens=500,
+                temperature=0.7
+            )
+            ai_response_content = response.choices[0].message.content
+        except Exception as openai_error:
+            # Fallback response system for demo purposes
+            user_message_lower = message.content.lower()
+            
+            if any(word in user_message_lower for word in ['team', 'member', 'executive', 'lead']):
+                ai_response_content = f"""**{CLUB_INFO['name']}** 🚀
 
-        ai_response_content = response.choices[0].message.content
+**Our Executive Team:**
+• **Darren**: Club President
+• **Celina**: Vice President  
+• **Rahma**: Advisor
+• **Aban**: Finance
+• **Marko**: Rocketry Team Lead
+• **Nick**: Software Team Lead
+• **Tylen**: Avionics Team Lead
+• **Yassin**: Outreach Lead
+
+**Our Departments:**
+• Software
+• Avionics  
+• Rocketry
+• Finance
+
+Visit our <a href='/team' class='text-primary-600 hover:text-primary-800 transition-colors'>Team page</a> to learn more!
+
+**Connect with us:**
+📱 [Discord]({CLUB_INFO['social_links']['discord']})
+💼 [LinkedIn]({CLUB_INFO['social_links']['linkedin']})
+📸 [Instagram]({CLUB_INFO['social_links']['instagram']})"""
+            
+            elif any(word in user_message_lower for word in ['project', 'rocket', 'competition', 'cubesat']):
+                ai_response_content = f"""🚀 **{CLUB_INFO['name']} Projects:**
+
+**Current Projects:**
+🛰️ **CubeSat Development** - Working on a CubeSat that surveys land
+🚀 **Rocket Launches** - Building and launching rockets for competitions and learning
+📚 **Educational Programs** - Teaching UofG students about rocketry and CubeSat technology
+🔬 **Research & Development** - Advancing aerospace technology for students
+
+**Our Mission:** {CLUB_INFO['vision']}
+
+Check out our <a href='/projects' class='text-primary-600 hover:text-primary-800 transition-colors'>Projects page</a> for more details!
+
+**Join our community:**
+📱 [Discord]({CLUB_INFO['social_links']['discord']})
+💼 [LinkedIn]({CLUB_INFO['social_links']['linkedin']})
+📸 [Instagram]({CLUB_INFO['social_links']['instagram']})"""
+            
+            elif any(word in user_message_lower for word in ['join', 'member', 'how to']):
+                ai_response_content = f"""Welcome to **{CLUB_INFO['name']}**! 🚀
+
+**Our Mission:** {CLUB_INFO['vision']}
+
+**How to Join:**
+• Visit our <a href='/join' class='text-primary-600 hover:text-primary-800 transition-colors'>Join Us page</a>
+• Join our Discord community: [{CLUB_INFO['social_links']['discord']}]({CLUB_INFO['social_links']['discord']})
+• No prior experience required - all UofG students welcome!
+
+**Our Departments:**
+🖥️ **Software** - Flight computers, data analysis, mission control
+⚡ **Avionics** - Navigation, telemetry, electronic systems  
+🚀 **Rocketry** - Rocket design, propulsion, recovery systems
+💰 **Finance** - Budget management and funding
+
+**What You'll Get:**
+• Hands-on rocketry and CubeSat experience
+• Competition opportunities
+• Real aerospace engineering projects
+• Community of passionate students
+
+**Connect with us:**
+📱 [Discord]({CLUB_INFO['social_links']['discord']})
+💼 [LinkedIn]({CLUB_INFO['social_links']['linkedin']})
+📸 [Instagram]({CLUB_INFO['social_links']['instagram']})"""
+            
+            elif any(word in user_message_lower for word in ['sponsor', 'partnership', 'support']):
+                ai_response_content = """Thank you for your interest in supporting the University of Guelph Rocketry Club! 🤝
+
+**Sponsorship Opportunities:**
+• Equipment and materials support
+• Competition funding
+• Educational workshops and mentorship
+• Industry partnership programs
+
+**Benefits for Sponsors:**
+• Brand visibility at competitions and events
+• Access to talented engineering students
+• Community engagement opportunities
+• Supporting the next generation of aerospace engineers
+
+Learn more about our sponsorship packages on the <a href='/sponsors' class='text-primary-600 hover:text-primary-800 transition-colors'>Sponsors page</a>.
+
+For partnership inquiries, please contact our team through our website!"""
+            
+            else:
+                ai_response_content = f"""Hi! Welcome to **{CLUB_INFO['name']}**! 🚀
+
+**Our Mission:** {CLUB_INFO['vision']}
+
+**What We Do:**
+🛰️ CubeSat development and land surveying
+🚀 Rocket launches and competitions  
+📚 Educational rocketry programs for UofG students
+🔬 Hands-on aerospace learning experiences
+
+**Our Departments:**
+• Software • Avionics • Rocketry • Finance
+
+**Get Involved:**
+• <a href='/team' class='text-primary-600 hover:text-primary-800 transition-colors'>Meet our Team</a>
+• <a href='/projects' class='text-primary-600 hover:text-primary-800 transition-colors'>View Projects</a>  
+• <a href='/join' class='text-primary-600 hover:text-primary-800 transition-colors'>Join Us</a>
+• <a href='/sponsors' class='text-primary-600 hover:text-primary-800 transition-colors'>Become a Sponsor</a>
+
+**Connect with us:**
+📱 [Discord]({CLUB_INFO['social_links']['discord']})
+💼 [LinkedIn]({CLUB_INFO['social_links']['linkedin']}) 
+📸 [Instagram]({CLUB_INFO['social_links']['instagram']})
+
+Ask me anything about our club, projects, or how to get involved!"""
 
         # Use UTC timestamp for consistency
         current_time = datetime.now(timezone.utc)

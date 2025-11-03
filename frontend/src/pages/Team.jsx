@@ -8,59 +8,90 @@ const Team = () => {
       id: 1,
       name: 'Darren',
       position: 'Club President',
-      bio: 'Leading the University of Guelph Rocketry Club with passion for aerospace engineering and innovation.'
+      image_url: '/Images/darren-photo.jpg' // Add Darren's photo here
     },
     {
       id: 2,
       name: 'Celina',
       position: 'Vice President',
-      bio: 'Supporting club operations and driving strategic initiatives for our rocketry projects.'
+      image_url: '/Images/celina-photo.jpg' // Add Celina's photo here
     },
     {
       id: 3,
       name: 'Rahma',
       position: 'Advisor',
-      bio: 'Providing guidance and mentorship to help the club achieve its goals and maintain excellence.'
+      image_url: '/Images/rahma-photo.jpg' // Add Rahma's photo here
     },
     {
       id: 4,
       name: 'Aban',
       position: 'Finance',
-      bio: 'Managing club finances and ensuring sustainable funding for our ambitious projects.'
+      image_url: '/Images/aban-photo.jpg' // Add Aban's photo here
     },
     {
       id: 5,
       name: 'Marko',
       position: 'Rocketry Team Lead',
-      bio: 'Leading the design and development of our competition rockets and propulsion systems.'
+      image_url: '/Images/marko-photo.jpg' // Add Marko's photo here
     },
     {
       id: 6,
       name: 'Nick',
       position: 'Software Team Lead',
-      bio: 'Developing software systems for flight computers, data analysis, and mission control.'
+      image_url: '/Images/IMG_6239.jpeg' // Nick's actual photo
     },
     {
       id: 7,
       name: 'Tylen',
       position: 'Avionics Team Lead',
-      bio: 'Designing and implementing electronic systems for navigation and telemetry.'
+      image_url: '/Images/tylen-photo.jpg' // Add Tylen's photo here
     },
     {
       id: 8,
       name: 'Yassin',
       position: 'Outreach Lead',
-      bio: 'Building connections with the aerospace community and promoting rocketry education.'
+      image_url: '/Images/yassin-photo.jpg' // Add Yassin's photo here
     }
   ]
 
   return (
     <div className="pt-16">
+      {/* Hero Section with Team Photo Area */}
       <Section 
-        title="Current Executives & Team Leads (2025)" 
-        subtitle="The passionate students driving innovation in rocketry at the University of Guelph"
+        title="2025 University of Guelph Rocketry Club" 
+        subtitle="Building and giving University of Guelph students fun rocketry experiences"
       >
-        <TeamPhoto executives={executives} />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <TeamPhoto executives={executives} />
+          </div>
+          
+          {/* Team Photo/Video Showcase Area */}
+          <div className="space-y-6">
+            <div className="bg-gradient-to-br from-blue-100 to-purple-200 rounded-2xl h-64 flex items-center justify-center">
+              <div className="text-center text-gray-600">
+                <div className="text-5xl mb-4">📸</div>
+                <div className="font-semibold text-lg">Team Photos</div>
+                <div className="text-sm">Behind the scenes & launch day moments</div>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-gradient-to-br from-orange-100 to-red-200 rounded-xl h-32 flex items-center justify-center">
+                <div className="text-center text-orange-700">
+                  <div className="text-2xl mb-1">🎬</div>
+                  <div className="text-xs font-medium">Launch Videos</div>
+                </div>
+              </div>
+              <div className="bg-gradient-to-br from-green-100 to-blue-200 rounded-xl h-32 flex items-center justify-center">
+                <div className="text-center text-green-700">
+                  <div className="text-2xl mb-1">🏆</div>
+                  <div className="text-xs font-medium">Achievement Gallery</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </Section>
 
       <Section 
@@ -230,8 +261,128 @@ const Team = () => {
           </div>
         </div>
       </Section>
+      
+      {/* Department Showcase */}
+      <Section 
+        title="Our Departments" 
+        subtitle="Specialized teams working together to reach new heights"
+      >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="text-center space-y-4 group">
+            <div className="bg-gradient-to-br from-blue-500 to-purple-600 w-20 h-20 rounded-2xl mx-auto flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <span className="text-2xl text-white">💻</span>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-gray-800">Software</h3>
+              <p className="text-gray-600 text-sm">Flight computers & simulations</p>
+            </div>
+          </div>
+          
+          <div className="text-center space-y-4 group">
+            <div className="bg-gradient-to-br from-orange-500 to-red-600 w-20 h-20 rounded-2xl mx-auto flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <span className="text-2xl text-white">⚡</span>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-gray-800">Avionics</h3>
+              <p className="text-gray-600 text-sm">Electronics & control systems</p>
+            </div>
+          </div>
+          
+          <div className="text-center space-y-4 group">
+            <div className="bg-gradient-to-br from-green-500 to-teal-600 w-20 h-20 rounded-2xl mx-auto flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <span className="text-2xl text-white">🚀</span>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-gray-800">Rocketry</h3>
+              <p className="text-gray-600 text-sm">Engine design & propulsion</p>
+            </div>
+          </div>
+          
+          <div className="text-center space-y-4 group">
+            <div className="bg-gradient-to-br from-purple-500 to-pink-600 w-20 h-20 rounded-2xl mx-auto flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <span className="text-2xl text-white">💰</span>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-gray-800">Finance</h3>
+              <p className="text-gray-600 text-sm">Funding & resource management</p>
+            </div>
+          </div>
+        </div>
+      </Section>
+      
+      {/* Media Showcase Area */}
+      <Section 
+        title="Explore Our Journey" 
+        subtitle="Pictures, videos, and moments from our rocketry adventures"
+      >
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Large Featured Media Area */}
+          <div className="md:col-span-2">
+            <div className="bg-gradient-to-br from-indigo-100 via-purple-100 to-blue-200 rounded-3xl h-80 flex items-center justify-center relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-black/10 to-transparent"></div>
+              <div className="text-center text-gray-700 z-10">
+                <div className="text-6xl mb-4">🎥</div>
+                <div className="font-bold text-2xl mb-2">Featured Launch Video</div>
+                <div className="text-sm opacity-80">Watch our latest rocket reach for the stars</div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Side Media Grid */}
+          <div className="space-y-4">
+            <div className="bg-gradient-to-br from-yellow-100 to-orange-200 rounded-2xl h-36 flex items-center justify-center">
+              <div className="text-center text-orange-800">
+                <div className="text-3xl mb-2">📷</div>
+                <div className="font-semibold text-sm">Competition Gallery</div>
+              </div>
+            </div>
+            <div className="bg-gradient-to-br from-green-100 to-emerald-200 rounded-2xl h-36 flex items-center justify-center">
+              <div className="text-center text-emerald-800">
+                <div className="text-3xl mb-2">🛠️</div>
+                <div className="font-semibold text-sm">Workshop Moments</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Social Media Grid */}
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <a href="https://discord.gg/unfT4UpR" target="_blank" rel="noopener noreferrer" 
+             className="group bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl p-6 text-white hover:scale-105 transition-all duration-300">
+            <div className="flex items-center space-x-4">
+              <div className="text-3xl">💬</div>
+              <div>
+                <div className="font-bold">Discord Community</div>
+                <div className="text-sm opacity-90">Join our active discussions</div>
+              </div>
+            </div>
+          </a>
+          
+          <a href="https://www.linkedin.com/company/uofg-rocketry-club/posts/" target="_blank" rel="noopener noreferrer"
+             className="group bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl p-6 text-white hover:scale-105 transition-all duration-300">
+            <div className="flex items-center space-x-4">
+              <div className="text-3xl">💼</div>
+              <div>
+                <div className="font-bold">LinkedIn Updates</div>
+                <div className="text-sm opacity-90">Professional networking</div>
+              </div>
+            </div>
+          </a>
+          
+          <a href="https://www.instagram.com/guelph_rockets" target="_blank" rel="noopener noreferrer"
+             className="group bg-gradient-to-br from-pink-500 to-red-600 rounded-2xl p-6 text-white hover:scale-105 transition-all duration-300">
+            <div className="flex items-center space-x-4">
+              <div className="text-3xl">📸</div>
+              <div>
+                <div className="font-bold">Instagram Highlights</div>
+                <div className="text-sm opacity-90">Behind the scenes content</div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </Section>
     </div>
-  )
+  );
 }
 
-export default Team
+export default Team;

@@ -2,43 +2,35 @@ TEAM_MEMBERS_INFO = {
     "executives": [
         {
             "name": "Darren",
-            "role": "Club President",
-            "bio": "Leading the University of Guelph Rocketry Club with passion for aerospace engineering and innovation."
+            "role": "Club President"
         },
         {
-            "name": "Celina",
-            "role": "Vice President",
-            "bio": "Supporting club operations and driving strategic initiatives for our rocketry projects."
+            "name": "Celina", 
+            "role": "Vice President"
         },
         {
             "name": "Rahma",
-            "role": "Advisor",
-            "bio": "Providing guidance and mentorship to help the club achieve its goals and maintain excellence."
+            "role": "Advisor"
         },
         {
             "name": "Aban",
-            "role": "Finance",
-            "bio": "Managing club finances and ensuring sustainable funding for our ambitious projects."
+            "role": "Finance"
         },
         {
             "name": "Marko",
-            "role": "Rocketry Team Lead",
-            "bio": "Leading the design and development of our competition rockets and propulsion systems."
+            "role": "Rocketry Team Lead"
         },
         {
             "name": "Nick",
-            "role": "Software Team Lead",
-            "bio": "Developing software systems for flight computers, data analysis, and mission control."
+            "role": "Software Team Lead"
         },
         {
             "name": "Tylen",
-            "role": "Avionics Team Lead",
-            "bio": "Designing and implementing electronic systems for navigation and telemetry."
+            "role": "Avionics Team Lead"
         },
         {
             "name": "Yassin",
-            "role": "Outreach Lead",
-            "bio": "Building connections with the aerospace community and promoting rocketry education."
+            "role": "Outreach Lead"
         }
     ]
 }
@@ -47,22 +39,41 @@ TEAM_MEMBERS_INFO = {
 PAGE_INFO = {
     "projects": {
         "path": "/projects",
-        "url": "http://localhost:5173/projects",
-        "description": "View our current and past rocketry projects"
+        "url": "http://localhost:5174/projects",
+        "description": "View our current rocketry and cubesat projects"
     },
     "team": {
-        "path": "/team",
-        "url": "http://localhost:5173/team",
-        "description": "Meet our executive team and team leads"
+        "path": "/team", 
+        "url": "http://localhost:5174/team",
+        "description": "Meet our executive team and departments"
     },
     "sponsors": {
         "path": "/sponsors",
-        "url": "http://localhost:5173/sponsors",
+        "url": "http://localhost:5174/sponsors", 
         "description": "Learn about our sponsors and partnerships"
     },
     "join": {
         "path": "/join",
-        "url": "http://localhost:5173/join",
+        "url": "http://localhost:5174/join",
         "description": "Information about joining the club"
+    }
+}
+
+# Club information
+CLUB_INFO = {
+    "name": "University of Guelph Rocketry Club",
+    "vision": "Building and giving University of Guelph students fun rocketry experiences",
+    "description": "We are working on entering Launch Canada for 2026 and developing a CubeSat project for land surveying research",
+    "departments": ["Software", "Avionics", "Rocketry", "Finance"],
+    "projects": [
+        "CubeSat project for land surveying research",
+        "Launch Canada 2026 preparation and competition entry",
+        "High-powered rocketry development",
+        "Educational rocketry workshops for UofG students"
+    ],
+    "social_links": {
+        "discord": "https://discord.gg/unfT4UpR",
+        "linkedin": "https://www.linkedin.com/company/uofg-rocketry-club/posts/",
+        "instagram": "https://www.instagram.com/guelph_rockets"
     }
 }

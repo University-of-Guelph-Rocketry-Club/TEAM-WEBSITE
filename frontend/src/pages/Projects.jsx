@@ -133,7 +133,7 @@ const Projects = () => {
             <h3 className="text-xl font-semibold mb-3">Knowledge Exchange</h3>
             <p className="text-gray-600">
               Sharing experiences, learning from other teams, and contributing 
-              to the broader rocketry and aerospace community.
+              to the broader rocketry community.
             </p>
           </div>
         </div>
