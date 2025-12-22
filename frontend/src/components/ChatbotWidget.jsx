@@ -231,16 +231,22 @@ const ChatbotWidget = () => {
 
   return (
     <>
-      {/* CLOSED: small floating button (only rendered when closed) */}
+      {/* CLOSED: small floating button with Coming Soon badge */}
       {!isOpen && (
         <div className="fixed bottom-6 right-6 z-50 pointer-events-auto">
-          <button
-            onClick={() => setIsOpen(true)}
-            className="bg-primary-600 hover:bg-primary-700 text-white rounded-full p-4 shadow-lg transition-all duration-300 hover:scale-110"
-            title="Open assistant"
-          >
-            <span className="text-xl">🤖</span>
-          </button>
+          <div className="relative">
+            <button
+              onClick={() => setIsOpen(true)}
+              className="bg-primary-600 hover:bg-primary-700 text-white rounded-full p-4 shadow-lg transition-all duration-300 hover:scale-110"
+              title="Open assistant (Coming Soon)"
+            >
+              <span className="text-xl">🤖</span>
+            </button>
+            {/* Coming Soon Badge */}
+            <div className="absolute -top-2 -right-2 bg-yellow-400 text-gray-900 text-xs font-bold px-2 py-1 rounded-full shadow-md animate-pulse">
+              Soon
+            </div>
+          </div>
         </div>
       )}
 
@@ -254,74 +260,46 @@ const ChatbotWidget = () => {
                 <div className="flex items-center space-x-3">
                   <span className="text-2xl">🤖</span>
                   <div>
-                    <h3 className="font-semibold">Rocketry Assistant</h3>
-                    <p className="text-xs opacity-90">{currentConversation ? 'In conversation' : 'Ready to help!'}</p>
+                    <h3 className="font-semibold">Rocketry AI Assistant</h3>
+                    <p className="text-xs opacity-90">Coming Soon!</p>
                   </div>
                 </div>
 
                 <div className="flex items-center space-x-2">
-                  <button onClick={() => setShowConversations(!showConversations)} className="p-1 hover:bg-white/10 rounded">📚</button>
                   <button onClick={() => setIsOpen(false)} className="p-1 hover:bg-white/10 rounded">✕</button>
                 </div>
               </div>
 
-              {/* Body */}
-              <div className="flex flex-col h-full">
-                {showConversations ? (
-                  <div className="p-4 overflow-y-auto h-full">
-                    {/* conversations list */}
-                    <div className="flex justify-between items-center mb-4">
-                      <h4 className="font-semibold">Conversations</h4>
-                      <button onClick={startNewConversation} className="text-primary-600 hover:text-primary-800 text-sm">+ New</button>
-                    </div>
+              {/* Coming Soon Body */}
+              <div className="flex flex-col h-full items-center justify-center p-8 bg-gradient-to-br from-blue-50 to-purple-50">
+                <div className="text-center space-y-6">
+                  <div className="text-6xl mb-4">🚀</div>
+                  <h3 className="text-2xl font-bold text-gray-900">AI Assistant Coming Soon!</h3>
+                  <p className="text-gray-700 max-w-sm">
+                    We're building an intelligent rocketry assistant powered by OpenAI. 
+                    It will help answer questions about the club, our projects, and aerospace engineering!
+                  </p>
+                  <div className="bg-white rounded-lg p-4 shadow-md">
+                    <p className="text-sm text-gray-600 mb-3">In the meantime, reach out:</p>
                     <div className="space-y-2">
-                      {conversations.map(conv => (
-                        <div key={conv.id} className="flex justify-between items-center p-2 hover:bg-gray-50 rounded cursor-pointer group">
-                          <div onClick={() => loadConversation(conv.id)} className="flex-1">
-                            <p className="text-sm font-medium truncate">{conv.title}</p>
-                            <p className="text-xs text-gray-500">{new Date(conv.updated_at).toLocaleDateString()}</p>
-                          </div>
-                          <button onClick={() => handleDeleteConversation(conv.id)} className="opacity-0 group-hover:opacity-100 text-red-500 hover:text-red-700 text-xs p-1">🗑️</button>
-                        </div>
-                      ))}
+                      <a 
+                        href="https://discord.gg/hZjQxvue" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="block bg-indigo-100 hover:bg-indigo-200 text-indigo-700 font-semibold py-2 px-4 rounded-lg transition-colors"
+                      >
+                        💬 Join Discord
+                      </a>
+                      <a 
+                        href="mailto:nick.buzali@gmail.com"
+                        className="block bg-blue-100 hover:bg-blue-200 text-blue-700 font-semibold py-2 px-4 rounded-lg transition-colors"
+                      >
+                        📧 Email Us
+                      </a>
                     </div>
                   </div>
-                ) : (
-                  <>
-                    {/* Messages (scrollable region) */}
-                    <div
-                      ref={messagesContainerRef}
-                      className="chat-messages flex-1 p-4 overflow-y-auto space-y-4 bg-transparent"
-                      style={{ backdropFilter: 'blur(6px)' }}>
-                      {messages.length === 0 ? (
-                        <div className="text-center text-gray-400 mt-8">
-                          <div className="text-5xl mb-4">🚀</div>
-                          <p className="text-sm">Hi! I'm your rocketry assistant. Ask me anything.</p>
-                        </div>
-                      ) : (
-                        messages.map((message) => (
-                          <div key={message.id} className={`flex ${message.is_user ? 'justify-end' : 'justify-start'}`}>
-                            <div className={`max-w-[78%] rounded-2xl px-4 py-3 mb-2 ${message.is_user ? 'bg-primary-600 text-white' : 'bg-white/90 text-gray-900'}`} style={{ boxShadow: message.is_user ? '0 6px 18px rgba(99,102,241,0.12)' : '0 6px 18px rgba(0,0,0,0.06)' }}>
-                              <div className="whitespace-pre-wrap break-words text-sm">
-                                {message.is_user ? <p>{message.content}</p> : <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(message.content || '', { ALLOWED_TAGS: ['a','b','i','strong','em','p','ul','ol','li','br'], ALLOWED_ATTR: ['href','class','target','rel'] }) }} />}
-                              </div>
-                              <p className={`text-xs mt-1 ${message.is_user ? 'text-white' : 'text-gray-500'} text-right`}>{formatMessageTime(message.timestamp)}</p>
-                            </div>
-                          </div>
-                        ))
-                      )}
-                      <div ref={messagesEndRef} />
-                    </div>
-
-                    {/* Input footer */}
-                    <div className="px-4 py-4 rounded-b-3xl bg-gradient-to-r from-primary-700 to-primary-600 flex-shrink-0">
-                      <form onSubmit={handleSendMessage} className="flex items-center gap-2">
-                        <input ref={inputRef} type="text" value={inputMessage} onChange={(e) => setInputMessage(e.target.value)} placeholder="Ask me anything about the club..." className="flex-1 px-4 py-3 water-input rounded-full text-sm placeholder-white/70 outline-none border border-white/10 text-white" disabled={loading} />
-                        <button type="submit" disabled={loading || !inputMessage.trim()} className="ml-2 bg-white text-primary-700 px-4 py-2 rounded-full disabled:opacity-50 font-medium">🚀</button>
-                      </form>
-                    </div>
-                  </>
-                )}
+                  <p className="text-xs text-gray-500 italic">Expected launch: Winter 2025</p>
+                </div>
               </div>
             </div>
           </div>

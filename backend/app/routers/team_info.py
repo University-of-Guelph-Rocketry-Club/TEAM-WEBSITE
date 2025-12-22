@@ -5,19 +5,19 @@ TEAM_MEMBERS_INFO = {
             "role": "Club President"
         },
         {
-            "name": "Celina", 
+            "name": "Marko", 
             "role": "Vice President"
         },
         {
-            "name": "Rahma",
-            "role": "Advisor"
+            "name": "Rachel",
+            "role": "Regulatory"
         },
         {
-            "name": "Aban",
+            "name": "Julian",
             "role": "Finance"
         },
         {
-            "name": "Marko",
+            "name": "Juliet",
             "role": "Rocketry Team Lead"
         },
         {
@@ -25,7 +25,7 @@ TEAM_MEMBERS_INFO = {
             "role": "Software Team Lead"
         },
         {
-            "name": "Tylen",
+            "name": "Aban",
             "role": "Avionics Team Lead"
         },
         {
@@ -65,14 +65,16 @@ CLUB_INFO = {
     "vision": "Building and giving University of Guelph students fun rocketry experiences",
     "description": "We are working on entering Launch Canada for 2026 and developing a CubeSat project for land surveying research",
     "departments": ["Software", "Avionics", "Rocketry", "Finance"],
+    "current_project": "Hybrid Rocket Development - Our rocketry team is actively designing and building a hybrid rocket propulsion system that combines solid fuel with liquid/gaseous oxidizer for improved safety and performance",
     "projects": [
+        "Hybrid Rocket Motor - In-development propulsion system (2025-2026)",
         "CubeSat project for land surveying research",
         "Launch Canada 2026 preparation and competition entry",
         "High-powered rocketry development",
         "Educational rocketry workshops for UofG students"
     ],
     "social_links": {
-        "discord": "https://discord.gg/unfT4UpR",
+        "discord": "https://discord.gg/hZjQxvue",
         "linkedin": "https://www.linkedin.com/company/uofg-rocketry-club/posts/",
         "instagram": "https://www.instagram.com/guelph_rockets"
     }

@@ -126,6 +126,77 @@ const Home = () => {
         </div>
       </Section>
 
+      {/* Current Project Highlight - Hybrid Rocket */}
+      <Section 
+        title="🚀 Current Focus: Hybrid Rocket Development" 
+        subtitle="Our team is actively designing and building a hybrid rocket propulsion system"
+        background="gray"
+      >
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="space-y-6">
+            <div className="bg-gradient-to-br from-orange-50 to-red-100 rounded-2xl p-8">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Why Hybrid Rockets?</h3>
+              <ul className="space-y-3 text-gray-700">
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-3 text-xl">✓</span>
+                  <span><strong>Safety:</strong> Can be shut down mid-flight if needed</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-3 text-xl">✓</span>
+                  <span><strong>Efficiency:</strong> Combines benefits of solid and liquid systems</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-3 text-xl">✓</span>
+                  <span><strong>Innovation:</strong> Cutting-edge aerospace technology</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-3 text-xl">✓</span>
+                  <span><strong>Learning:</strong> Hands-on experience with advanced propulsion</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="space-y-4">
+            <div className="bg-white rounded-2xl p-6 shadow-lg">
+              <div className="flex items-center space-x-4 mb-4">
+                <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center text-white text-3xl">
+                  🔧
+                </div>
+                <div>
+                  <h4 className="text-xl font-bold text-gray-900">In Development</h4>
+                  <p className="text-gray-600">2025-2026 Project Timeline</p>
+                </div>
+              </div>
+              <p className="text-gray-700">
+                Our rocketry team is working on a hybrid rocket motor that uses a solid fuel grain 
+                with a liquid or gaseous oxidizer. This project involves propulsion engineering, 
+                structural design, safety systems, and extensive testing protocols.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl p-4 text-center">
+                <div className="text-2xl mb-1">⚙️</div>
+                <div className="font-semibold text-gray-900">Design Phase</div>
+                <div className="text-sm text-gray-600">CAD & Simulations</div>
+              </div>
+              <div className="bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl p-4 text-center">
+                <div className="text-2xl mb-1">🧪</div>
+                <div className="font-semibold text-gray-900">Testing</div>
+                <div className="text-sm text-gray-600">Component Validation</div>
+              </div>
+            </div>
+            
+            <div className="text-center">
+              <a href="https://discord.gg/hZjQxvue" target="_blank" rel="noopener noreferrer" className="btn-primary inline-block">
+                Join the Hybrid Rocket Team
+              </a>
+            </div>
+          </div>
+        </div>
+      </Section>
+
       <Section 
         title="Featured Projects" 
         subtitle="CubeSat development, rocket launches, and educational programs for UofG students"
@@ -196,7 +267,7 @@ const Home = () => {
           <div className="space-y-6">
             <h3 className="text-xl font-bold text-gray-900">Connect With Us</h3>
             <div className="space-y-4">
-              <a href="https://discord.gg/unfT4UpR" target="_blank" rel="noopener noreferrer" 
+              <a href="https://discord.gg/hZjQxvue" target="_blank" rel="noopener noreferrer" 
                  className="flex items-center space-x-3 p-4 bg-indigo-50 rounded-xl hover:bg-indigo-100 transition-colors">
                 <div className="w-12 h-12 bg-indigo-500 rounded-xl flex items-center justify-center text-white text-xl">
                   💬

@@ -1,160 +1,57 @@
 import { useState } from 'react'
-import { submitSponsorInquiry } from '../lib/api'
 
 const SponsorContactForm = () => {
-  const [formData, setFormData] = useState({
-    company_name: '',
-    contact_name: '',
-    email: '',
-    phone: '',
-    message: ''
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitted, setSubmitted] = useState(false)
-  const [error, setError] = useState('')
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    setError('')
-
-    try {
-      await submitSponsorInquiry(formData)
-      setSubmitted(true)
-      setFormData({
-        company_name: '',
-        contact_name: '',
-        email: '',
-        phone: '',
-        message: ''
-      })
-    } catch (err) {
-      setError('Failed to submit inquiry. Please try again.')
-      console.error('Error submitting sponsor inquiry:', err)
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    })
-  }
-
-  if (submitted) {
-    return (
-      <div className="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
-        <div className="text-green-600 text-xl font-semibold mb-2">
-          Thank You! 🎉
-        </div>
-        <p className="text-green-700">
-          We've received your sponsorship inquiry and will get back to you within 2 business days.
-        </p>
-        <button
-          onClick={() => setSubmitted(false)}
-          className="mt-4 btn-primary"
-        >
-          Submit Another Inquiry
-        </button>
-      </div>
-    )
-  }
-
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label htmlFor="company_name" className="block text-sm font-medium text-gray-700 mb-2">
-            Company Name *
-          </label>
-          <input
-            type="text"
-            id="company_name"
-            name="company_name"
-            required
-            value={formData.company_name}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-          />
+    <div className="space-y-6">
+      {/* Coming Soon Notice */}
+      <div className="bg-gradient-to-br from-blue-50 to-indigo-100 border-2 border-indigo-300 rounded-xl p-8 text-center">
+        <div className="text-4xl mb-4">🚀</div>
+        <h3 className="text-2xl font-bold text-gray-900 mb-3">Thank You for Your Interest!</h3>
+        <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
+          We truly appreciate your interest in sponsoring the University of Guelph Rocketry Club. 
+          Our sponsorship form is currently under development and will be available soon.
+        </p>
+        
+        <div className="bg-white rounded-lg p-6 mb-6 max-w-xl mx-auto">
+          <p className="text-gray-800 font-medium mb-4">In the meantime, please reach out to us directly:</p>
+          <div className="space-y-3">
+            <a 
+              href="https://www.linkedin.com/company/uofg-rocketry-club/posts/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center justify-center space-x-3 p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors"
+            >
+              <span className="text-2xl">💼</span>
+              <span className="font-semibold text-blue-700">Connect on LinkedIn</span>
+            </a>
+            
+            <a 
+              href="https://www.instagram.com/guelph_rockets" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center justify-center space-x-3 p-3 bg-pink-50 rounded-lg hover:bg-pink-100 transition-colors"
+            >
+              <span className="text-2xl">📸</span>
+              <span className="font-semibold text-pink-700">Message on Instagram</span>
+            </a>
+            
+            <a 
+              href="https://discord.gg/hZjQxvue" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center justify-center space-x-3 p-3 bg-indigo-50 rounded-lg hover:bg-indigo-100 transition-colors"
+            >
+              <span className="text-2xl">💬</span>
+              <span className="font-semibold text-indigo-700">Join Our Discord</span>
+            </a>
+          </div>
         </div>
-
-        <div>
-          <label htmlFor="contact_name" className="block text-sm font-medium text-gray-700 mb-2">
-            Contact Person *
-          </label>
-          <input
-            type="text"
-            id="contact_name"
-            name="contact_name"
-            required
-            value={formData.contact_name}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-          />
-        </div>
+        
+        <p className="text-sm text-gray-600 italic">
+          Form coming soon! We're working hard to make it easy for you to partner with us.
+        </p>
       </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-            Email Address *
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            required
-            value={formData.email}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-          />
-        </div>
-
-        <div>
-          <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-            Phone Number
-          </label>
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-          />
-        </div>
-      </div>
-
-      <div>
-        <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-          Message *
-        </label>
-        <textarea
-          id="message"
-          name="message"
-          rows={5}
-          required
-          value={formData.message}
-          onChange={handleChange}
-          placeholder="Tell us about your company and how you'd like to support the UofG Rocketry Club..."
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-        ></textarea>
-      </div>
-
-      {error && (
-        <div className="text-red-600 text-sm">{error}</div>
-      )}
-
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        {isSubmitting ? 'Submitting...' : 'Send Inquiry'}
-      </button>
-    </form>
+    </div>
   )
 }
 

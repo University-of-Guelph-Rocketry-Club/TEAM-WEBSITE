@@ -27,7 +27,7 @@ const Sponsors = () => {
     <div className="pt-16">
       <Section 
         title="Our Sponsors" 
-        subtitle="Partner with us to shape the future of aerospace engineering"
+        subtitle="Partner with us to shape the future of University of Guelph engineering"
       >
         {loading ? (
           <div className="text-center py-12">
@@ -44,7 +44,7 @@ const Sponsors = () => {
         subtitle="Join us in advancing student innovation and aerospace education"
         background="gray"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 gap-12">
           <div className="space-y-8">
             <div className="flex items-start space-x-4">
               <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
@@ -53,7 +53,7 @@ const Sponsors = () => {
               <div>
                 <h3 className="text-xl font-semibold mb-2">Brand Exposure</h3>
                 <p className="text-gray-600">
-                  Reach talented engineering students and aerospace professionals through 
+                  Reach talented engineering students and field professionals through 
                   competitions, events, and social media presence.
                 </p>
               </div>
@@ -79,7 +79,7 @@ const Sponsors = () => {
               <div>
                 <h3 className="text-xl font-semibold mb-2">Innovation Support</h3>
                 <p className="text-gray-600">
-                  Support cutting-edge research and development in aerospace technologies 
+                  Support our teams research and development in aerospace technologies 
                   while contributing to educational advancement.
                 </p>
               </div>
@@ -95,31 +95,6 @@ const Sponsors = () => {
                   Make a meaningful difference in STEM education and inspire the next 
                   generation of aerospace engineers and innovators.
                 </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white p-8 rounded-xl shadow-lg">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Sponsorship Impact</h3>
-            <div className="space-y-6">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary-600">50+</div>
-                <div className="text-gray-600">Students Supported</div>
-              </div>
-              
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary-600">15+</div>
-                <div className="text-gray-600">Competitions Entered</div>
-              </div>
-              
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary-600">10k+</div>
-                <div className="text-gray-600">Social Media Reach</div>
-              </div>
-              
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary-600">500+</div>
-                <div className="text-gray-600">Community Members Reached</div>
               </div>
             </div>
           </div>

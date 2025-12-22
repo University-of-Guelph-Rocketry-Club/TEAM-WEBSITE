@@ -12,27 +12,27 @@ const Team = () => {
     },
     {
       id: 2,
-      name: 'Celina',
-      position: 'Vice President',
-      image_url: '/Images/celina-photo.jpg' // Add Celina's photo here
+      name: 'Marko',
+      position: 'VP Operations',
+      image_url: '/Images/marko-photo.jpg' // Add Marko's photo here
     },
     {
       id: 3,
-      name: 'Rahma',
-      position: 'Advisor',
-      image_url: '/Images/rahma-photo.jpg' // Add Rahma's photo here
+      name: 'Rachel',
+      position: 'VP Regulatory',
+      image_url: '/Images/rachel-photo.jpg' // Add Rachel's photo here
     },
     {
       id: 4,
-      name: 'Aban',
+      name: 'Julian',
       position: 'Finance',
-      image_url: '/Images/aban-photo.jpg' // Add Aban's photo here
+      image_url: '/Images/julian-photo.jpg' // Add Julian's photo here
     },
     {
       id: 5,
-      name: 'Marko',
+      name: 'Juliet',
       position: 'Rocketry Team Lead',
-      image_url: '/Images/marko-photo.jpg' // Add Marko's photo here
+      image_url: '/Images/juliet-photo.jpg' // Add Juliet's photo here
     },
     {
       id: 6,
@@ -42,7 +42,7 @@ const Team = () => {
     },
     {
       id: 7,
-      name: 'Tylen',
+      name: 'Aban',
       position: 'Avionics Team Lead',
       image_url: '/Images/tylen-photo.jpg' // Add Tylen's photo here
     },
@@ -252,7 +252,7 @@ const Team = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="https://discord.gg/rocketryguelph" target="_blank" rel="noopener noreferrer" className="btn-primary">
+            <a href="https://discord.gg/hZjQxvue" target="_blank" rel="noopener noreferrer" className="btn-primary">
               Join Discord Community
             </a>
             <a href="mailto:nick.buzali@gmail.com" className="btn-secondary">
@@ -347,7 +347,7 @@ const Team = () => {
         
         {/* Social Media Grid */}
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <a href="https://discord.gg/unfT4UpR" target="_blank" rel="noopener noreferrer" 
+          <a href="https://discord.gg/hZjQxvue" target="_blank" rel="noopener noreferrer" 
              className="group bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl p-6 text-white hover:scale-105 transition-all duration-300">
             <div className="flex items-center space-x-4">
               <div className="text-3xl">💬</div>
