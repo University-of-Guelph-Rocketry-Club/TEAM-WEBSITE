@@ -9,35 +9,35 @@ const Projects = () => {
   const projects = [
     {
       id: 1,
-      title: 'Cambridge Rocketry Club Launch #1',
-      description: 'Collaborative launch event with Cambridge Rocketry Club, focusing on networking and sharing knowledge between rocketry enthusiasts from different universities.',
-      status: 'completed',
-      category: 'Networking',
-      image_url: '', // Will add pictures later
-      technologies: ['Launch Operations', 'Inter-University Collaboration', 'Safety Protocols'],
-      start_date: '2024-10-01',
-      completion_date: '2024-10-15'
+      title: 'Hybrid Rocket Development',
+      description: 'Designing and building an advanced hybrid rocket propulsion system. This project combines liquid oxidizer with solid fuel to create a safer, more controllable rocket engine for high-altitude flights.',
+      status: 'active',
+      category: 'Propulsion',
+      image_url: '',
+      technologies: ['Hybrid Propulsion', 'CAD Design', 'Fluid Dynamics', 'Control Systems'],
+      start_date: '2024-09-01',
+      target_launch: 'Launch Canada 2026'
     },
     {
       id: 2,
-      title: 'Cambridge Rocketry Club Launch #2',
-      description: 'Second collaborative launch with Cambridge Rocketry Club, continuing our partnership and expanding our network within the Canadian rocketry community.',
-      status: 'completed',
-      category: 'Networking',
-      image_url: '', // Will add pictures later
-      technologies: ['Launch Operations', 'Team Building', 'Knowledge Exchange'],
-      start_date: '2024-11-01',
-      completion_date: '2024-11-15'
+      title: 'CubeSat Development',
+      description: 'Building a CubeSat satellite for land surveying and remote sensing applications. This miniature satellite will demonstrate our capability in space systems engineering and data collection.',
+      status: 'active',
+      category: 'Space Systems',
+      image_url: '',
+      technologies: ['Satellite Design', 'Remote Sensing', 'Communication Systems', 'Orbital Mechanics'],
+      start_date: '2024-10-01'
     },
     {
       id: 3,
-      title: 'Aerospace Networking Initiative',
-      description: 'General networking activities with individuals and organizations interested in rocketry and aerospace engineering across Canada.',
+      title: 'Competition Rocket Build',
+      description: 'Designing and constructing a high-performance competition rocket for Launch Canada 2026. Focused on achieving maximum altitude while maintaining stability and safe recovery.',
       status: 'active',
-      category: 'Outreach',
+      category: 'Competition',
       image_url: '',
-      technologies: ['Community Building', 'Professional Networking', 'Educational Outreach'],
-      start_date: '2024-09-01'
+      technologies: ['Aerodynamics', 'Recovery Systems', 'Telemetry', 'Composite Materials'],
+      start_date: '2024-11-01',
+      competition: 'Launch Canada 2026'
     }
   ]
 
@@ -56,7 +56,7 @@ const Projects = () => {
     <div className="pt-16">
       <Section 
         title="Our Projects" 
-        subtitle="Collaborative launches and networking initiatives in the rocketry community"
+        subtitle="Advanced rocketry systems, satellite development, and competition preparations"
       >
         {/* Filter Buttons */}
         <div className="flex flex-wrap justify-center gap-4 mb-8">

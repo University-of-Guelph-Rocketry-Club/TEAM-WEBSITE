@@ -2,6 +2,7 @@ import Hero from '../components/Hero'
 import Section from '../components/Section'
 import ProjectCard from '../components/ProjectCard'
 import DiscordAccess from '../components/DiscordAccess'
+import Loading from '../components/Loading'
 import { useState, useEffect } from 'react'
 import { getProjects, getNews } from '../lib/api'
 
@@ -29,34 +30,39 @@ const Home = () => {
     fetchData()
   }, [])
 
+  if (loading) {
+    return <Loading fullScreen />
+  }
+
   return (
-    <div>
+    <div className="page-transition">
       <Hero />
       
-      {/* Vision & Mission Section */}
-      <Section 
-        title="University of Guelph Rocketry Club" 
-        subtitle="Building and giving University of Guelph students fun rocketry experiences. We are working on entering Launch Canada for 2026 and developing a CubeSat project for land surveying research."
-      >
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl p-6 text-white">
-                <div className="text-3xl font-bold">4</div>
-                <div className="text-sm opacity-90">Departments</div>
-              </div>
-              <div className="bg-gradient-to-br from-green-500 to-blue-500 rounded-xl p-6 text-white">
-                <div className="text-3xl font-bold">50+</div>
-                <div className="text-sm opacity-90">Active Members</div>
-              </div>
-              <div className="bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl p-6 text-white">
-                <div className="text-3xl font-bold">2025</div>
-                <div className="text-sm opacity-90">Est. Year</div>
-              </div>
-              <div className="bg-gradient-to-br from-orange-500 to-red-500 rounded-xl p-6 text-white">
-                <div className="text-3xl font-bold">∞</div>
-                <div className="text-sm opacity-90">Possibilities</div>
-              </div>
+      {/* Vision & Mission Section with Tech Grid */}
+      <div className="tech-grid-bg">
+        <Section 
+          title="University of Guelph Rocketry Club" 
+          subtitle="Building and giving University of Guelph students fun rocketry experiences. We are working on entering Launch Canada for 2026 and developing a CubeSat project for land surveying research."
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl p-6 text-white glow-card">
+                  <div className="text-3xl font-bold">4</div>
+                  <div className="text-sm opacity-90">Departments</div>
+                </div>
+                <div className="bg-gradient-to-br from-green-500 to-blue-500 rounded-xl p-6 text-white glow-card">
+                  <div className="text-3xl font-bold">50+</div>
+                  <div className="text-sm opacity-90">Active Members</div>
+                </div>
+                <div className="bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl p-6 text-white glow-card">
+                  <div className="text-3xl font-bold">2025</div>
+                  <div className="text-sm opacity-90">Est. Year</div>
+                </div>
+                <div className="bg-gradient-to-br from-orange-500 to-red-500 rounded-xl p-6 text-white glow-card">
+                  <div className="text-3xl font-bold">∞</div>
+                  <div className="text-sm opacity-90">Possibilities</div>
+                </div>
             </div>
             
             <div className="space-y-4">
@@ -125,6 +131,7 @@ const Home = () => {
           </div>
         </div>
       </Section>
+      </div>
 
       {/* Current Project Highlight - Hybrid Rocket */}
       <Section 
