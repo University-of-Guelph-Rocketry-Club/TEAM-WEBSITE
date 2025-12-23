@@ -5,11 +5,20 @@ const TeamPhoto = ({ executives }) => {
         <div key={exec.id} className="text-center">
           <div className="mb-4">
             {exec.image_url ? (
-              <img
-                src={exec.image_url}
-                alt={exec.name}
-                className="w-32 h-32 rounded-full mx-auto object-cover shadow-lg"
-              />
+              <div className="w-32 h-32 mx-auto">
+                <img
+                  src={exec.image_url}
+                  alt={exec.name}
+                  loading="lazy"
+                  className="w-full h-full rounded-full object-cover shadow-lg ring-4 ring-white"
+                  style={{
+                    imageRendering: 'auto',
+                    WebkitFontSmoothing: 'antialiased',
+                    backfaceVisibility: 'hidden',
+                    transform: 'translateZ(0) scale(1.001)',
+                  }}
+                />
+              </div>
             ) : (
               <div className="w-32 h-32 rounded-full mx-auto bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center shadow-lg">
                 <span className="text-2xl font-bold text-white">

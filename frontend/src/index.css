@@ -8,6 +8,29 @@ body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
+/* Image Quality Optimization */
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* High quality for profile images */
+img[alt*="profile" i],
+img[src*="darren" i],
+img[src*="rachel" i],
+img[src*="marko" i],
+img[src*="nick" i],
+img[src*="julian" i],
+img[src*="juliet" i],
+img[src*="aban" i],
+img[src*="yassin" i] {
+  image-rendering: auto;
+  image-rendering: high-quality;
+  -ms-interpolation-mode: bicubic;
+}
+
 /* Tech Grid Background */
 .tech-grid-bg {
   background-image: 
