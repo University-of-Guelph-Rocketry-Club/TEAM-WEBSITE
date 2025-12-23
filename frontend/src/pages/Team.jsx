@@ -77,33 +77,38 @@ const Team = () => {
         title="2025 University of Guelph Rocketry Club" 
         subtitle="Building and giving University of Guelph students fun rocketry experiences"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <TeamPhoto executives={executives} />
-          </div>
+        {/* Executive Team Grid */}
+        <TeamPhoto executives={executives} />
+        
+        {/* Media Gallery Section - Full Width Below Team */}
+        <div className="mt-16 space-y-6">
+          <h3 className="text-2xl font-bold text-gray-900 text-center mb-8">📸 Team Memories & Highlights</h3>
           
-          {/* Team Photo/Video Showcase Area */}
-          <div className="space-y-6">
-            <div className="bg-gradient-to-br from-blue-100 to-purple-200 rounded-2xl h-64 flex items-center justify-center">
-              <div className="text-center text-gray-600">
-                <div className="text-5xl mb-4">📸</div>
-                <div className="font-semibold text-lg">Team Photos</div>
-                <div className="text-sm">Behind the scenes & launch day moments</div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Team Photos - Larger */}
+            <div className="bg-gradient-to-br from-blue-100 to-purple-200 rounded-2xl h-72 flex items-center justify-center hover:shadow-xl transition-all duration-300 cursor-pointer">
+              <div className="text-center text-gray-700">
+                <div className="text-6xl mb-4">📸</div>
+                <div className="font-bold text-xl mb-2">Team Photos</div>
+                <div className="text-sm px-4">Behind the scenes & launch day moments</div>
               </div>
             </div>
             
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-gradient-to-br from-orange-100 to-red-200 rounded-xl h-32 flex items-center justify-center">
-                <div className="text-center text-orange-700">
-                  <div className="text-2xl mb-1">🎬</div>
-                  <div className="text-xs font-medium">Launch Videos</div>
-                </div>
+            {/* Launch Videos - Larger */}
+            <div className="bg-gradient-to-br from-orange-100 to-red-200 rounded-2xl h-72 flex items-center justify-center hover:shadow-xl transition-all duration-300 cursor-pointer">
+              <div className="text-center text-orange-700">
+                <div className="text-6xl mb-4">🎬</div>
+                <div className="font-bold text-xl mb-2">Launch Videos</div>
+                <div className="text-sm px-4">Rocket launches & test flights</div>
               </div>
-              <div className="bg-gradient-to-br from-green-100 to-blue-200 rounded-xl h-32 flex items-center justify-center">
-                <div className="text-center text-green-700">
-                  <div className="text-2xl mb-1">🏆</div>
-                  <div className="text-xs font-medium">Achievement Gallery</div>
-                </div>
+            </div>
+            
+            {/* Achievement Gallery - Larger */}
+            <div className="bg-gradient-to-br from-green-100 to-blue-200 rounded-2xl h-72 flex items-center justify-center hover:shadow-xl transition-all duration-300 cursor-pointer">
+              <div className="text-center text-green-700">
+                <div className="text-6xl mb-4">🏆</div>
+                <div className="font-bold text-xl mb-2">Achievement Gallery</div>
+                <div className="text-sm px-4">Competitions & milestones</div>
               </div>
             </div>
           </div>

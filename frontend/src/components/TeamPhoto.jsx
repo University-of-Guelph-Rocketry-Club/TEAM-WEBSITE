@@ -5,23 +5,26 @@ const TeamPhoto = ({ executives }) => {
         <div key={exec.id} className="text-center">
           <div className="mb-4">
             {exec.image_url ? (
-              <div className="w-32 h-32 mx-auto">
+              <div className="w-48 h-48 mx-auto">
                 <img
                   src={exec.image_url}
                   alt={exec.name}
                   loading="lazy"
-                  className="w-full h-full rounded-full object-cover shadow-lg ring-4 ring-white"
+                  className="w-full h-full rounded-full object-cover shadow-xl ring-4 ring-white"
                   style={{
                     imageRendering: 'auto',
+                    objectFit: 'cover',
+                    objectPosition: 'center',
+                    filter: 'contrast(1.05) brightness(1.02)',
                     WebkitFontSmoothing: 'antialiased',
                     backfaceVisibility: 'hidden',
-                    transform: 'translateZ(0) scale(1.001)',
+                    transform: 'translateZ(0)',
                   }}
                 />
               </div>
             ) : (
-              <div className="w-32 h-32 rounded-full mx-auto bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center shadow-lg">
-                <span className="text-2xl font-bold text-white">
+              <div className="w-48 h-48 rounded-full mx-auto bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center shadow-xl ring-4 ring-white">
+                <span className="text-4xl font-bold text-white">
                   {exec.name.split(' ').map(n => n[0]).join('').toUpperCase()}
                 </span>
               </div>
