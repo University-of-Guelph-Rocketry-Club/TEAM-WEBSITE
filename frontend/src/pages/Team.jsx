@@ -32,7 +32,7 @@ const Team = () => {
       id: 3,
       name: 'Rachel',
       position: 'VP Regulatory',
-      image_url: '/Images/rachel-photo.jpg' // Add Rachel's photo here
+      image_url: '/Images/Rachel.jpg'
     },
     {
       id: 4,
