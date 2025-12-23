@@ -1,7 +1,19 @@
+import { useState, useEffect } from 'react'
 import Section from '../components/Section'
 import TeamPhoto from '../components/TeamPhoto'
+import Loading from '../components/Loading'
 
 const Team = () => {
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false)
+    }, 500)
+    
+    return () => clearTimeout(timer)
+  }, [])
+
   // Current Executives & Team Leads (2025)
   const executives = [
     {
@@ -54,8 +66,12 @@ const Team = () => {
     }
   ]
 
+  if (loading) {
+    return <Loading fullScreen />
+  }
+
   return (
-    <div className="pt-16">
+    <div className="pt-16 page-transition">
       {/* Hero Section with Team Photo Area */}
       <Section 
         title="2025 University of Guelph Rocketry Club" 

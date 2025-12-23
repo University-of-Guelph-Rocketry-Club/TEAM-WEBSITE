@@ -1,9 +1,20 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Section from '../components/Section'
 import ProjectCard from '../components/ProjectCard'
+import Loading from '../components/Loading'
 
 const Projects = () => {
   const [filter, setFilter] = useState('all')
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    // Simulate loading for smooth transition
+    const timer = setTimeout(() => {
+      setLoading(false)
+    }, 500)
+    
+    return () => clearTimeout(timer)
+  }, [])
 
   // Current projects focusing on general networking and launch activities
   const projects = [
@@ -52,8 +63,12 @@ const Projects = () => {
     planned: projects.filter(p => p.status === 'planned').length,
   }
 
+  if (loading) {
+    return <Loading fullScreen />
+  }
+
   return (
-    <div className="pt-16">
+    <div className="pt-16 page-transition">
       <Section 
         title="Our Projects" 
         subtitle="Advanced rocketry systems, satellite development, and competition preparations"

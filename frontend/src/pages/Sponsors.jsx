@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import Section from '../components/Section'
 import SponsorGrid from '../components/SponsorGrid'
 import SponsorContactForm from '../components/SponsorContactForm'
+import Loading from '../components/Loading'
 import { getSponsors } from '../lib/api'
 
 const Sponsors = () => {
@@ -23,20 +24,19 @@ const Sponsors = () => {
     fetchSponsors()
   }, [])
 
+  if (loading) {
+    return <Loading fullScreen />
+  }
+
   return (
-    <div className="pt-16">
+    <div className="pt-16 page-transition">
       <Section 
         title="Our Sponsors" 
         subtitle="Partner with us to shape the future of University of Guelph engineering"
       >
-        {loading ? (
-          <div className="text-center py-12">
-            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
-            <p className="mt-4 text-gray-600">Loading sponsors...</p>
-          </div>
-        ) : (
+        <div className="space-y-16">
           <SponsorGrid sponsors={sponsors} />
-        )}
+        </div>
       </Section>
 
       <Section 

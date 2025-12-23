@@ -1,9 +1,25 @@
+import { useState, useEffect } from 'react'
 import Section from '../components/Section'
 import DiscordAccess from '../components/DiscordAccess'
+import Loading from '../components/Loading'
 
 const Join = () => {
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false)
+    }, 500)
+    
+    return () => clearTimeout(timer)
+  }, [])
+
+  if (loading) {
+    return <Loading fullScreen />
+  }
+
   return (
-    <div className="pt-16">
+    <div className="pt-16 page-transition">
       <Section 
         title="Connect With Our Community" 
         subtitle="Join our network of rocketry and aerospace enthusiasts"
