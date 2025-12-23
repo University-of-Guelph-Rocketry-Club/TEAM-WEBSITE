@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ChatbotWidget from './components/ChatbotWidget'
+import MaintenanceMode from './components/MaintenanceMode'
 
 // Public pages
 import Home from './pages/Home'
@@ -17,6 +18,14 @@ import Teams from './pages/Teams'
 import TeamDetail from './pages/TeamDetail'
 
 function App() {
+  // Check if maintenance mode is enabled
+  const isMaintenanceMode = import.meta.env.VITE_MAINTENANCE_MODE === 'true'
+
+  // If maintenance mode is on, show only the maintenance screen
+  if (isMaintenanceMode) {
+    return <MaintenanceMode />
+  }
+
   return (
     <Router>
       <div className="min-h-screen bg-gray-50">
