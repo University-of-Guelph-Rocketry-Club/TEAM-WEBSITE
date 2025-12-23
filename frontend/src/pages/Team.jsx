@@ -8,7 +8,7 @@ const Team = () => {
       id: 1,
       name: 'Darren',
       position: 'Club President',
-      image_url: '/Images/darren-photo.jpg' // Add Darren's photo here
+      image_url: '/Images/darren.jpg'
     },
     {
       id: 2,
