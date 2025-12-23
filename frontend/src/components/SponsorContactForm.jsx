@@ -16,6 +16,14 @@ const SponsorContactForm = () => {
           <p className="text-gray-800 font-medium mb-4">In the meantime, please reach out to us directly:</p>
           <div className="space-y-3">
             <a 
+              href="mailto:rocketry@uoguelph.ca"
+              className="flex items-center justify-center space-x-3 p-3 bg-green-50 rounded-lg hover:bg-green-100 transition-colors"
+            >
+              <span className="text-2xl">📧</span>
+              <span className="font-semibold text-green-700">rocketry@uoguelph.ca</span>
+            </a>
+            
+            <a 
               href="https://www.linkedin.com/company/uofg-rocketry-club/posts/" 
               target="_blank" 
               rel="noopener noreferrer"
