@@ -26,7 +26,7 @@ const Team = () => {
       id: 2,
       name: 'Marko',
       position: 'VP Operations',
-      image_url: '/Images/marko-photo.jpg' // Add Marko's photo here
+      image_url: '/Images/rocketrylogo.png'
     },
     {
       id: 3,
@@ -44,13 +44,13 @@ const Team = () => {
       id: 5,
       name: 'Juliet',
       position: 'Rocketry Team Lead',
-      image_url: '/Images/juliet-photo.jpg' // Add Juliet's photo here
+      image_url: '/Images/rocketrylogo.png'
     },
     {
       id: 6,
       name: 'Nick',
       position: 'Software Team Lead',
-      image_url: '/Images/IMG_6239.jpeg' // Nick's actual photo
+      image_url: '/Images/IMG_6239.jpeg'
     },
     {
       id: 7,
@@ -62,7 +62,7 @@ const Team = () => {
       id: 8,
       name: 'Yassin',
       position: 'Outreach Lead',
-      image_url: '/Images/yassin-photo.jpg' // Add Yassin's photo here
+      image_url: '/Images/rocketrylogo.png'
     }
   ]
 
