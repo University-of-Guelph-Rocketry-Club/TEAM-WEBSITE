@@ -41,10 +41,21 @@ const Hero = () => {
           </div>
         </div>
         
-        {/* Floating Rocket Animation */}
-        <div className="absolute top-10 right-10 md:top-20 md:right-20 animate-bounce">
-          <div className="text-6xl transform rotate-45">🚀</div>
+        {/* Multiple Floating Rockets with Different Animations */}
+        <div className="absolute top-10 right-10 md:top-20 md:right-20 float-rocket">
+          <div className="text-6xl">🚀</div>
         </div>
+        
+        <div className="absolute top-40 left-10 md:top-60 md:left-20 float-rocket" style={{ animationDelay: '1s' }}>
+          <div className="text-5xl opacity-70">🛸</div>
+        </div>
+        
+        <div className="absolute bottom-20 right-1/4 float-rocket" style={{ animationDelay: '1.5s' }}>
+          <div className="text-4xl opacity-60">⭐</div>
+        </div>
+        
+        {/* Glowing Orbital Ring */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 border-2 border-white opacity-10 rounded-full pulse-glow hidden md:block"></div>
         
         {/* Stats Section */}
         <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
