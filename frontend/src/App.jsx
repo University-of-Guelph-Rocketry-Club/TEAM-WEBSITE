@@ -4,7 +4,6 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ChatbotWidget from './components/ChatbotWidget'
 import MaintenanceMode from './components/MaintenanceMode'
-import RocketryBackground from './components/RocketryBackground'
 
 // Public pages
 import Home from './pages/Home'
@@ -29,8 +28,7 @@ function App() {
 
   return (
     <Router>
-      <RocketryBackground />
-      <div className="min-h-screen bg-gray-50 relative z-10">
+      <div className="min-h-screen bg-gray-50">
         <Navbar />
         <main>
           <Routes>
