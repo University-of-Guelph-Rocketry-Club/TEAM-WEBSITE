@@ -26,7 +26,7 @@ const Navbar = () => {
           <div className="flex items-center">
             <Link to="/" className="flex items-center space-x-2">
               <img 
-                src="/Images/rocketrylogo.png" 
+                src="/Images/rocketrylogo.jpg" 
                 alt="UofG Rocketry Club Logo" 
                 className="h-8 object-contain"
               />
