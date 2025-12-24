@@ -56,7 +56,7 @@ const Team = () => {
       id: 7,
       name: 'Aban',
       position: 'Avionics Team Lead',
-      image_url: '/Images/tylen-photo.jpg' // Add Tylen's photo here
+      image_url: '/Images/aban.png'
     },
     {
       id: 8,

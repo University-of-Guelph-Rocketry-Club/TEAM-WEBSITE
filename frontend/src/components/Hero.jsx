@@ -5,6 +5,15 @@ const Hero = () => {
       
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="space-y-8">
+          {/* Large Logo at Top */}
+          <div className="flex justify-center mb-8">
+            <img 
+              src="/Images/rocketrylogo.png" 
+              alt="UofG Rocketry Club Logo" 
+              className="h-32 md:h-40 lg:h-48 w-auto object-contain drop-shadow-2xl"
+            />
+          </div>
+          
           <div className="space-y-4">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
               WELCOME TO THE U OF G
