@@ -5,7 +5,7 @@ const TeamPhoto = ({ executives }) => {
         <div key={exec.id} className="text-center">
           <div className="mb-4">
             {exec.image_url ? (
-              <div className="w-64 h-64 mx-auto">
+              <div className="w-80 h-80 mx-auto">
                 <img
                   src={exec.image_url}
                   alt={exec.name}
@@ -23,11 +23,11 @@ const TeamPhoto = ({ executives }) => {
                 />
               </div>
             ) : (
-              <div className="w-64 h-64 rounded-full mx-auto bg-white flex items-center justify-center shadow-xl ring-4 ring-primary-200 p-8">
+              <div className="w-80 h-80 rounded-full mx-auto bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center shadow-xl ring-4 ring-primary-200 p-12">
                 <img 
-                  src="/Images/rocketrylogo.png" 
+                  src="/Images/rocketrylogo.jpg" 
                   alt="UofG Rocketry Club Logo"
-                  className="w-full h-full object-contain opacity-80"
+                  className="w-full h-full object-contain"
                 />
               </div>
             )}
