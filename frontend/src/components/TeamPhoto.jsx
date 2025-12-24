@@ -5,7 +5,7 @@ const TeamPhoto = ({ executives }) => {
         <div key={exec.id} className="text-center">
           <div className="mb-4">
             {exec.image_url ? (
-              <div className="w-48 h-48 mx-auto">
+              <div className="w-64 h-64 mx-auto">
                 <img
                   src={exec.image_url}
                   alt={exec.name}
@@ -23,10 +23,12 @@ const TeamPhoto = ({ executives }) => {
                 />
               </div>
             ) : (
-              <div className="w-48 h-48 rounded-full mx-auto bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center shadow-xl ring-4 ring-white">
-                <span className="text-4xl font-bold text-white">
-                  {exec.name.split(' ').map(n => n[0]).join('').toUpperCase()}
-                </span>
+              <div className="w-64 h-64 rounded-full mx-auto bg-white flex items-center justify-center shadow-xl ring-4 ring-primary-200 p-8">
+                <img 
+                  src="/Images/rocketrylogo.png" 
+                  alt="UofG Rocketry Club Logo"
+                  className="w-full h-full object-contain opacity-80"
+                />
               </div>
             )}
           </div>
