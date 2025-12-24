@@ -38,7 +38,7 @@ const Team = () => {
       id: 4,
       name: 'Julian',
       position: 'Finance',
-      image_url: '/Images/julian-photo.jpg' // Add Julian's photo here
+      image_url: '/Images/Julian.png'
     },
     {
       id: 5,
