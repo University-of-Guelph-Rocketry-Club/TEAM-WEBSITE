@@ -21,9 +21,18 @@ SYSTEM_PROMPT = os.getenv(
 def get_team_context():
     """Generate context about team members for the chatbot"""
     context = f"Club: {CLUB_INFO['name']}\n"
+    context += f"Email: {CLUB_INFO['email']}\n"
     context += f"Vision: {CLUB_INFO['vision']}\n"
-    context += f"Departments: {', '.join(CLUB_INFO['departments'])}\n\n"
-    context += "Executive Team:\n"
+    context += f"Description: {CLUB_INFO['description']}\n"
+    context += f"Current Project: {CLUB_INFO['current_project']}\n"
+    context += f"Departments: {', '.join(CLUB_INFO['departments'])}\n"
+    context += f"Discord: {CLUB_INFO['social_links']['discord']}\n"
+    context += f"Instagram: {CLUB_INFO['social_links']['instagram']}\n"
+    context += f"LinkedIn: {CLUB_INFO['social_links']['linkedin']}\n\n"
+    context += "Projects:\n"
+    for project in CLUB_INFO['projects']:
+        context += f"- {project}\n"
+    context += "\nExecutive Team:\n"
     for exec in TEAM_MEMBERS_INFO["executives"]:
         context += f"- {exec['name']}: {exec['role']}\n"
     return context
