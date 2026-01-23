@@ -241,30 +241,30 @@ const ChatbotWidget = () => {
     <>
       {/* CLOSED: small floating button */}
       {!isOpen && (
-        <div className="fixed bottom-6 right-6 z-50 pointer-events-auto">
+        <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 pointer-events-auto">
           <div className="relative">
             <button
               onClick={() => setIsOpen(true)}
-              className="bg-primary-600 hover:bg-primary-700 text-white rounded-full p-4 shadow-lg transition-all duration-300 hover:scale-110"
+              className="bg-primary-600 hover:bg-primary-700 text-white rounded-full p-3 sm:p-4 shadow-lg transition-all duration-300 hover:scale-110"
               title="Chat with AI Assistant"
             >
-              <span className="text-xl">🤖</span>
+              <span className="text-lg sm:text-xl">🤖</span>
             </button>
           </div>
         </div>
       )}
 
-      {/* OPEN: constrained panel (render only when open) */}
+      {/* OPEN: constrained panel (render only when open) - responsive for mobile */}
       {isOpen && (
-        <div className="fixed bottom-6 right-6 z-50 w-[420px] h-[620px] pointer-events-auto">
+        <div className="fixed inset-4 sm:inset-auto sm:bottom-6 sm:right-6 z-50 sm:w-[420px] sm:h-[620px] pointer-events-auto">
           <div className="w-full h-full flex flex-col" style={{ pointerEvents: 'auto' }}>
-            <div className="w-full h-full rounded-3xl overflow-hidden shadow-2xl chat-backdrop flex flex-col">
+            <div className="w-full h-full rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl chat-backdrop flex flex-col">
               {/* Header (sticky) */}
-              <div className="bg-gradient-to-r from-primary-700 to-primary-600 text-white p-4 flex justify-between items-center rounded-t-3xl sticky top-0 z-30 flex-shrink-0">
-                <div className="flex items-center space-x-3">
-                  <span className="text-2xl">🤖</span>
+              <div className="bg-gradient-to-r from-primary-700 to-primary-600 text-white p-3 sm:p-4 flex justify-between items-center rounded-t-2xl sm:rounded-t-3xl sticky top-0 z-30 flex-shrink-0">
+                <div className="flex items-center space-x-2 sm:space-x-3">
+                  <span className="text-xl sm:text-2xl">🤖</span>
                   <div>
-                    <h3 className="font-semibold">Rocketry AI Assistant</h3>
+                    <h3 className="font-semibold text-sm sm:text-base">Rocketry AI Assistant</h3>
                     <p className="text-xs opacity-90">Ask me anything!</p>
                   </div>
                 </div>
