@@ -1,180 +1,94 @@
-import { useState, useEffect } from 'react'
-import Section from '../components/Section'
-import DiscordAccess from '../components/DiscordAccess'
-import Loading from '../components/Loading'
-
 const Join = () => {
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false)
-    }, 500)
-    
-    return () => clearTimeout(timer)
-  }, [])
-
-  if (loading) {
-    return <Loading fullScreen />
-  }
-
   return (
-    <div className="pt-16 page-transition">
-      <Section 
-        title="Connect With Our Community" 
-        subtitle="Join our network of rocketry and aerospace enthusiasts"
-      >
-        <div className="max-w-4xl mx-auto text-center space-y-12">
-          <div>
-            <h3 className="text-3xl font-bold text-gray-900 mb-6">🚀 University of Guelph Rocketry Club</h3>
-            <p className="text-gray-600 mb-8 text-lg leading-relaxed">
-              We're focused on networking with fellow rocketry enthusiasts, sharing knowledge, 
-              and building connections in the aerospace community. Join our Discord community 
-              to connect with like-minded individuals and stay updated on our collaborative activities.
-            </p>
-          </div>
-
-          <div className="max-w-2xl mx-auto">
-            <DiscordAccess />
-          </div>
-        </div>
-      </Section>
-
-      <Section 
-        title="What We Do" 
-        subtitle="Networking and collaboration in the rocketry community"
-        background="gray"
-      >
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="text-center">
-            <div className="w-16 h-16 bg-primary-600 rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-white text-2xl">🤝</span>
-            </div>
-            <h4 className="font-semibold text-lg mb-3">Networking</h4>
-            <p className="text-gray-600">
-              Connect with rocketry enthusiasts, aerospace professionals, and other university clubs across Canada.
-            </p>
-          </div>
-
-          <div className="text-center">
-            <div className="w-16 h-16 bg-rocket-red rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-white text-2xl">🚀</span>
-            </div>
-            <h4 className="font-semibold text-lg mb-3">Collaborative Launches</h4>
-            <p className="text-gray-600">
-              Participate in launch events with other rocketry clubs like Cambridge Rocketry Club.
-            </p>
-          </div>
-
-          <div className="text-center">
-            <div className="w-16 h-16 bg-rocket-gold rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-white text-2xl">📚</span>
-            </div>
-            <h4 className="font-semibold text-lg mb-3">Knowledge Sharing</h4>
-            <p className="text-gray-600">
-              Share experiences, learn from other teams, and contribute to the broader aerospace community.
-            </p>
-          </div>
-        </div>
-      </Section>
-
-      <Section 
-        title="Get Involved" 
-        subtitle="Multiple ways to connect and participate"
-      >
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6">
-            <div className="flex items-start space-x-4">
-              <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                <span className="text-primary-600 font-bold">💬</span>
-              </div>
-              <div>
-                <h4 className="font-semibold text-lg">Join Discord</h4>
-                <p className="text-gray-600">
-                  Connect with our community, participate in discussions, and stay updated on events.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start space-x-4">
-              <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                <span className="text-primary-600 font-bold">📧</span>
-              </div>
-              <div>
-                <h4 className="font-semibold text-lg">Contact Us</h4>
-                <p className="text-gray-600">
-                  Reach out directly to learn more about our activities and how to get involved.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start space-x-4">
-              <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                <span className="text-primary-600 font-bold">🌐</span>
-              </div>
-              <div>
-                <h4 className="font-semibold text-lg">Network</h4>
-                <p className="text-gray-600">
-                  Connect with other rocketry enthusiasts and aerospace professionals through our community.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-gradient-to-br from-primary-50 to-rocket-red-50 p-8 rounded-xl">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Ready to Connect?</h3>
-            <p className="text-gray-600 mb-6">
-              Whether you're interested in rocketry, aerospace engineering, or just want to network 
-              with passionate individuals, we'd love to have you in our community.
-            </p>
-            <div className="space-y-3">
-              <a 
-                href="https://discord.gg/VRZE2923" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="btn-primary w-full text-center block"
-              >
-                Join Discord Community
-              </a>
-              <a 
-                href="mailto:rocketry@uoguelph.ca" 
-                className="btn-secondary w-full text-center block"
-              >
-                Contact Our Team
-              </a>
-            </div>
-          </div>
-        </div>
-      </Section>
-
-      <Section 
-        title="Current Focus" 
-        subtitle="What we're working on in 2025"
-        background="gray"
-      >
-        <div className="max-w-3xl mx-auto text-center">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-            <div className="bg-white p-6 rounded-lg">
-              <h4 className="font-semibold text-lg mb-2">Cambridge Launches</h4>
-              <p className="text-gray-600 text-sm">
-                Collaborative launches with Cambridge Rocketry Club for knowledge sharing and networking.
-              </p>
-            </div>
-            <div className="bg-white p-6 rounded-lg">
-              <h4 className="font-semibold text-lg mb-2">Community Building</h4>
-              <p className="text-gray-600 text-sm">
-                Building connections within the Canadian rocketry and aerospace community.
-              </p>
-            </div>
-          </div>
-          
-          <p className="text-gray-600">
-            Our current executives and team leads are focused on creating meaningful connections 
-            and collaborative opportunities within the rocketry community. Join us to be part 
-            of this growing network!
+    <div className="page-transition">
+      {/* Header */}
+      <section className="pt-24 pb-8 bg-slate-50">
+        <div className="max-w-6xl mx-auto px-6">
+          <h1 className="text-4xl font-bold text-slate-900 mb-4">Join Us</h1>
+          <p className="text-lg text-slate-600 max-w-2xl">
+            Connect with the UofG Rocketry community. All skill levels welcome.
           </p>
         </div>
-      </Section>
+      </section>
+
+      {/* Main CTA */}
+      <section className="py-16 bg-white">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="bg-slate-900 rounded-2xl p-8 md:p-12 text-center">
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+              Join our Discord
+            </h2>
+            <p className="text-slate-300 mb-8 max-w-lg mx-auto">
+              Discord is where we coordinate projects, share updates, and build community. It's the easiest way to get started.
+            </p>
+            <a 
+              href="https://discord.gg/VRZE2923" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-block px-8 py-4 bg-white text-slate-900 font-semibold rounded-lg hover:bg-slate-100 transition-colors"
+            >
+              Join Discord Server
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* What to Expect */}
+      <section className="py-16 bg-slate-50">
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-2xl font-bold text-slate-900 mb-8">What to Expect</h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              { title: 'Hands-On Projects', desc: 'Work on real aerospace systems—propulsion, avionics, software, structures' },
+              { title: 'Learn by Doing', desc: 'No prior experience needed. You'll learn alongside experienced members' },
+              { title: 'Competition Prep', desc: 'Help build rockets for Launch Canada and satellites for CubeSat competition' },
+            ].map((item) => (
+              <div key={item.title} className="bg-white rounded-xl p-6 border border-slate-200">
+                <h3 className="font-semibold text-slate-900 mb-2">{item.title}</h3>
+                <p className="text-sm text-slate-600">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Departments */}
+      <section className="py-16 bg-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-2xl font-bold text-slate-900 mb-4">Pick a Team</h2>
+          <p className="text-slate-600 mb-8">Join the department that interests you most. You can switch or contribute to multiple.</p>
+          
+          <div className="grid md:grid-cols-4 gap-6">
+            {[
+              { name: 'Software', desc: 'Flight computers, ground stations, simulations, data visualization' },
+              { name: 'Avionics', desc: 'Sensors, circuits, control systems, PCB design' },
+              { name: 'Rocketry', desc: 'Propulsion, aerodynamics, structures, composites' },
+              { name: 'Finance', desc: 'Sponsorship, budgeting, event coordination' },
+            ].map((dept) => (
+              <div key={dept.name} className="bg-slate-50 rounded-xl p-6">
+                <h3 className="font-semibold text-slate-900 mb-2">{dept.name}</h3>
+                <p className="text-sm text-slate-600">{dept.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section className="py-16 bg-slate-50">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h2 className="text-2xl font-bold text-slate-900 mb-4">Questions?</h2>
+          <p className="text-slate-600 mb-6">
+            Reach out directly if you have any questions about joining.
+          </p>
+          <a 
+            href="mailto:rocketry@uoguelph.ca"
+            className="inline-block px-6 py-3 border border-slate-300 text-slate-700 font-medium rounded-lg hover:bg-slate-100 transition-colors"
+          >
+            rocketry@uoguelph.ca
+          </a>
+        </div>
+      </section>
     </div>
   )
 }

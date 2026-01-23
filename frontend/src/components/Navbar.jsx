@@ -7,60 +7,59 @@ const Navbar = () => {
 
   const isActive = (path) => location.pathname === path
 
-  const publicNavLinks = [
+  const navLinks = [
     { path: '/', label: 'Home' },
     { path: '/projects', label: 'Projects' },
     { path: '/team', label: 'Team' },
     { path: '/sponsors', label: 'Sponsors' },
-    { path: '/join', label: 'Join Us' },
+    { path: '/join', label: 'Join' },
   ]
 
-  // Removed auth-only nav links - making everything public
-
-  // Removed authentication handlers
-
   return (
-    <nav className="bg-white shadow-lg sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
+      <div className="max-w-6xl mx-auto px-6">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <Link to="/" className="flex items-center space-x-2">
+            <Link to="/" className="flex items-center space-x-3">
               <img 
                 src="/Images/rocketrylogo.jpg" 
-                alt="UofG Rocketry Club Logo" 
-                className="h-8 object-contain"
+                alt="UofG Rocketry" 
+                className="h-8 w-8 object-contain rounded"
               />
-              <span className="font-bold text-xl text-gray-900 font-poppins">UofG Rocketry</span>
+              <span className="font-semibold text-slate-900">UofG Rocketry</span>
             </Link>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {/* Public Links */}
-            {publicNavLinks.map(({ path, label }) => (
+          <div className="hidden md:flex items-center space-x-1">
+            {navLinks.map(({ path, label }) => (
               <Link
                 key={path}
                 to={path}
-                className={`px-3 py-2 rounded-md text-sm font-medium font-poppins transition-colors ${
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                   isActive(path)
-                    ? 'bg-primary-100 text-primary-700'
-                    : 'text-gray-700 hover:text-primary-600 hover:bg-gray-50'
+                    ? 'bg-slate-100 text-slate-900'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                 }`}
               >
                 {label}
               </Link>
             ))}
-
-            {/* All navigation is now public */}
-
-            {/* Authentication Section - Removed */}
+            <a
+              href="https://discord.gg/VRZE2923"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-4 px-4 py-2 bg-slate-900 text-white text-sm font-medium rounded-lg hover:bg-slate-800 transition-colors"
+            >
+              Discord
+            </a>
           </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-700 hover:text-primary-600 focus:outline-none focus:text-primary-600"
+              className="p-2 text-slate-600 hover:text-slate-900"
             >
               <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 {isOpen ? (
@@ -75,27 +74,31 @@ const Navbar = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
-              {/* Public Links */}
-              {publicNavLinks.map(({ path, label }) => (
+          <div className="md:hidden py-4 border-t border-slate-100">
+            <div className="flex flex-col space-y-1">
+              {navLinks.map(({ path, label }) => (
                 <Link
                   key={path}
                   to={path}
-                  className={`block px-3 py-2 rounded-md text-base font-medium font-poppins transition-colors ${
+                  className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
                     isActive(path)
-                      ? 'bg-primary-100 text-primary-700'
-                      : 'text-gray-700 hover:text-primary-600 hover:bg-gray-50'
+                      ? 'bg-slate-100 text-slate-900'
+                      : 'text-slate-600 hover:bg-slate-50'
                   }`}
                   onClick={() => setIsOpen(false)}
                 >
                   {label}
                 </Link>
               ))}
-
-              {/* All navigation is now public */}
-
-              {/* Authentication Section for Mobile - Removed */}
+              <a
+                href="https://discord.gg/VRZE2923"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mx-4 mt-2 px-4 py-3 bg-slate-900 text-white text-sm font-medium rounded-lg text-center"
+                onClick={() => setIsOpen(false)}
+              >
+                Join Discord
+              </a>
             </div>
           </div>
         )}
@@ -103,5 +106,7 @@ const Navbar = () => {
     </nav>
   )
 }
+
+export default Navbar
 
 export default Navbar

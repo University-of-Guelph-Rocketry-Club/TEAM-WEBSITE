@@ -1,50 +1,53 @@
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="col-span-1 md:col-span-2">
-            <div className="flex items-center space-x-2 mb-4">
+    <footer className="bg-slate-900 text-white">
+      <div className="max-w-6xl mx-auto px-6 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+          {/* Brand */}
+          <div className="md:col-span-2">
+            <div className="flex items-center space-x-3 mb-4">
               <img 
                 src="/Images/rocketrylogo.jpg" 
-                alt="UofG Rocketry Club Logo" 
-                className="w-8 h-8 rounded-full object-cover"
+                alt="UofG Rocketry" 
+                className="w-10 h-10 rounded object-cover"
               />
-              <span className="font-bold text-xl font-poppins">UofG Rocketry Club</span>
+              <span className="font-semibold text-lg">UofG Rocketry Club</span>
             </div>
-            <p className="text-gray-300 mb-4 max-w-md">
-              Building the future of aerospace engineering through hands-on rocketry projects, 
-              competitions, and educational outreach at the University of Guelph.
+            <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
+              Designing and building aerospace systems at the University of Guelph. 
+              Competing at Launch Canada 2026.
             </p>
           </div>
 
+          {/* Links */}
           <div>
-            <h3 className="font-semibold text-lg mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              <li><a href="/projects" className="text-gray-300 hover:text-white transition-colors">Projects</a></li>
-              <li><a href="/team" className="text-gray-300 hover:text-white transition-colors">Meet the Team</a></li>
-              <li><a href="/sponsors" className="text-gray-300 hover:text-white transition-colors">Sponsors</a></li>
-              <li><a href="/join" className="text-gray-300 hover:text-white transition-colors">Join Us</a></li>
+            <h3 className="font-medium text-sm text-slate-300 uppercase tracking-wider mb-4">Navigate</h3>
+            <ul className="space-y-3">
+              <li><a href="/projects" className="text-slate-400 hover:text-white text-sm transition-colors">Projects</a></li>
+              <li><a href="/team" className="text-slate-400 hover:text-white text-sm transition-colors">Team</a></li>
+              <li><a href="/sponsors" className="text-slate-400 hover:text-white text-sm transition-colors">Sponsors</a></li>
+              <li><a href="/join" className="text-slate-400 hover:text-white text-sm transition-colors">Join</a></li>
             </ul>
           </div>
 
+          {/* Connect */}
           <div>
-            <h3 className="font-semibold text-lg mb-4">Connect</h3>
-            <ul className="space-y-2">
-              <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Instagram</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-white transition-colors">LinkedIn</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Discord</a></li>
-              <li><a href="mailto:rocketry@uoguelph.ca" className="text-gray-300 hover:text-white transition-colors">Email</a></li>
+            <h3 className="font-medium text-sm text-slate-300 uppercase tracking-wider mb-4">Connect</h3>
+            <ul className="space-y-3">
+              <li><a href="https://discord.gg/VRZE2923" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white text-sm transition-colors">Discord</a></li>
+              <li><a href="https://www.instagram.com/guelph_rockets" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white text-sm transition-colors">Instagram</a></li>
+              <li><a href="https://www.linkedin.com/company/uofg-rocketry-club/posts/" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white text-sm transition-colors">LinkedIn</a></li>
+              <li><a href="mailto:rocketry@uoguelph.ca" className="text-slate-400 hover:text-white text-sm transition-colors">rocketry@uoguelph.ca</a></li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-gray-700 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-400 text-sm">
-            © 2024 University of Guelph Rocketry Club. All rights reserved.
+        <div className="border-t border-slate-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-slate-500 text-sm">
+            © 2026 University of Guelph Rocketry Club
           </p>
-          <p className="text-gray-400 text-sm mt-2 md:mt-0">
-            University of Guelph, Ontario, Canada
+          <p className="text-slate-500 text-sm mt-2 md:mt-0">
+            Guelph, Ontario, Canada
           </p>
         </div>
       </div>
