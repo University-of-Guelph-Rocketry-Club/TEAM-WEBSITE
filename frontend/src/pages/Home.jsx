@@ -288,6 +288,29 @@ const Home = () => {
             </div>
           </div>
 
+          {/* Software Team Update */}
+          <div className="bg-gradient-to-r from-cyan-50 to-blue-100 rounded-2xl p-6 border-l-4 border-cyan-500">
+            <div className="flex items-start space-x-4">
+              <div className="text-4xl">💻</div>
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Software Team: Building Our Rocketry Suite</h3>
+                <p className="text-gray-700 mb-3">
+                  The Software team is continuing to integrate and build our comprehensive rocketry software suite. 
+                  We're working closely alongside the Avionics and Rocketry teams to create the right solutions 
+                  for flight computers, telemetry, simulations, and ground station software.
+                </p>
+                <a 
+                  href="https://discord.gg/hZjQxvue" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center text-cyan-700 font-semibold hover:text-cyan-800"
+                >
+                  💬 Join Software on Discord →
+                </a>
+              </div>
+            </div>
+          </div>
+
           {/* CubeSat Conference */}
           <div className="bg-gradient-to-r from-blue-50 to-indigo-100 rounded-2xl p-6 border-l-4 border-blue-500">
             <div className="flex items-start space-x-4">
