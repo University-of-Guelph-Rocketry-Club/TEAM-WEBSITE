@@ -217,6 +217,14 @@ const ChatbotWidget = () => {
     }
   }
 
+  const handleNewConversation = () => {
+    startNewConversation()
+  }
+
+  const handleSelectConversation = (conv) => {
+    loadConversation(conv.id)
+  }
+
   // keep existing parseTimestampToDate and formatMessageTime but ensure they parse ISO strings
   function parseTimestampToDate(ts) {
     if (!ts) return new Date()
