@@ -136,6 +136,135 @@ const Teams = () => {
           </div>
         )}
 
+        {/* Team Information & Meeting Details Section */}
+        <div className="mb-12">
+          <h2 className="text-2xl font-semibold text-gray-900 mb-6">Team Information & Meetings</h2>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {/* Software Team */}
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl shadow-lg overflow-hidden">
+              <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-4">
+                <div className="flex items-center space-x-3">
+                  <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center">
+                    <span className="text-2xl">💻</span>
+                  </div>
+                  <div className="text-white">
+                    <h3 className="text-xl font-bold">Software Team</h3>
+                    <p className="text-sm opacity-90">Flight computers & simulations</p>
+                  </div>
+                </div>
+              </div>
+              <div className="p-6 space-y-4">
+                <div className="bg-white rounded-lg p-4">
+                  <h4 className="font-semibold text-gray-900 mb-2 flex items-center">
+                    <span className="mr-2">📅</span> Meeting Info
+                  </h4>
+                  <p className="text-sm text-gray-600">Weekly Meetings</p>
+                  <p className="text-sm text-gray-600">Time: TBD</p>
+                  <p className="text-sm text-gray-600">Location: Discord & Lab</p>
+                </div>
+                <div className="bg-white rounded-lg p-4">
+                  <h4 className="font-semibold text-gray-900 mb-2 flex items-center">
+                    <span className="mr-2">✅</span> Next Tasks
+                  </h4>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    <li>• Flight computer development</li>
+                    <li>• Simulation software updates</li>
+                    <li>• Data logging system</li>
+                  </ul>
+                </div>
+                <div className="bg-white rounded-lg p-4">
+                  <h4 className="font-semibold text-gray-900 mb-2 flex items-center">
+                    <span className="mr-2">👤</span> Team Lead
+                  </h4>
+                  <p className="text-sm text-gray-600">Nick - Software Lead</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Avionics Team */}
+            <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl shadow-lg overflow-hidden">
+              <div className="bg-gradient-to-r from-orange-600 to-red-600 p-4">
+                <div className="flex items-center space-x-3">
+                  <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center">
+                    <span className="text-2xl">⚡</span>
+                  </div>
+                  <div className="text-white">
+                    <h3 className="text-xl font-bold">Avionics Team</h3>
+                    <p className="text-sm opacity-90">Electronics & control systems</p>
+                  </div>
+                </div>
+              </div>
+              <div className="p-6 space-y-4">
+                <div className="bg-white rounded-lg p-4">
+                  <h4 className="font-semibold text-gray-900 mb-2 flex items-center">
+                    <span className="mr-2">📅</span> Meeting Info
+                  </h4>
+                  <p className="text-sm text-gray-600">Weekly Meetings</p>
+                  <p className="text-sm text-gray-600">Time: TBD</p>
+                  <p className="text-sm text-gray-600">Location: Discord & Lab</p>
+                </div>
+                <div className="bg-white rounded-lg p-4">
+                  <h4 className="font-semibold text-gray-900 mb-2 flex items-center">
+                    <span className="mr-2">✅</span> Next Tasks
+                  </h4>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    <li>• PCB design & testing</li>
+                    <li>• Sensor integration</li>
+                    <li>• Telemetry system setup</li>
+                  </ul>
+                </div>
+                <div className="bg-white rounded-lg p-4">
+                  <h4 className="font-semibold text-gray-900 mb-2 flex items-center">
+                    <span className="mr-2">👤</span> Team Lead
+                  </h4>
+                  <p className="text-sm text-gray-600">Aban - Avionics Lead</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Rocketry Team */}
+            <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl shadow-lg overflow-hidden">
+              <div className="bg-gradient-to-r from-green-600 to-teal-600 p-4">
+                <div className="flex items-center space-x-3">
+                  <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center">
+                    <span className="text-2xl">🚀</span>
+                  </div>
+                  <div className="text-white">
+                    <h3 className="text-xl font-bold">Rocketry Team</h3>
+                    <p className="text-sm opacity-90">Engine design & propulsion</p>
+                  </div>
+                </div>
+              </div>
+              <div className="p-6 space-y-4">
+                <div className="bg-white rounded-lg p-4">
+                  <h4 className="font-semibold text-gray-900 mb-2 flex items-center">
+                    <span className="mr-2">📅</span> Meeting Info
+                  </h4>
+                  <p className="text-sm text-gray-600">Weekly Meetings</p>
+                  <p className="text-sm text-gray-600">Time: TBD</p>
+                  <p className="text-sm text-gray-600">Location: Discord & Lab</p>
+                </div>
+                <div className="bg-white rounded-lg p-4">
+                  <h4 className="font-semibold text-gray-900 mb-2 flex items-center">
+                    <span className="mr-2">✅</span> Next Tasks
+                  </h4>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    <li>• Hybrid motor design</li>
+                    <li>• Launch Canada prep</li>
+                    <li>• Recovery system tests</li>
+                  </ul>
+                </div>
+                <div className="bg-white rounded-lg p-4">
+                  <h4 className="font-semibold text-gray-900 mb-2 flex items-center">
+                    <span className="mr-2">👤</span> Team Lead
+                  </h4>
+                  <p className="text-sm text-gray-600">Juliet - Rocketry Lead</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* All Teams Section */}
         <div>
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">All Teams</h2>

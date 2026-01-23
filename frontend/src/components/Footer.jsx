@@ -34,7 +34,7 @@ const Footer = () => {
               <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Instagram</a></li>
               <li><a href="#" className="text-gray-300 hover:text-white transition-colors">LinkedIn</a></li>
               <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Discord</a></li>
-              <li><a href="mailto:info@rocketryguelph.ca" className="text-gray-300 hover:text-white transition-colors">Email</a></li>
+              <li><a href="mailto:rocketry@uoguelph.ca" className="text-gray-300 hover:text-white transition-colors">Email</a></li>
             </ul>
           </div>
         </div>

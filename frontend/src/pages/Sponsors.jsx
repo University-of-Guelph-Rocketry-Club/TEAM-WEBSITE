@@ -209,6 +209,16 @@ const Sponsors = () => {
         subtitle="Partner with us to support the next generation of aerospace engineers"
       >
         <div className="max-w-2xl mx-auto">
+          <p className="text-center text-gray-600 mb-8">
+            Reach out to us directly at{' '}
+            <a 
+              href="mailto:rocketry@uoguelph.ca" 
+              className="text-primary-600 hover:text-primary-700 font-medium"
+            >
+              rocketry@uoguelph.ca
+            </a>
+            {' '}or fill out the form below.
+          </p>
           <SponsorContactForm />
         </div>
       </Section>

@@ -174,7 +174,7 @@ const Projects = () => {
               <a href="https://discord.gg/hZjQxvue" target="_blank" rel="noopener noreferrer" className="btn-primary">
                 Join Our Community
               </a>
-              <a href="mailto:nick.buzali@gmail.com" className="btn-secondary">
+              <a href="mailto:rocketry@uoguelph.ca" className="btn-secondary">
                 Contact Our Team
               </a>
             </div>

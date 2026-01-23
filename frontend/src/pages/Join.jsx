@@ -137,7 +137,7 @@ const Join = () => {
                 Join Discord Community
               </a>
               <a 
-                href="mailto:nick.buzali@gmail.com" 
+                href="mailto:rocketry@uoguelph.ca" 
                 className="btn-secondary w-full text-center block"
               >
                 Contact Our Team

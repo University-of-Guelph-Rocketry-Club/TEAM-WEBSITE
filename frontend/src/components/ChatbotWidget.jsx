@@ -291,7 +291,7 @@ const ChatbotWidget = () => {
                         💬 Join Discord
                       </a>
                       <a 
-                        href="mailto:nick.buzali@gmail.com"
+                        href="mailto:rocketry@uoguelph.ca"
                         className="block bg-blue-100 hover:bg-blue-200 text-blue-700 font-semibold py-2 px-4 rounded-lg transition-colors"
                       >
                         📧 Email Us

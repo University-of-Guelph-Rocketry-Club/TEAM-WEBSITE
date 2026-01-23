@@ -259,6 +259,294 @@ const Home = () => {
         )}
       </Section>
 
+      {/* Announcements & Updates */}
+      <Section 
+        title="📢 Announcements & Updates" 
+        subtitle="What's happening with the UofG Rocketry Club"
+        background="gray"
+      >
+        <div className="space-y-8">
+          {/* Kits Received */}
+          <div className="bg-gradient-to-r from-green-50 to-emerald-100 rounded-2xl p-6 border-l-4 border-green-500">
+            <div className="flex items-start space-x-4">
+              <div className="text-4xl">📦</div>
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Avionics & Rocketry Kits Have Arrived!</h3>
+                <p className="text-gray-700 mb-3">
+                  Great news! Our Avionics and Rocketry departments have received their kits and electronics. 
+                  Stay tuned for exciting builds and projects coming soon!
+                </p>
+                <a 
+                  href="https://discord.gg/hZjQxvue" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center text-green-700 font-semibold hover:text-green-800"
+                >
+                  💬 Join our Discord to stay updated →
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* CubeSat Conference */}
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-100 rounded-2xl p-6 border-l-4 border-blue-500">
+            <div className="flex items-start space-x-4">
+              <div className="text-4xl">🛰️</div>
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Canadian CubeSat Launch Conference 2026</h3>
+                <p className="text-gray-700 mb-3">
+                  <strong>March 7-8, 2026</strong> • John Molson School of Business, Concordia University, Montreal
+                </p>
+                <p className="text-gray-700 mb-4">
+                  The conference will showcase the 9 teams selected for the CUBICS competition who are getting 
+                  their satellites sent to orbit! There will be talks by industry insiders, Q&A sessions, 
+                  fireside chats, and massive networking opportunities.
+                </p>
+                <div className="bg-white/50 rounded-xl p-4 mb-4">
+                  <h4 className="font-semibold text-gray-900 mb-2">Get Involved:</h4>
+                  <ul className="space-y-2 text-gray-700">
+                    <li className="flex items-start">
+                      <span className="text-blue-500 mr-2">•</span>
+                      <span><strong>Submit a Presentation:</strong> Share your work via slideshow or poster</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-blue-500 mr-2">•</span>
+                      <span><strong>Propose a Booth:</strong> Showcase what we've built or are planning for our CubeSat project</span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="flex flex-wrap gap-3">
+                  <a 
+                    href="https://ccc.seds.ca/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="btn-primary text-sm"
+                  >
+                    Conference Info
+                  </a>
+                  <a 
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSe8OTi9xZueqUOuSKm1J8Ng3VArv-SYWSUGDzVmdQudUJLmEg/viewform" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="btn-secondary text-sm"
+                  >
+                    Submit Presentation
+                  </a>
+                  <a 
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSde0VBRsltWAVnbfGDcYocL2p73DgWpIeD0w6GfcX2EoQZGuw/viewform" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="btn-secondary text-sm"
+                  >
+                    Propose a Booth
+                  </a>
+                </div>
+                <p className="text-sm text-gray-600 mt-4">
+                  💰 Ticket price: $75 (includes breakfast and light lunch for both days). 
+                  Discounted rates may be available, and university reimbursement may be possible. 
+                  Contact us if you're interested in attending!
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Future Plans */}
+          <div className="bg-gradient-to-r from-purple-50 to-pink-100 rounded-2xl p-6 border-l-4 border-purple-500">
+            <div className="flex items-start space-x-4">
+              <div className="text-4xl">🎯</div>
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Our Roadmap</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="bg-white/50 rounded-xl p-4">
+                    <div className="flex items-center space-x-2 mb-2">
+                      <span className="text-2xl">🚀</span>
+                      <span className="font-bold text-gray-900">Launch Canada 2026</span>
+                    </div>
+                    <p className="text-gray-700 text-sm">
+                      We're preparing to compete at Launch Canada 2026! Stay tuned for updates on our rocket development.
+                    </p>
+                  </div>
+                  <div className="bg-white/50 rounded-xl p-4">
+                    <div className="flex items-center space-x-2 mb-2">
+                      <span className="text-2xl">🛰️</span>
+                      <span className="font-bold text-gray-900">CubeSat Competition 2028</span>
+                    </div>
+                    <p className="text-gray-700 text-sm">
+                      Our long-term goal is to compete in the CubeSat competition by 2028 with our land surveying satellite project.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Contact CTA */}
+          <div className="text-center bg-gray-50 rounded-2xl p-6">
+            <p className="text-gray-700 mb-4">
+              Have questions or want to get involved? Reach out to us!
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a href="https://discord.gg/hZjQxvue" target="_blank" rel="noopener noreferrer" className="btn-primary">
+                Join Discord
+              </a>
+              <a href="mailto:rocketry@uoguelph.ca" className="btn-secondary">
+                Email Us
+              </a>
+            </div>
+          </div>
+        </div>
+      </Section>
+
+      {/* About Us Section - Our Journey & Mission */}
+      <Section 
+        title="About Us" 
+        subtitle="Our mission, journey, and the memories we've created together"
+        background="gray"
+      >
+        {/* Mission & Vision */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+          <div className="space-y-6">
+            <div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">🎯 Our Mission</h3>
+              <p className="text-gray-600">
+                We provide hands-on experience in rocket design, manufacturing, and testing 
+                while competing at the highest levels of student rocketry. Through mentorship, 
+                outreach, and collaboration, we prepare University of Guelph students for successful careers in 
+                aerospace and engineering.
+              </p>
+            </div>
+            
+            <div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">🚀 Our Vision</h3>
+              <p className="text-gray-600">
+                To be Canada's leading student rocketry organization, fostering innovation, 
+                education, and excellence in aerospace engineering while inspiring the next 
+                generation of space exploration pioneers at the University of Guelph.
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-white p-8 rounded-xl shadow-lg">
+            <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Our Values</h3>
+            <div className="space-y-4">
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
+                  <span className="text-primary-600 font-bold">💡</span>
+                </div>
+                <div>
+                  <div className="font-semibold">Innovation</div>
+                  <div className="text-gray-600 text-sm">Pushing boundaries through creative engineering</div>
+                </div>
+              </div>
+              
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
+                  <span className="text-primary-600 font-bold">🤝</span>
+                </div>
+                <div>
+                  <div className="font-semibold">Collaboration</div>
+                  <div className="text-gray-600 text-sm">Working together toward common goals</div>
+                </div>
+              </div>
+              
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
+                  <span className="text-primary-600 font-bold">🎓</span>
+                </div>
+                <div>
+                  <div className="font-semibold">Learning</div>
+                  <div className="text-gray-600 text-sm">Continuous growth and skill development</div>
+                </div>
+              </div>
+              
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
+                  <span className="text-primary-600 font-bold">⭐</span>
+                </div>
+                <div>
+                  <div className="font-semibold">Excellence</div>
+                  <div className="text-gray-600 text-sm">Striving for the highest standards</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Explore Our Journey - Media Showcase */}
+        <div className="space-y-8">
+          <div className="text-center">
+            <h3 className="text-3xl font-bold text-gray-900 mb-3">Explore Our Journey</h3>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Pictures, videos, and moments from our rocketry adventures
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Large Featured Media Area */}
+            <div className="md:col-span-2">
+              <div className="bg-gradient-to-br from-indigo-100 via-purple-100 to-blue-200 rounded-3xl h-80 flex items-center justify-center relative overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer">
+                <div className="absolute inset-0 bg-gradient-to-br from-black/10 to-transparent"></div>
+                <div className="text-center text-gray-700 z-10">
+                  <div className="text-6xl mb-4">🎥</div>
+                  <div className="font-bold text-2xl mb-2">Featured Launch Video</div>
+                  <div className="text-sm opacity-80">Watch our latest rocket reach for the stars</div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Side Media Grid */}
+            <div className="space-y-4">
+              <div className="bg-gradient-to-br from-yellow-100 to-orange-200 rounded-2xl h-36 flex items-center justify-center hover:shadow-xl transition-all duration-300 cursor-pointer">
+                <div className="text-center text-orange-800">
+                  <div className="text-3xl mb-2">📷</div>
+                  <div className="font-semibold text-sm">Competition Gallery</div>
+                </div>
+              </div>
+              <div className="bg-gradient-to-br from-green-100 to-emerald-200 rounded-2xl h-36 flex items-center justify-center hover:shadow-xl transition-all duration-300 cursor-pointer">
+                <div className="text-center text-emerald-800">
+                  <div className="text-3xl mb-2">🛠️</div>
+                  <div className="font-semibold text-sm">Workshop Moments</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Team Memories & Highlights */}
+        <div className="mt-16 space-y-6">
+          <h3 className="text-2xl font-bold text-gray-900 text-center mb-8">📸 Team Memories & Highlights</h3>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Team Photos - Larger */}
+            <div className="bg-gradient-to-br from-blue-100 to-purple-200 rounded-2xl h-72 flex items-center justify-center hover:shadow-xl transition-all duration-300 cursor-pointer">
+              <div className="text-center text-gray-700">
+                <div className="text-6xl mb-4">📸</div>
+                <div className="font-bold text-xl mb-2">Team Photos</div>
+                <div className="text-sm px-4">Behind the scenes & launch day moments</div>
+              </div>
+            </div>
+            
+            {/* Launch Videos - Larger */}
+            <div className="bg-gradient-to-br from-orange-100 to-red-200 rounded-2xl h-72 flex items-center justify-center hover:shadow-xl transition-all duration-300 cursor-pointer">
+              <div className="text-center text-orange-700">
+                <div className="text-6xl mb-4">🎬</div>
+                <div className="font-bold text-xl mb-2">Launch Videos</div>
+                <div className="text-sm px-4">Rocket launches & test flights</div>
+              </div>
+            </div>
+            
+            {/* Achievement Gallery - Larger */}
+            <div className="bg-gradient-to-br from-green-100 to-blue-200 rounded-2xl h-72 flex items-center justify-center hover:shadow-xl transition-all duration-300 cursor-pointer">
+              <div className="text-center text-green-700">
+                <div className="text-6xl mb-4">🏆</div>
+                <div className="font-bold text-xl mb-2">Achievement Gallery</div>
+                <div className="text-sm px-4">Competitions & milestones</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Section>
+
       <Section 
         title="Join Our Community" 
         subtitle="Connect with passionate UofG students and build the future of aerospace"

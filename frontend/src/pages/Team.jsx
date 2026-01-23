@@ -190,79 +190,6 @@ const Team = () => {
       </Section>
 
       <Section 
-        title="Department Structure" 
-        subtitle="Organized teams working together on complex projects"
-      >
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div className="card p-6">
-            <div className="w-12 h-12 bg-rocket-red rounded-lg flex items-center justify-center mb-4">
-              <span className="text-white text-xl">⚙️</span>
-            </div>
-            <h3 className="text-xl font-semibold mb-3">Propulsion Team</h3>
-            <p className="text-gray-600">
-              Design and test rocket motors, fuel systems, and propulsion technologies 
-              for maximum performance and safety.
-            </p>
-          </div>
-
-          <div className="card p-6">
-            <div className="w-12 h-12 bg-primary-600 rounded-lg flex items-center justify-center mb-4">
-              <span className="text-white text-xl">📐</span>
-            </div>
-            <h3 className="text-xl font-semibold mb-3">Structures Team</h3>
-            <p className="text-gray-600">
-              Engineer airframes, recovery systems, and mechanical components 
-              using advanced materials and manufacturing techniques.
-            </p>
-          </div>
-
-          <div className="card p-6">
-            <div className="w-12 h-12 bg-rocket-gold rounded-lg flex items-center justify-center mb-4">
-              <span className="text-white text-xl">💻</span>
-            </div>
-            <h3 className="text-xl font-semibold mb-3">Avionics Team</h3>
-            <p className="text-gray-600">
-              Develop flight computers, sensors, and telemetry systems 
-              for navigation, data collection, and mission success.
-            </p>
-          </div>
-
-          <div className="card p-6">
-            <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center mb-4">
-              <span className="text-white text-xl">🔬</span>
-            </div>
-            <h3 className="text-xl font-semibold mb-3">Research & Development</h3>
-            <p className="text-gray-600">
-              Explore new technologies, conduct experiments, and push 
-              the boundaries of what's possible in student rocketry.
-            </p>
-          </div>
-
-          <div className="card p-6">
-            <div className="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center mb-4">
-              <span className="text-white text-xl">📊</span>
-            </div>
-            <h3 className="text-xl font-semibold mb-3">Operations</h3>
-            <p className="text-gray-600">
-              Manage logistics, safety protocols, competition preparation, 
-              and ensure smooth project execution.
-            </p>
-          </div>
-
-          <div className="card p-6">
-            <div className="w-12 h-12 bg-indigo-600 rounded-lg flex items-center justify-center mb-4">
-              <span className="text-white text-xl">📢</span>
-            </div>
-            <h3 className="text-xl font-semibold mb-3">Outreach</h3>
-            <p className="text-gray-600">
-              Engage with the community, manage social media, and inspire 
-              future engineers through educational programs.
-            </p>
-          </div>
-        </div>
-      </Section>
-
-      <Section 
         title="Connect With Us" 
         subtitle="Join our community and network with fellow rocketry enthusiasts"
       >
@@ -276,7 +203,7 @@ const Team = () => {
             <a href="https://discord.gg/hZjQxvue" target="_blank" rel="noopener noreferrer" className="btn-primary">
               Join Discord Community
             </a>
-            <a href="mailto:nick.buzali@gmail.com" className="btn-secondary">
+            <a href="mailto:rocketry@uoguelph.ca" className="btn-secondary">
               Contact Us
             </a>
           </div>
@@ -287,6 +214,7 @@ const Team = () => {
       <Section 
         title="Our Departments" 
         subtitle="Specialized teams working together to reach new heights"
+        background="gray"
       >
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div className="text-center space-y-4 group">
@@ -328,78 +256,6 @@ const Team = () => {
               <p className="text-gray-600 text-sm">Funding & resource management</p>
             </div>
           </div>
-        </div>
-      </Section>
-      
-      {/* Media Showcase Area */}
-      <Section 
-        title="Explore Our Journey" 
-        subtitle="Pictures, videos, and moments from our rocketry adventures"
-      >
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Large Featured Media Area */}
-          <div className="md:col-span-2">
-            <div className="bg-gradient-to-br from-indigo-100 via-purple-100 to-blue-200 rounded-3xl h-80 flex items-center justify-center relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-black/10 to-transparent"></div>
-              <div className="text-center text-gray-700 z-10">
-                <div className="text-6xl mb-4">🎥</div>
-                <div className="font-bold text-2xl mb-2">Featured Launch Video</div>
-                <div className="text-sm opacity-80">Watch our latest rocket reach for the stars</div>
-              </div>
-            </div>
-          </div>
-          
-          {/* Side Media Grid */}
-          <div className="space-y-4">
-            <div className="bg-gradient-to-br from-yellow-100 to-orange-200 rounded-2xl h-36 flex items-center justify-center">
-              <div className="text-center text-orange-800">
-                <div className="text-3xl mb-2">📷</div>
-                <div className="font-semibold text-sm">Competition Gallery</div>
-              </div>
-            </div>
-            <div className="bg-gradient-to-br from-green-100 to-emerald-200 rounded-2xl h-36 flex items-center justify-center">
-              <div className="text-center text-emerald-800">
-                <div className="text-3xl mb-2">🛠️</div>
-                <div className="font-semibold text-sm">Workshop Moments</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        {/* Social Media Grid */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <a href="https://discord.gg/hZjQxvue" target="_blank" rel="noopener noreferrer" 
-             className="group bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl p-6 text-white hover:scale-105 transition-all duration-300">
-            <div className="flex items-center space-x-4">
-              <div className="text-3xl">💬</div>
-              <div>
-                <div className="font-bold">Discord Community</div>
-                <div className="text-sm opacity-90">Join our active discussions</div>
-              </div>
-            </div>
-          </a>
-          
-          <a href="https://www.linkedin.com/company/uofg-rocketry-club/posts/" target="_blank" rel="noopener noreferrer"
-             className="group bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl p-6 text-white hover:scale-105 transition-all duration-300">
-            <div className="flex items-center space-x-4">
-              <div className="text-3xl">💼</div>
-              <div>
-                <div className="font-bold">LinkedIn Updates</div>
-                <div className="text-sm opacity-90">Professional networking</div>
-              </div>
-            </div>
-          </a>
-          
-          <a href="https://www.instagram.com/guelph_rockets" target="_blank" rel="noopener noreferrer"
-             className="group bg-gradient-to-br from-pink-500 to-red-600 rounded-2xl p-6 text-white hover:scale-105 transition-all duration-300">
-            <div className="flex items-center space-x-4">
-              <div className="text-3xl">📸</div>
-              <div>
-                <div className="font-bold">Instagram Highlights</div>
-                <div className="text-sm opacity-90">Behind the scenes content</div>
-              </div>
-            </div>
-          </a>
         </div>
       </Section>
     </div>
