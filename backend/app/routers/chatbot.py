@@ -211,7 +211,8 @@ Visit our <a href='/team' class='text-primary-600 hover:text-primary-800 transit
 **Connect with us:**
 📱 [Discord]({CLUB_INFO['social_links']['discord']})
 💼 [LinkedIn]({CLUB_INFO['social_links']['linkedin']})
-📸 [Instagram]({CLUB_INFO['social_links']['instagram']})"""
+📸 [Instagram]({CLUB_INFO['social_links']['instagram']})
+📧 Email: rocketry@uoguelph.ca"""
             
             elif any(word in user_message_lower for word in ['project', 'rocket', 'competition', 'cubesat']):
                 ai_response_content = f"""🚀 **{CLUB_INFO['name']} Projects:**
@@ -229,7 +230,8 @@ Check out our <a href='/projects' class='text-primary-600 hover:text-primary-800
 **Join our community:**
 📱 [Discord]({CLUB_INFO['social_links']['discord']})
 💼 [LinkedIn]({CLUB_INFO['social_links']['linkedin']})
-📸 [Instagram]({CLUB_INFO['social_links']['instagram']})"""
+📸 [Instagram]({CLUB_INFO['social_links']['instagram']})
+📧 Email: rocketry@uoguelph.ca"""
             
             elif any(word in user_message_lower for word in ['join', 'member', 'how to']):
                 ai_response_content = f"""Welcome to **{CLUB_INFO['name']}**! 🚀
@@ -256,7 +258,8 @@ Check out our <a href='/projects' class='text-primary-600 hover:text-primary-800
 **Connect with us:**
 📱 [Discord]({CLUB_INFO['social_links']['discord']})
 💼 [LinkedIn]({CLUB_INFO['social_links']['linkedin']})
-📸 [Instagram]({CLUB_INFO['social_links']['instagram']})"""
+📸 [Instagram]({CLUB_INFO['social_links']['instagram']})
+📧 Email: rocketry@uoguelph.ca"""
             
             elif any(word in user_message_lower for word in ['sponsor', 'partnership', 'support']):
                 ai_response_content = """Thank you for your interest in supporting the University of Guelph Rocketry Club! 🤝
@@ -301,6 +304,7 @@ For partnership inquiries, please contact our team through our website!"""
 📱 [Discord]({CLUB_INFO['social_links']['discord']})
 💼 [LinkedIn]({CLUB_INFO['social_links']['linkedin']}) 
 📸 [Instagram]({CLUB_INFO['social_links']['instagram']})
+📧 Email: rocketry@uoguelph.ca
 
 Ask me anything about our club, projects, or how to get involved!"""
 
