@@ -40,7 +40,7 @@ const Join = () => {
           <div className="grid md:grid-cols-3 gap-6">
             {[
               { title: 'Hands-On Projects', desc: 'Work on real aerospace systems—propulsion, avionics, software, structures' },
-              { title: 'Learn by Doing', desc: 'No prior experience needed. You'll learn alongside experienced members' },
+              { title: 'Learn by Doing', desc: "No prior experience needed. You'll learn alongside experienced members" },
               { title: 'Competition Prep', desc: 'Help build rockets for Launch Canada and satellites for CubeSat competition' },
             ].map((item) => (
               <div key={item.title} className="bg-white rounded-xl p-6 border border-slate-200">

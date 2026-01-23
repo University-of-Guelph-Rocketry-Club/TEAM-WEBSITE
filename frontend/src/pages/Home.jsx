@@ -1,284 +1,388 @@
 import Hero from '../components/Hero'
 import { Link } from 'react-router-dom'
+import { motion, useInView } from 'framer-motion'
+import { useRef } from 'react'
 
-const Home = () => {
+// Scroll-triggered section wrapper
+const ScrollReveal = ({ children, className = '', delay = 0 }) => {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: "-100px" })
+  
   return (
-    <div className="page-transition">
-      <Hero />
-      
-      {/* Departments Section */}
-      <section className="py-24 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">Engineering Teams</h2>
-            <p className="text-slate-600 max-w-2xl mx-auto">
-              Four specialized departments working together to design, build, and launch aerospace systems.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { name: 'Software', desc: 'Flight computers, telemetry, ground stations', icon: '{ }', color: 'blue' },
-              { name: 'Avionics', desc: 'Electronics, sensors, control systems', icon: '⚡', color: 'green' },
-              { name: 'Rocketry', desc: 'Propulsion, structures, aerodynamics', icon: '△', color: 'red' },
-              { name: 'Finance', desc: 'Sponsorship, budgeting, operations', icon: '$', color: 'amber' },
-            ].map((dept) => (
-              <div key={dept.name} className="group p-6 bg-slate-50 rounded-xl hover:bg-slate-100 transition-colors border border-slate-200">
-                <div className={`w-12 h-12 rounded-lg bg-${dept.color}-100 text-${dept.color}-600 flex items-center justify-center text-xl font-mono mb-4`}>
-                  {dept.icon}
-                </div>
-                <h3 className="text-lg font-semibold text-slate-900 mb-2">{dept.name}</h3>
-                <p className="text-sm text-slate-600">{dept.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Current Projects */}
-      <section className="py-24 bg-slate-50">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="flex justify-between items-end mb-12">
-            <div>
-              <h2 className="text-3xl font-bold text-slate-900 mb-2">Active Projects</h2>
-              <p className="text-slate-600">What we're building right now</p>
-            </div>
-            <Link to="/projects" className="text-blue-600 hover:text-blue-700 font-medium text-sm">
-              View all →
-            </Link>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-8">
-            {/* Hybrid Rocket */}
-            <div className="bg-white rounded-xl p-8 border border-slate-200 hover:shadow-lg transition-shadow">
-              <div className="flex items-start justify-between mb-4">
-                <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-medium rounded-full">
-                  In Development
-                </span>
-                <span className="text-sm text-slate-500">2025-2026</span>
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">Hybrid Rocket Propulsion</h3>
-              <p className="text-slate-600 mb-6">
-                Designing a hybrid rocket motor combining solid fuel with liquid oxidizer for improved safety and controllability. Target: Launch Canada 2026.
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {['Propulsion', 'CAD', 'Fluid Dynamics', 'Testing'].map((tag) => (
-                  <span key={tag} className="px-2 py-1 bg-slate-100 text-slate-600 text-xs rounded">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* CubeSat */}
-            <div className="bg-white rounded-xl p-8 border border-slate-200 hover:shadow-lg transition-shadow">
-              <div className="flex items-start justify-between mb-4">
-                <span className="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-medium rounded-full">
-                  Research Phase
-                </span>
-                <span className="text-sm text-slate-500">Target: 2028</span>
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">CubeSat Development</h3>
-              <p className="text-slate-600 mb-6">
-                Building a miniature satellite for land surveying and remote sensing applications. Long-term goal for CubeSat competition.
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {['Satellite Design', 'Remote Sensing', 'Comms', 'Orbital Mechanics'].map((tag) => (
-                  <span key={tag} className="px-2 py-1 bg-slate-100 text-slate-600 text-xs rounded">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Launch Video Section */}
-      <section className="py-24 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">See Us In Action</h2>
-          </div>
-          <div className="aspect-video bg-slate-900 rounded-xl overflow-hidden">
-            <video 
-              controls 
-              className="w-full h-full object-cover"
-            >
-              <source src="/Videos/rocket launch.mp4" type="video/mp4" />
-              Your browser does not support video.
-            </video>
-          </div>
-        </div>
-      </section>
-
-      {/* Announcements - Cleaner */}
-      <section className="py-24 bg-slate-900 text-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">Latest Updates</h2>
-            <p className="text-slate-400">News and announcements from the team</p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {/* Conference */}
-            <div className="bg-slate-800/50 rounded-xl p-6 border border-slate-700">
-              <div className="text-blue-400 text-sm font-mono mb-3">MAR 7-8, 2026</div>
-              <h3 className="text-lg font-semibold mb-2">CubeSat Conference</h3>
-              <p className="text-slate-400 text-sm mb-4">
-                Canadian CubeSat Launch Conference at Concordia University, Montreal. CUBICS teams showcasing satellites going to orbit.
-              </p>
-              <a 
-                href="https://ccc.seds.ca/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-blue-400 text-sm hover:text-blue-300"
-              >
-                Learn more →
-              </a>
-            </div>
-
-            {/* Kits Arrived */}
-            <div className="bg-slate-800/50 rounded-xl p-6 border border-slate-700">
-              <div className="text-green-400 text-sm font-mono mb-3">NEW</div>
-              <h3 className="text-lg font-semibold mb-2">Hardware Received</h3>
-              <p className="text-slate-400 text-sm mb-4">
-                Avionics and Rocketry departments have received their kits and electronics. Builds starting soon.
-              </p>
-              <a 
-                href="https://discord.gg/VRZE2923" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-blue-400 text-sm hover:text-blue-300"
-              >
-                Join Discord →
-              </a>
-            </div>
-
-            {/* Software Update */}
-            <div className="bg-slate-800/50 rounded-xl p-6 border border-slate-700">
-              <div className="text-purple-400 text-sm font-mono mb-3">ONGOING</div>
-              <h3 className="text-lg font-semibold mb-2">Software Suite</h3>
-              <p className="text-slate-400 text-sm mb-4">
-                Building comprehensive rocketry software: flight computers, telemetry, simulations, and ground station.
-              </p>
-              <a 
-                href="https://discord.gg/VRZE2923" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-blue-400 text-sm hover:text-blue-300"
-              >
-                Contribute →
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Roadmap */}
-      <section className="py-24 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">Roadmap</h2>
-            <p className="text-slate-600">Our path to competition and beyond</p>
-          </div>
-
-          <div className="flex flex-col md:flex-row justify-center gap-8">
-            <div className="flex-1 max-w-xs">
-              <div className="text-4xl font-bold text-blue-600 mb-2">2026</div>
-              <h3 className="text-lg font-semibold text-slate-900 mb-2">Launch Canada</h3>
-              <p className="text-slate-600 text-sm">First competition entry with hybrid rocket system</p>
-            </div>
-            <div className="hidden md:block w-px bg-slate-200"></div>
-            <div className="flex-1 max-w-xs">
-              <div className="text-4xl font-bold text-slate-400 mb-2">2028</div>
-              <h3 className="text-lg font-semibold text-slate-900 mb-2">CubeSat Competition</h3>
-              <p className="text-slate-600 text-sm">Land surveying satellite in orbit</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Join CTA */}
-      <section className="py-24 bg-slate-50">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold text-slate-900 mb-4">Ready to build something?</h2>
-          <p className="text-slate-600 mb-8 max-w-xl mx-auto">
-            Join 50+ UofG students designing and building aerospace systems. No experience required.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <a 
-              href="https://discord.gg/VRZE2923" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="px-6 py-3 bg-slate-900 text-white font-semibold rounded-lg hover:bg-slate-800 transition-colors"
-            >
-              Join Discord
-            </a>
-            <a 
-              href="mailto:rocketry@uoguelph.ca"
-              className="px-6 py-3 border border-slate-300 text-slate-700 font-semibold rounded-lg hover:bg-slate-100 transition-colors"
-            >
-              Email Us
-            </a>
-          </div>
-          
-          {/* Social links */}
-          <div className="flex justify-center gap-6 mt-8">
-            <a href="https://www.instagram.com/guelph_rockets" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-slate-700">Instagram</a>
-            <a href="https://www.linkedin.com/company/uofg-rocketry-club/posts/" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-slate-700">LinkedIn</a>
-            <a href="https://discord.gg/VRZE2923" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-slate-700">Discord</a>
-          </div>
-        </div>
-      </section>
-    </div>
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 40 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
+      className={className}
+    >
+      {children}
+    </motion.div>
   )
 }
 
-export default Home
-                </div>
-                <div>
-                  <div className="font-semibold text-gray-900">Instagram</div>
-                  <div className="text-sm text-gray-600">Photos & videos</div>
-                </div>
-              </a>
+// Stagger children animation
+const StaggerContainer = ({ children, className = '' }) => {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: "-50px" })
+  
+  return (
+    <motion.div
+      ref={ref}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      variants={{
+        visible: { transition: { staggerChildren: 0.1 } },
+        hidden: {}
+      }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+const StaggerItem = ({ children, className = '' }) => (
+  <motion.div
+    variants={{
+      hidden: { opacity: 0, y: 20 },
+      visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } }
+    }}
+    className={className}
+  >
+    {children}
+  </motion.div>
+)
+
+const Home = () => {
+  return (
+    <div className="page-transition overflow-hidden">
+      <Hero />
+      
+      {/* Active Projects - Featured */}
+      <section className="py-32 bg-white relative">
+        <div className="max-w-7xl mx-auto px-6">
+          <ScrollReveal>
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-16">
+              <div>
+                <span className="text-sm font-mono text-slate-400 tracking-wider uppercase mb-3 block">Currently Building</span>
+                <h2 className="text-4xl md:text-5xl font-bold text-slate-900">Active Projects</h2>
+              </div>
+              <Link 
+                to="/projects" 
+                className="group inline-flex items-center gap-2 text-slate-600 hover:text-slate-900 transition-colors"
+              >
+                <span className="text-sm font-medium">View all projects</span>
+                <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
             </div>
-            
-            <div className="pt-4">
-              <a href="/join" className="btn-primary w-full text-center block">
-                Join the Club 🚀
-              </a>
-            </div>
-          </div>
+          </ScrollReveal>
+
+          <StaggerContainer className="grid lg:grid-cols-2 gap-8">
+            {/* Hybrid Rocket - Primary Card */}
+            <StaggerItem>
+              <motion.div 
+                className="group relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-3xl p-10 h-full overflow-hidden"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.15),transparent_50%)]" />
+                <div className="relative z-10">
+                  <div className="flex items-center gap-3 mb-6">
+                    <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                    <span className="text-green-400 text-sm font-medium">In Development</span>
+                  </div>
+                  <h3 className="text-3xl font-bold text-white mb-4">Hybrid Rocket Engine</h3>
+                  <p className="text-slate-300 mb-8 leading-relaxed">
+                    Solid fuel. Liquid oxidizer. Maximum control. Our hybrid propulsion system targets 10,000ft AGL for Launch Canada 2026.
+                  </p>
+                  <div className="flex flex-wrap gap-2 mb-8">
+                    {['N₂O Oxidizer', 'HTPB Fuel', '3D Printed Injector', 'Custom Test Stand'].map((tag) => (
+                      <span key={tag} className="px-3 py-1.5 bg-white/10 text-slate-300 text-xs font-mono rounded-full backdrop-blur-sm">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="flex items-center justify-between pt-6 border-t border-white/10">
+                    <span className="text-slate-400 text-sm">Target: Launch Canada 2026</span>
+                    <div className="text-4xl font-bold text-white/20 font-mono">LC26</div>
+                  </div>
+                </div>
+              </motion.div>
+            </StaggerItem>
+
+            {/* CubeSat - Secondary Card */}
+            <StaggerItem>
+              <motion.div 
+                className="group relative bg-slate-50 border-2 border-slate-200 rounded-3xl p-10 h-full overflow-hidden hover:border-slate-300 transition-colors"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="w-2 h-2 bg-blue-500 rounded-full" />
+                  <span className="text-blue-600 text-sm font-medium">Research Phase</span>
+                </div>
+                <h3 className="text-3xl font-bold text-slate-900 mb-4">CubeSat Mission</h3>
+                <p className="text-slate-600 mb-8 leading-relaxed">
+                  A 3U CubeSat for agricultural land surveying. Multispectral imaging to monitor crop health and soil conditions across Ontario.
+                </p>
+                <div className="flex flex-wrap gap-2 mb-8">
+                  {['3U Form Factor', 'Multispectral Camera', 'UHF Comms', 'Attitude Control'].map((tag) => (
+                    <span key={tag} className="px-3 py-1.5 bg-slate-200 text-slate-600 text-xs font-mono rounded-full">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <div className="flex items-center justify-between pt-6 border-t border-slate-200">
+                  <span className="text-slate-400 text-sm">Target: Orbit 2028</span>
+                  <div className="text-4xl font-bold text-slate-200 font-mono">SAT</div>
+                </div>
+              </motion.div>
+            </StaggerItem>
+          </StaggerContainer>
+        </div>
+      </section>
+
+      {/* Latest Updates - Big & Bold */}
+      <section className="py-32 bg-slate-950 text-white relative overflow-hidden">
+        {/* Animated background grid */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)`,
+            backgroundSize: '60px 60px'
+          }} />
         </div>
         
-        {/* Feature Highlights */}
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="text-center p-6 bg-white rounded-2xl shadow-sm">
-            <div className="text-3xl mb-3">🛰️</div>
-            <h4 className="font-semibold text-gray-900 mb-2">CubeSat Project</h4>
-            <p className="text-sm text-gray-600">Building satellites that survey land for real-world applications</p>
-          </div>
-          
-          <div className="text-center p-6 bg-white rounded-2xl shadow-sm">
-            <div className="text-3xl mb-3">🚀</div>
-            <h4 className="font-semibold text-gray-900 mb-2">Rocket Launches</h4>
-            <p className="text-sm text-gray-600">Hands-on experience with rocket design and competition launches</p>
-          </div>
-          
-          <div className="text-center p-6 bg-white rounded-2xl shadow-sm">
-            <div className="text-3xl mb-3">📚</div>
-            <h4 className="font-semibold text-gray-900 mb-2">Education</h4>
-            <p className="text-sm text-gray-600">Learning programs specifically designed for UofG students</p>
-          </div>
-          
-          <div className="text-center p-6 bg-white rounded-2xl shadow-sm">
-            <div className="text-3xl mb-3">🤝</div>
-            <h4 className="font-semibold text-gray-900 mb-2">Community</h4>
-            <p className="text-sm text-gray-600">Building lasting connections with fellow rocketry enthusiasts</p>
-          </div>
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <ScrollReveal>
+            <div className="text-center mb-20">
+              <motion.div 
+                className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full mb-6"
+                animate={{ opacity: [0.5, 1, 0.5] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                <span className="w-2 h-2 bg-green-400 rounded-full" />
+                <span className="text-sm text-slate-300 font-mono">LIVE UPDATES</span>
+              </motion.div>
+              <h2 className="text-5xl md:text-6xl font-bold mb-6">What&apos;s Happening</h2>
+              <p className="text-xl text-slate-400 max-w-2xl mx-auto">The latest from our workshops, labs, and launch sites</p>
+            </div>
+          </ScrollReveal>
+
+          <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Featured Update - Conference */}
+            <StaggerItem className="md:col-span-2 lg:col-span-1 lg:row-span-2">
+              <motion.div 
+                className="h-full bg-gradient-to-b from-blue-600 to-blue-700 rounded-3xl p-8 relative overflow-hidden group"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="absolute top-0 right-0 w-64 h-64 bg-blue-400/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+                <div className="relative z-10 h-full flex flex-col">
+                  <div className="flex items-center gap-2 mb-6">
+                    <span className="text-xs font-mono bg-white/20 px-3 py-1 rounded-full">UPCOMING</span>
+                  </div>
+                  <div className="text-7xl font-bold opacity-20 mb-4">07</div>
+                  <div className="text-sm text-blue-200 font-mono mb-2">MARCH 2026</div>
+                  <h3 className="text-2xl font-bold mb-4">CubeSat Conference</h3>
+                  <p className="text-blue-100 mb-8 flex-grow">
+                    Canadian CubeSat Launch Conference at Concordia University. CUBICS teams presenting satellites destined for LEO. We&apos;ll be there.
+                  </p>
+                  <a 
+                    href="https://ccc.seds.ca/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-white font-medium group/link"
+                  >
+                    <span>Register now</span>
+                    <svg className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </a>
+                </div>
+              </motion.div>
+            </StaggerItem>
+
+            {/* Hardware Update */}
+            <StaggerItem>
+              <motion.div 
+                className="bg-white/5 border border-white/10 rounded-3xl p-8 hover:bg-white/10 transition-colors group"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                  <span className="text-xs font-mono text-green-400">JUST IN</span>
+                </div>
+                <h3 className="text-xl font-bold mb-3">Hardware Arrived</h3>
+                <p className="text-slate-400 text-sm leading-relaxed">
+                  Avionics kits and propulsion components landed. Build sessions starting next week.
+                </p>
+              </motion.div>
+            </StaggerItem>
+
+            {/* Software Update */}
+            <StaggerItem>
+              <motion.div 
+                className="bg-white/5 border border-white/10 rounded-3xl p-8 hover:bg-white/10 transition-colors group"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="w-2 h-2 bg-purple-400 rounded-full" />
+                  <span className="text-xs font-mono text-purple-400">ONGOING</span>
+                </div>
+                <h3 className="text-xl font-bold mb-3">Flight Software v0.2</h3>
+                <p className="text-slate-400 text-sm leading-relaxed">
+                  Telemetry system hitting 50Hz. Ground station UI coming together. Open source soon.
+                </p>
+              </motion.div>
+            </StaggerItem>
+
+            {/* Test Stand */}
+            <StaggerItem>
+              <motion.div 
+                className="bg-white/5 border border-white/10 rounded-3xl p-8 hover:bg-white/10 transition-colors group"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="w-2 h-2 bg-orange-400 rounded-full" />
+                  <span className="text-xs font-mono text-orange-400">IN PROGRESS</span>
+                </div>
+                <h3 className="text-xl font-bold mb-3">Test Stand Build</h3>
+                <p className="text-slate-400 text-sm leading-relaxed">
+                  Static fire test stand nearing completion. Load cell integration this month.
+                </p>
+              </motion.div>
+            </StaggerItem>
+
+            {/* Discord CTA */}
+            <StaggerItem>
+              <motion.a 
+                href="https://discord.gg/VRZE2923"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block bg-slate-800 border border-slate-700 rounded-3xl p-8 hover:border-slate-600 transition-colors group"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-xl font-bold mb-2">Get Updates Live</h3>
+                    <p className="text-slate-400 text-sm">Join 50+ members on Discord</p>
+                  </div>
+                  <svg className="w-8 h-8 text-slate-500 group-hover:text-white group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </div>
+              </motion.a>
+            </StaggerItem>
+          </StaggerContainer>
         </div>
-      </Section>
+      </section>
+
+      {/* Video Section - Full Width */}
+      <section className="py-32 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <ScrollReveal>
+            <div className="text-center mb-12">
+              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">See It Fly</h2>
+            </div>
+          </ScrollReveal>
+          <ScrollReveal delay={0.2}>
+            <div className="aspect-video bg-slate-900 rounded-3xl overflow-hidden shadow-2xl">
+              <video 
+                controls 
+                className="w-full h-full object-cover"
+              >
+                <source src="/Videos/rocket launch.mp4" type="video/mp4" />
+              </video>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* Teams - Minimal */}
+      <section className="py-32 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <ScrollReveal>
+            <div className="text-center mb-20">
+              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Four Teams. One Mission.</h2>
+              <p className="text-xl text-slate-500">Pick your department</p>
+            </div>
+          </ScrollReveal>
+
+          <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              { name: 'Software', desc: 'Flight computers, telemetry, simulations', color: 'from-blue-500 to-blue-600' },
+              { name: 'Avionics', desc: 'Circuits, sensors, control systems', color: 'from-emerald-500 to-emerald-600' },
+              { name: 'Rocketry', desc: 'Propulsion, structures, aerodynamics', color: 'from-red-500 to-red-600' },
+              { name: 'Finance', desc: 'Sponsorship, budgets, operations', color: 'from-amber-500 to-amber-600' },
+            ].map((dept) => (
+              <StaggerItem key={dept.name}>
+                <motion.div 
+                  className="group relative bg-white rounded-2xl p-8 border border-slate-200 hover:border-slate-300 transition-all cursor-pointer overflow-hidden"
+                  whileHover={{ y: -4 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${dept.color} opacity-0 group-hover:opacity-100 transition-opacity`} />
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">{dept.name}</h3>
+                  <p className="text-slate-500 text-sm">{dept.desc}</p>
+                </motion.div>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+
+          <ScrollReveal delay={0.4}>
+            <div className="text-center mt-12">
+              <Link to="/team" className="inline-flex items-center gap-2 text-slate-600 hover:text-slate-900 transition-colors group">
+                <span className="font-medium">Meet the full team</span>
+                <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* CTA - Big & Bold */}
+      <section className="py-32 bg-slate-900 relative overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-3xl" />
+        </div>
+        <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
+          <ScrollReveal>
+            <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">Ready to build?</h2>
+            <p className="text-xl text-slate-400 mb-12 max-w-2xl mx-auto">
+              No experience needed. Just curiosity and commitment. Join 50+ students building real aerospace systems.
+            </p>
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <motion.a 
+                href="https://discord.gg/VRZE2923" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="px-8 py-4 bg-white text-slate-900 font-semibold rounded-xl hover:bg-slate-100 transition-colors text-lg"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                Join Discord
+              </motion.a>
+              <motion.a 
+                href="mailto:rocketry@uoguelph.ca"
+                className="px-8 py-4 border border-slate-600 text-white font-semibold rounded-xl hover:bg-white/5 transition-colors text-lg"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                Email Us
+              </motion.a>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
     </div>
   )
 }
