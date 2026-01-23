@@ -89,14 +89,30 @@ const ChatbotWidget = () => {
     return () => clearTimeout(t)
   }, [isOpen, messages.length, currentConversation?.id])
 
-  // Count user messages in current conversation
-  const userMessageCount = messages.filter(m => m.is_user).length
+  // Global message limit using localStorage
   const MESSAGE_LIMIT = 8
-  const isAtLimit = userMessageCount >= MESSAGE_LIMIT
+  const STORAGE_KEY = 'chatbot_total_messages'
+  
+  const getTotalMessageCount = () => {
+    const stored = localStorage.getItem(STORAGE_KEY)
+    return stored ? parseInt(stored, 10) : 0
+  }
+  
+  const incrementMessageCount = () => {
+    const current = getTotalMessageCount()
+    localStorage.setItem(STORAGE_KEY, (current + 1).toString())
+  }
+  
+  const [totalMessageCount, setTotalMessageCount] = useState(getTotalMessageCount)
+  const isLockedOut = totalMessageCount >= MESSAGE_LIMIT
 
   const handleSendMessage = async (e) => {
     e.preventDefault()
-    if (!inputMessage.trim() || loading || isAtLimit) return
+    if (!inputMessage.trim() || loading || isLockedOut) return
+    
+    // Increment global message count
+    incrementMessageCount()
+    setTotalMessageCount(prev => prev + 1)
 
     const userMessage = inputMessage.trim()
     setInputMessage('')
@@ -377,17 +393,15 @@ const ChatbotWidget = () => {
 
               {/* Input Area */}
               <div className="p-3 bg-white border-t flex-shrink-0">
-                {isAtLimit ? (
-                  <div className="text-center py-2">
-                    <p className="text-sm text-gray-600 mb-2">
-                      You've reached the {MESSAGE_LIMIT} message limit for this conversation.
+                {isLockedOut ? (
+                  <div className="text-center py-3">
+                    <div className="text-2xl mb-2">🔒</div>
+                    <p className="text-sm text-gray-600 mb-1">
+                      You've used all {MESSAGE_LIMIT} messages.
                     </p>
-                    <button
-                      onClick={handleNewConversation}
-                      className="text-primary-600 hover:text-primary-700 text-sm font-medium"
-                    >
-                      ➕ Start a new conversation
-                    </button>
+                    <p className="text-xs text-gray-500">
+                      Contact us at <a href="mailto:rocketry@uoguelph.ca" className="text-primary-600 hover:underline">rocketry@uoguelph.ca</a> for more help!
+                    </p>
                   </div>
                 ) : (
                   <>
@@ -410,7 +424,7 @@ const ChatbotWidget = () => {
                       </button>
                     </form>
                     <p className="text-xs text-gray-400 text-center mt-1">
-                      {userMessageCount}/{MESSAGE_LIMIT} messages
+                      {totalMessageCount}/{MESSAGE_LIMIT} messages used
                     </p>
                   </>
                 )}
