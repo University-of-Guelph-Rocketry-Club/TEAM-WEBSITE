@@ -231,21 +231,17 @@ const ChatbotWidget = () => {
 
   return (
     <>
-      {/* CLOSED: small floating button with Coming Soon badge */}
+      {/* CLOSED: small floating button */}
       {!isOpen && (
         <div className="fixed bottom-6 right-6 z-50 pointer-events-auto">
           <div className="relative">
             <button
               onClick={() => setIsOpen(true)}
               className="bg-primary-600 hover:bg-primary-700 text-white rounded-full p-4 shadow-lg transition-all duration-300 hover:scale-110"
-              title="Open assistant (Coming Soon)"
+              title="Chat with AI Assistant"
             >
               <span className="text-xl">🤖</span>
             </button>
-            {/* Coming Soon Badge */}
-            <div className="absolute -top-2 -right-2 bg-yellow-400 text-gray-900 text-xs font-bold px-2 py-1 rounded-full shadow-md animate-pulse">
-              Soon
-            </div>
           </div>
         </div>
       )}
@@ -261,45 +257,131 @@ const ChatbotWidget = () => {
                   <span className="text-2xl">🤖</span>
                   <div>
                     <h3 className="font-semibold">Rocketry AI Assistant</h3>
-                    <p className="text-xs opacity-90">Coming Soon!</p>
+                    <p className="text-xs opacity-90">Ask me anything!</p>
                   </div>
                 </div>
 
                 <div className="flex items-center space-x-2">
+                  <button 
+                    onClick={() => setShowConversations(!showConversations)} 
+                    className="p-1 hover:bg-white/10 rounded text-sm"
+                    title="Conversation history"
+                  >
+                    📋
+                  </button>
+                  <button 
+                    onClick={handleNewConversation} 
+                    className="p-1 hover:bg-white/10 rounded text-sm"
+                    title="New conversation"
+                  >
+                    ➕
+                  </button>
                   <button onClick={() => setIsOpen(false)} className="p-1 hover:bg-white/10 rounded">✕</button>
                 </div>
               </div>
 
-              {/* Coming Soon Body */}
-              <div className="flex flex-col h-full items-center justify-center p-8 bg-gradient-to-br from-blue-50 to-purple-50">
-                <div className="text-center space-y-6">
-                  <div className="text-6xl mb-4">🚀</div>
-                  <h3 className="text-2xl font-bold text-gray-900">AI Assistant Coming Soon!</h3>
-                  <p className="text-gray-700 max-w-sm">
-                    We're building an intelligent rocketry assistant powered by OpenAI. 
-                    It will help answer questions about the club, our projects, and aerospace engineering!
-                  </p>
-                  <div className="bg-white rounded-lg p-4 shadow-md">
-                    <p className="text-sm text-gray-600 mb-3">In the meantime, reach out:</p>
-                    <div className="space-y-2">
-                      <a 
-                        href="https://discord.gg/VRZE2923" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="block bg-indigo-100 hover:bg-indigo-200 text-indigo-700 font-semibold py-2 px-4 rounded-lg transition-colors"
+              {/* Conversations List */}
+              {showConversations && (
+                <div className="bg-white border-b p-3 max-h-40 overflow-y-auto flex-shrink-0">
+                  <h4 className="text-sm font-semibold text-gray-700 mb-2">Recent Conversations</h4>
+                  {conversations.length === 0 ? (
+                    <p className="text-xs text-gray-500">No conversations yet</p>
+                  ) : (
+                    <ul className="space-y-1">
+                      {conversations.slice(0, 5).map(conv => (
+                        <li key={conv.id} className="flex justify-between items-center">
+                          <button
+                            onClick={() => handleSelectConversation(conv)}
+                            className={`text-xs text-left truncate flex-1 p-1 rounded hover:bg-gray-100 ${
+                              currentConversation?.id === conv.id ? 'bg-primary-50 text-primary-700' : 'text-gray-600'
+                            }`}
+                          >
+                            {conv.title || `Chat ${conv.id}`}
+                          </button>
+                          <button
+                            onClick={() => handleDeleteConversation(conv.id)}
+                            className="text-red-400 hover:text-red-600 p-1 text-xs"
+                            title="Delete"
+                          >
+                            🗑️
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              )}
+
+              {/* Messages Area */}
+              <div 
+                ref={messagesContainerRef}
+                className="flex-1 overflow-y-auto p-4 space-y-3 min-h-0"
+              >
+                {messages.length === 0 ? (
+                  <div className="text-center text-gray-500 py-8">
+                    <div className="text-4xl mb-3">👋</div>
+                    <p className="text-sm">Hi! Ask me about the UofG Rocketry Club, our projects, or how to join!</p>
+                  </div>
+                ) : (
+                  messages.map((msg, index) => (
+                    <div
+                      key={msg.id || index}
+                      className={`flex ${msg.is_user ? 'justify-end' : 'justify-start'}`}
+                    >
+                      <div
+                        className={`max-w-[85%] rounded-2xl px-4 py-2 ${
+                          msg.is_user
+                            ? 'bg-primary-600 text-white rounded-br-md'
+                            : 'bg-white shadow-sm border rounded-bl-md'
+                        }`}
                       >
-                        💬 Join Discord
-                      </a>
-                      <a 
-                        href="mailto:rocketry@uoguelph.ca"
-                        className="block bg-blue-100 hover:bg-blue-200 text-blue-700 font-semibold py-2 px-4 rounded-lg transition-colors"
-                      >
-                        📧 Email Us
-                      </a>
+                        <div 
+                          className={`text-sm whitespace-pre-wrap ${msg.is_user ? '' : 'prose prose-sm max-w-none'}`}
+                          dangerouslySetInnerHTML={{ 
+                            __html: msg.is_user ? msg.content : DOMPurify.sanitize(msg.content) 
+                          }}
+                        />
+                        <p className={`text-xs mt-1 ${msg.is_user ? 'text-primary-200' : 'text-gray-400'}`}>
+                          {formatMessageTime(msg.timestamp)}
+                        </p>
+                      </div>
+                    </div>
+                  ))
+                )}
+                {loading && (
+                  <div className="flex justify-start">
+                    <div className="bg-white shadow-sm border rounded-2xl rounded-bl-md px-4 py-3">
+                      <div className="flex space-x-1">
+                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                      </div>
                     </div>
                   </div>
-                  <p className="text-xs text-gray-500 italic">Expected launch: Winter 2025</p>
-                </div>
+                )}
+                <div ref={messagesEndRef} />
+              </div>
+
+              {/* Input Area */}
+              <div className="p-3 bg-white border-t flex-shrink-0">
+                <form onSubmit={handleSendMessage} className="flex space-x-2">
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    value={inputMessage}
+                    onChange={(e) => setInputMessage(e.target.value)}
+                    placeholder="Ask about the club..."
+                    className="flex-1 px-4 py-2 border rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    disabled={loading}
+                  />
+                  <button
+                    type="submit"
+                    disabled={loading || !inputMessage.trim()}
+                    className="bg-primary-600 hover:bg-primary-700 disabled:bg-gray-300 text-white px-4 py-2 rounded-full text-sm transition-colors"
+                  >
+                    Send
+                  </button>
+                </form>
               </div>
             </div>
           </div>
