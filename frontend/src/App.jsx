@@ -1,5 +1,5 @@
-import React from 'react'
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ChatbotWidget from './components/ChatbotWidget'
@@ -17,6 +17,17 @@ import Dashboard from './pages/Dashboard'
 import Teams from './pages/Teams'
 import TeamDetail from './pages/TeamDetail'
 
+// Scroll to top on route change
+const ScrollToTop = () => {
+  const { pathname } = useLocation()
+  
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
+  
+  return null
+}
+
 function App() {
   // Check if maintenance mode is enabled
   const isMaintenanceMode = import.meta.env.VITE_MAINTENANCE_MODE === 'true'
@@ -28,6 +39,7 @@ function App() {
 
   return (
     <Router>
+      <ScrollToTop />
       <div className="min-h-screen bg-gray-50">
         <Navbar />
         <main>

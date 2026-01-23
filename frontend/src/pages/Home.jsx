@@ -216,9 +216,9 @@ const Home = () => {
                   <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
                   <span className="text-xs font-mono text-green-400">JUST IN</span>
                 </div>
-                <h3 className="text-xl font-bold mb-3">Hardware Arrived</h3>
+                <h3 className="text-xl font-bold mb-3">Rocketry Kits Landed</h3>
                 <p className="text-slate-400 text-sm leading-relaxed">
-                  Avionics kits and propulsion components landed. Build sessions starting next week.
+                  Avionics and Rocketry departments just received their hardware kits and electronics. Assembly begins next week—stay tuned for build updates.
                 </p>
               </motion.div>
             </StaggerItem>
@@ -234,14 +234,14 @@ const Home = () => {
                   <span className="w-2 h-2 bg-purple-400 rounded-full" />
                   <span className="text-xs font-mono text-purple-400">ONGOING</span>
                 </div>
-                <h3 className="text-xl font-bold mb-3">Flight Software v0.2</h3>
+                <h3 className="text-xl font-bold mb-3">Software Development</h3>
                 <p className="text-slate-400 text-sm leading-relaxed">
-                  Telemetry system hitting 50Hz. Ground station UI coming together. Open source soon.
+                  Flight computer firmware, real-time telemetry dashboard, trajectory simulations, and ground station UI all in active development. Planning to open source.
                 </p>
               </motion.div>
             </StaggerItem>
 
-            {/* Test Stand */}
+            {/* Lab Fund Bid */}
             <StaggerItem>
               <motion.div 
                 className="bg-white/5 border border-white/10 rounded-3xl p-8 hover:bg-white/10 transition-colors group"
@@ -250,11 +250,11 @@ const Home = () => {
               >
                 <div className="flex items-center gap-2 mb-4">
                   <span className="w-2 h-2 bg-orange-400 rounded-full" />
-                  <span className="text-xs font-mono text-orange-400">IN PROGRESS</span>
+                  <span className="text-xs font-mono text-orange-400">UPCOMING</span>
                 </div>
-                <h3 className="text-xl font-bold mb-3">Test Stand Build</h3>
+                <h3 className="text-xl font-bold mb-3">Lab Funding Bid</h3>
                 <p className="text-slate-400 text-sm leading-relaxed">
-                  Static fire test stand nearing completion. Load cell integration this month.
+                  Preparing proposal for dedicated workshop space and equipment. Would give us room for static testing and assembly.
                 </p>
               </motion.div>
             </StaggerItem>
