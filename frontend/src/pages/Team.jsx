@@ -200,7 +200,7 @@ const Team = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="https://discord.gg/hZjQxvue" target="_blank" rel="noopener noreferrer" className="btn-primary">
+            <a href="https://discord.gg/VRZE2923" target="_blank" rel="noopener noreferrer" className="btn-primary">
               Join Discord Community
             </a>
             <a href="mailto:rocketry@uoguelph.ca" className="btn-secondary">

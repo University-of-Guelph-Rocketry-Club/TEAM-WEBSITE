@@ -74,7 +74,7 @@ CLUB_INFO = {
         "Educational rocketry workshops for UofG students"
     ],
     "social_links": {
-        "discord": "https://discord.gg/hZjQxvue",
+        "discord": "https://discord.gg/VRZE2923",
         "linkedin": "https://www.linkedin.com/company/uofg-rocketry-club/posts/",
         "instagram": "https://www.instagram.com/guelph_rockets"
     }

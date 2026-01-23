@@ -1,12 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
-from openai import AsyncOpenAI  # Update import
+from openai import AsyncOpenAI
 import os
 from ..db import get_db
-from ..models import Conversation as ConversationModel, ChatMessage as ChatMessageModel, User as UserModel
+from ..models import Conversation as ConversationModel, ChatMessage as ChatMessageModel
 from ..schemas import Conversation, ChatMessage, ChatMessageCreate, ChatResponse, ConversationCreate
-from ..auth import get_current_active_user
 from .team_info import TEAM_MEMBERS_INFO, PAGE_INFO, CLUB_INFO
 from datetime import datetime, timezone
 

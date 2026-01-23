@@ -283,7 +283,7 @@ const ChatbotWidget = () => {
                     <p className="text-sm text-gray-600 mb-3">In the meantime, reach out:</p>
                     <div className="space-y-2">
                       <a 
-                        href="https://discord.gg/hZjQxvue" 
+                        href="https://discord.gg/VRZE2923" 
                         target="_blank" 
                         rel="noopener noreferrer"
                         className="block bg-indigo-100 hover:bg-indigo-200 text-indigo-700 font-semibold py-2 px-4 rounded-lg transition-colors"

@@ -13,7 +13,7 @@ const DiscordAccess = () => {
       } catch (error) {
         console.error('Failed to fetch Discord invite:', error)
         // Fallback to a default invite link
-        setInviteUrl('https://discord.gg/hZjQxvue')
+        setInviteUrl('https://discord.gg/VRZE2923')
       } finally {
         setLoading(false)
       }

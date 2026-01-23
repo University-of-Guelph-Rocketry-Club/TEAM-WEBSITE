@@ -129,7 +129,7 @@ const Join = () => {
             </p>
             <div className="space-y-3">
               <a 
-                href="https://discord.gg/hZjQxvue" 
+                href="https://discord.gg/VRZE2923" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="btn-primary w-full text-center block"

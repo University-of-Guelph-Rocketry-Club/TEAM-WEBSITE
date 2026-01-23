@@ -1,9 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers import (
-    projects, news, contact, execs, sponsors, sponsor_inquiries, 
-    discord, auth, teams, project_updates, chatbot
-)
+from app.routers import chatbot
 from app.db import engine, Base
 import os
 from dotenv import load_dotenv
@@ -13,30 +10,24 @@ load_dotenv()
 # Create database tables
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="University of Guelph Rocketry Club API")
+app = FastAPI(title="University of Guelph Rocketry Club Chatbot API")
 
-# Configure CORS - Allow all origins for development
+# Configure CORS - Allow all origins for production
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=False,  # Set to False when using allow_origins=["*"]
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Include routers
-app.include_router(auth.router, prefix="/api/auth", tags=["authentication"])
-app.include_router(projects.router, prefix="/api/projects", tags=["projects"])
-app.include_router(news.router, prefix="/api/news", tags=["news"])
-app.include_router(contact.router, prefix="/api/contact", tags=["contact"])
-app.include_router(execs.router, prefix="/api/execs", tags=["executives"])
-app.include_router(sponsors.router, prefix="/api/sponsors", tags=["sponsors"])
-app.include_router(sponsor_inquiries.router, prefix="/api/sponsor-inquiries", tags=["sponsor-inquiries"])
-app.include_router(discord.router, prefix="/api/discord", tags=["discord"])
-app.include_router(teams.router, prefix="/api/teams", tags=["teams"])
-app.include_router(project_updates.router, prefix="/api/project-updates", tags=["project-updates"])
+# Include only the chatbot router
 app.include_router(chatbot.router, prefix="/api/chatbot", tags=["chatbot"])
 
 @app.get("/")
 def read_root():
-    return {"message": "University of Guelph Rocketry Club API"}
+    return {"message": "University of Guelph Rocketry Club Chatbot API"}
+
+@app.get("/api/health")
+def health_check():
+    return {"status": "healthy"}

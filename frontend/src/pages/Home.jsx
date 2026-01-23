@@ -196,7 +196,7 @@ const Home = () => {
             </div>
             
             <div className="text-center">
-              <a href="https://discord.gg/hZjQxvue" target="_blank" rel="noopener noreferrer" className="btn-primary inline-block">
+              <a href="https://discord.gg/VRZE2923" target="_blank" rel="noopener noreferrer" className="btn-primary inline-block">
                 Join the Hybrid Rocket Team
               </a>
             </div>
@@ -277,7 +277,7 @@ const Home = () => {
                   Stay tuned for exciting builds and projects coming soon!
                 </p>
                 <a 
-                  href="https://discord.gg/hZjQxvue" 
+                  href="https://discord.gg/VRZE2923" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="inline-flex items-center text-green-700 font-semibold hover:text-green-800"
@@ -300,7 +300,7 @@ const Home = () => {
                   for flight computers, telemetry, simulations, and ground station software.
                 </p>
                 <a 
-                  href="https://discord.gg/hZjQxvue" 
+                  href="https://discord.gg/VRZE2923" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="inline-flex items-center text-cyan-700 font-semibold hover:text-cyan-800"
@@ -409,7 +409,7 @@ const Home = () => {
               Have questions or want to get involved? Reach out to us!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="https://discord.gg/hZjQxvue" target="_blank" rel="noopener noreferrer" className="btn-primary">
+              <a href="https://discord.gg/VRZE2923" target="_blank" rel="noopener noreferrer" className="btn-primary">
                 Join Discord
               </a>
               <a href="mailto:rocketry@uoguelph.ca" className="btn-secondary">
@@ -585,7 +585,7 @@ const Home = () => {
           <div className="space-y-6">
             <h3 className="text-xl font-bold text-gray-900">Connect With Us</h3>
             <div className="space-y-4">
-              <a href="https://discord.gg/hZjQxvue" target="_blank" rel="noopener noreferrer" 
+              <a href="https://discord.gg/VRZE2923" target="_blank" rel="noopener noreferrer" 
                  className="flex items-center space-x-3 p-4 bg-indigo-50 rounded-xl hover:bg-indigo-100 transition-colors">
                 <div className="w-12 h-12 bg-indigo-500 rounded-xl flex items-center justify-center text-white text-xl">
                   💬
