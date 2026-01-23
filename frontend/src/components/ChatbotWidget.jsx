@@ -89,22 +89,75 @@ const ChatbotWidget = () => {
     return () => clearTimeout(t)
   }, [isOpen, messages.length, currentConversation?.id])
 
-  // Global message limit using localStorage
+  // Global message limit using localStorage with 12-hour cooldown
   const MESSAGE_LIMIT = 8
+  const COOLDOWN_HOURS = 12
   const STORAGE_KEY = 'chatbot_total_messages'
+  const LOCKOUT_TIME_KEY = 'chatbot_lockout_time'
+  
+  const checkAndResetIfCooldownPassed = () => {
+    const lockoutTime = localStorage.getItem(LOCKOUT_TIME_KEY)
+    if (lockoutTime) {
+      const lockoutDate = new Date(parseInt(lockoutTime, 10))
+      const now = new Date()
+      const hoursPassed = (now - lockoutDate) / (1000 * 60 * 60)
+      if (hoursPassed >= COOLDOWN_HOURS) {
+        // Reset after cooldown
+        localStorage.removeItem(STORAGE_KEY)
+        localStorage.removeItem(LOCKOUT_TIME_KEY)
+        return 0
+      }
+    }
+    return null // No reset needed
+  }
   
   const getTotalMessageCount = () => {
+    const resetResult = checkAndResetIfCooldownPassed()
+    if (resetResult === 0) return 0
     const stored = localStorage.getItem(STORAGE_KEY)
     return stored ? parseInt(stored, 10) : 0
   }
   
   const incrementMessageCount = () => {
     const current = getTotalMessageCount()
-    localStorage.setItem(STORAGE_KEY, (current + 1).toString())
+    const newCount = current + 1
+    localStorage.setItem(STORAGE_KEY, newCount.toString())
+    // Set lockout time when hitting the limit
+    if (newCount >= MESSAGE_LIMIT) {
+      localStorage.setItem(LOCKOUT_TIME_KEY, Date.now().toString())
+    }
+  }
+  
+  const getTimeUntilReset = () => {
+    const lockoutTime = localStorage.getItem(LOCKOUT_TIME_KEY)
+    if (!lockoutTime) return null
+    const lockoutDate = new Date(parseInt(lockoutTime, 10))
+    const resetTime = new Date(lockoutDate.getTime() + COOLDOWN_HOURS * 60 * 60 * 1000)
+    const now = new Date()
+    const msRemaining = resetTime - now
+    if (msRemaining <= 0) return null
+    const hoursRemaining = Math.floor(msRemaining / (1000 * 60 * 60))
+    const minutesRemaining = Math.floor((msRemaining % (1000 * 60 * 60)) / (1000 * 60))
+    return `${hoursRemaining}h ${minutesRemaining}m`
   }
   
   const [totalMessageCount, setTotalMessageCount] = useState(getTotalMessageCount)
+  const [timeUntilReset, setTimeUntilReset] = useState(getTimeUntilReset)
   const isLockedOut = totalMessageCount >= MESSAGE_LIMIT
+  
+  // Update time remaining every minute
+  useEffect(() => {
+    if (!isLockedOut) return
+    const interval = setInterval(() => {
+      const time = getTimeUntilReset()
+      setTimeUntilReset(time)
+      if (!time) {
+        // Cooldown passed, reset
+        setTotalMessageCount(0)
+      }
+    }, 60000) // Check every minute
+    return () => clearInterval(interval)
+  }, [isLockedOut])
 
   const handleSendMessage = async (e) => {
     e.preventDefault()
@@ -399,6 +452,11 @@ const ChatbotWidget = () => {
                     <p className="text-sm text-gray-600 mb-1">
                       You've used all {MESSAGE_LIMIT} messages.
                     </p>
+                    {timeUntilReset && (
+                      <p className="text-xs text-primary-600 font-medium mb-1">
+                        Resets in {timeUntilReset}
+                      </p>
+                    )}
                     <p className="text-xs text-gray-500">
                       Contact us at <a href="mailto:rocketry@uoguelph.ca" className="text-primary-600 hover:underline">rocketry@uoguelph.ca</a> for more help!
                     </p>
