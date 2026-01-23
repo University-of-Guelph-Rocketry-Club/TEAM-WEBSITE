@@ -62,6 +62,7 @@ PAGE_INFO = {
 # Club information
 CLUB_INFO = {
     "name": "University of Guelph Rocketry Club",
+    "email": "rocketry@uoguelph.ca",
     "vision": "Building and giving University of Guelph students fun rocketry experiences",
     "description": "We are working on entering Launch Canada for 2026 and developing a CubeSat project for land surveying research",
     "departments": ["Software", "Avionics", "Rocketry", "Finance"],
@@ -76,6 +77,7 @@ CLUB_INFO = {
     "social_links": {
         "discord": "https://discord.gg/VRZE2923",
         "linkedin": "https://www.linkedin.com/company/uofg-rocketry-club/posts/",
-        "instagram": "https://www.instagram.com/guelph_rockets"
+        "instagram": "https://www.instagram.com/guelph_rockets",
+        "email": "rocketry@uoguelph.ca"
     }
 }
