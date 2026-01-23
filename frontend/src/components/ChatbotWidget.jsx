@@ -89,9 +89,14 @@ const ChatbotWidget = () => {
     return () => clearTimeout(t)
   }, [isOpen, messages.length, currentConversation?.id])
 
+  // Count user messages in current conversation
+  const userMessageCount = messages.filter(m => m.is_user).length
+  const MESSAGE_LIMIT = 8
+  const isAtLimit = userMessageCount >= MESSAGE_LIMIT
+
   const handleSendMessage = async (e) => {
     e.preventDefault()
-    if (!inputMessage.trim() || loading) return
+    if (!inputMessage.trim() || loading || isAtLimit) return
 
     const userMessage = inputMessage.trim()
     setInputMessage('')
@@ -372,24 +377,43 @@ const ChatbotWidget = () => {
 
               {/* Input Area */}
               <div className="p-3 bg-white border-t flex-shrink-0">
-                <form onSubmit={handleSendMessage} className="flex space-x-2">
-                  <input
-                    ref={inputRef}
-                    type="text"
-                    value={inputMessage}
-                    onChange={(e) => setInputMessage(e.target.value)}
-                    placeholder="Ask about the club..."
-                    className="flex-1 px-4 py-2 border rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
-                    disabled={loading}
-                  />
-                  <button
-                    type="submit"
-                    disabled={loading || !inputMessage.trim()}
-                    className="bg-primary-600 hover:bg-primary-700 disabled:bg-gray-300 text-white px-4 py-2 rounded-full text-sm transition-colors"
-                  >
-                    Send
-                  </button>
-                </form>
+                {isAtLimit ? (
+                  <div className="text-center py-2">
+                    <p className="text-sm text-gray-600 mb-2">
+                      You've reached the {MESSAGE_LIMIT} message limit for this conversation.
+                    </p>
+                    <button
+                      onClick={handleNewConversation}
+                      className="text-primary-600 hover:text-primary-700 text-sm font-medium"
+                    >
+                      ➕ Start a new conversation
+                    </button>
+                  </div>
+                ) : (
+                  <>
+                    <form onSubmit={handleSendMessage} className="flex space-x-2">
+                      <input
+                        ref={inputRef}
+                        type="text"
+                        value={inputMessage}
+                        onChange={(e) => setInputMessage(e.target.value)}
+                        placeholder="Ask about the club..."
+                        className="flex-1 px-4 py-2 border rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                        disabled={loading}
+                      />
+                      <button
+                        type="submit"
+                        disabled={loading || !inputMessage.trim()}
+                        className="bg-primary-600 hover:bg-primary-700 disabled:bg-gray-300 text-white px-4 py-2 rounded-full text-sm transition-colors"
+                      >
+                        Send
+                      </button>
+                    </form>
+                    <p className="text-xs text-gray-400 text-center mt-1">
+                      {userMessageCount}/{MESSAGE_LIMIT} messages
+                    </p>
+                  </>
+                )}
               </div>
             </div>
           </div>
