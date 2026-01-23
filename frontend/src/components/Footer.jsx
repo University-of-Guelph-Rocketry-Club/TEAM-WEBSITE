@@ -44,7 +44,7 @@ const Footer = () => {
 
         <div className="border-t border-slate-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-slate-500 text-sm">
-            © 2026 University of Guelph Rocketry Club
+            © 2025 University of Guelph Rocketry Club
           </p>
           <p className="text-slate-500 text-sm mt-2 md:mt-0">
             Guelph, Ontario, Canada
