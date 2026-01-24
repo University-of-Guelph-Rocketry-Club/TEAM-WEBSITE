@@ -81,7 +81,7 @@ const Home = () => {
           </ScrollReveal>
 
           <StaggerContainer className="grid lg:grid-cols-2 gap-8">
-            {/* Hybrid Rocket - Primary Card */}
+            {/* CubeSat - Primary Card */}
             <StaggerItem>
               <motion.div 
                 className="group relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-3xl p-10 h-full overflow-hidden"
@@ -94,26 +94,26 @@ const Home = () => {
                     <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
                     <span className="text-green-400 text-sm font-medium">In Development</span>
                   </div>
-                  <h3 className="text-3xl font-bold text-white mb-4">Hybrid Rocket Engine</h3>
+                  <h3 className="text-3xl font-bold text-white mb-4">CubeSat ML Mission</h3>
                   <p className="text-slate-300 mb-8 leading-relaxed">
-                    Solid fuel. Liquid oxidizer. Maximum control. Our hybrid propulsion system targets 10,000ft AGL for Launch Canada 2026.
+                    Student-led satellite mission featuring on-orbit Machine Learning inference using ASICs and FPGAs. Processing spectrometric and visual data in real-time at the edge of space.
                   </p>
                   <div className="flex flex-wrap gap-2 mb-8">
-                    {['N₂O Oxidizer', 'HTPB Fuel', '3D Printed Injector', 'Custom Test Stand'].map((tag) => (
+                    {['ML Inference', 'ASIC/FPGA', 'Spectrometry', 'Edge Computing'].map((tag) => (
                       <span key={tag} className="px-3 py-1.5 bg-white/10 text-slate-300 text-xs font-mono rounded-full backdrop-blur-sm">
                         {tag}
                       </span>
                     ))}
                   </div>
                   <div className="flex items-center justify-between pt-6 border-t border-white/10">
-                    <span className="text-slate-400 text-sm">Target: Launch Canada 2026</span>
-                    <div className="text-4xl font-bold text-white/20 font-mono">LC26</div>
+                    <span className="text-slate-400 text-sm">Target: Orbit 2028</span>
+                    <div className="text-4xl font-bold text-white/20 font-mono">SAT</div>
                   </div>
                 </div>
               </motion.div>
             </StaggerItem>
 
-            {/* CubeSat - Secondary Card */}
+            {/* Hybrid Rocket - Secondary Card */}
             <StaggerItem>
               <motion.div 
                 className="group relative bg-slate-50 border-2 border-slate-200 rounded-3xl p-10 h-full overflow-hidden hover:border-slate-300 transition-colors"
@@ -124,20 +124,20 @@ const Home = () => {
                   <span className="w-2 h-2 bg-blue-500 rounded-full" />
                   <span className="text-blue-600 text-sm font-medium">Research Phase</span>
                 </div>
-                <h3 className="text-3xl font-bold text-slate-900 mb-4">CubeSat Mission</h3>
+                <h3 className="text-3xl font-bold text-slate-900 mb-4">Hybrid Rocket Engine</h3>
                 <p className="text-slate-600 mb-8 leading-relaxed">
-                  A 3U CubeSat for agricultural land surveying. Multispectral imaging to monitor crop health and soil conditions across Ontario.
+                  Developing an advanced hybrid propulsion system combining solid fuel with liquid oxidizer for superior control and safety in high-altitude missions.
                 </p>
                 <div className="flex flex-wrap gap-2 mb-8">
-                  {['3U Form Factor', 'Multispectral Camera', 'UHF Comms', 'Attitude Control'].map((tag) => (
+                  {['N₂O Oxidizer', 'HTPB Fuel', '3D Printed Injector', 'Test Stand'].map((tag) => (
                     <span key={tag} className="px-3 py-1.5 bg-slate-200 text-slate-600 text-xs font-mono rounded-full">
                       {tag}
                     </span>
                   ))}
                 </div>
                 <div className="flex items-center justify-between pt-6 border-t border-slate-200">
-                  <span className="text-slate-400 text-sm">Target: Orbit 2028</span>
-                  <div className="text-4xl font-bold text-slate-200 font-mono">SAT</div>
+                  <span className="text-slate-400 text-sm">Timeline: 3-4 years</span>
+                  <div className="text-4xl font-bold text-slate-200 font-mono">HYB</div>
                 </div>
               </motion.div>
             </StaggerItem>

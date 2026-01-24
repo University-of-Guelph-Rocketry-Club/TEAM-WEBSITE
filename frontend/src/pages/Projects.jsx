@@ -2,11 +2,11 @@ const Projects = () => {
   const projects = [
     {
       id: 1,
-      title: 'Hybrid Rocket Propulsion',
-      description: 'Designing and building a hybrid rocket motor combining solid fuel with liquid oxidizer. This system offers improved safety and controllability for high-altitude flights.',
-      status: 'Research Phase',
-      category: 'Propulsion',
-      technologies: ['Hybrid Propulsion', 'CAD Design', 'Fluid Dynamics', 'Control Systems'],
+      title: 'Launch Canada 2026 Competition Rocket',
+      description: 'Designing and building a high-performance competition rocket to compete at Launch Canada 2026. Our team is developing a complete launch vehicle with advanced avionics, recovery systems, and optimized aerodynamics to achieve maximum altitude while ensuring safe recovery.',
+      status: 'In Development',
+      category: 'Competition',
+      technologies: ['Aerodynamics', 'Recovery Systems', 'Flight Computer', 'Telemetry', 'Composite Materials'],
       timeline: '2025-2026',
       target: 'Launch Canada 2026'
     },
@@ -22,13 +22,13 @@ const Projects = () => {
     },
     {
       id: 3,
-      title: 'Competition Rocket',
-      description: 'High-performance rocket designed for maximum altitude with stability and safe recovery systems for national competition.',
-      status: 'In Development',
-      category: 'Competition',
-      technologies: ['Aerodynamics', 'Recovery Systems', 'Telemetry', 'Composites'],
-      timeline: '2025-2026',
-      target: 'Launch Canada 2026'
+      title: 'Hybrid Rocket Propulsion',
+      description: 'Long-term research and development of an advanced hybrid rocket motor combining solid fuel with liquid oxidizer. This system offers improved safety and controllability for high-altitude flights, with the goal of developing flight-ready propulsion technology over the next 3-4 years.',
+      status: 'Research Phase',
+      category: 'Propulsion',
+      technologies: ['Hybrid Propulsion', 'CAD Design', 'Fluid Dynamics', 'Control Systems', 'Test Stand Engineering'],
+      timeline: '2025-2029',
+      target: 'Flight-Ready System'
     }
   ]
 
