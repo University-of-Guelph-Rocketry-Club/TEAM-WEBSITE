@@ -38,3 +38,5 @@ class Conversation(ConversationBase):
 class ChatResponse(BaseModel):
     message: ChatMessage
     conversation: Conversation
+    admin_mode: Optional[bool] = False
+    admin_info: Optional[dict] = None
