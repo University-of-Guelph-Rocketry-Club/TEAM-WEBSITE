@@ -30,25 +30,31 @@ const Privacy = () => {
             <div className="mb-12">
               <h2 className="text-2xl font-bold text-slate-900 mb-4">Information We Collect</h2>
               <p className="text-slate-700 leading-relaxed mb-4">
-                When you interact with our AI chatbot assistant, we may collect:
+                When you interact with our AI chatbot assistant, we may or may not collect:
               </p>
               <ul className="list-disc pl-6 text-slate-700 space-y-2 mb-4">
-                <li><strong>Chat messages:</strong> Your questions and messages to the chatbot may be logged depending on system configuration and circumstances</li>
-                <li><strong>Conversation data:</strong> AI responses and conversation history may be recorded during your session</li>
-                <li><strong>Timestamps:</strong> Date and time information may be captured</li>
-                <li><strong>Technical data:</strong> Browser type, device information, and IP address may be collected through standard web logs</li>
+                <li><strong>Chat messages:</strong> Your questions and messages to the chatbot may be logged, but collection is not guaranteed and depends on various factors</li>
+                <li><strong>Conversation data:</strong> AI responses and conversation history might be recorded, but this is not automatic for all interactions</li>
+                <li><strong>Timestamps:</strong> Date and time information could be captured depending on circumstances</li>
+                <li><strong>Technical data:</strong> Browser type, device information, and IP address might be collected through standard web logs, but not actively monitored</li>
                 <li><strong>Website analytics:</strong> We may track the number of visitors, page views, and general usage patterns</li>
-                <li><strong>User behavior:</strong> Pages visited, time spent on site, and navigation patterns may be logged</li>
+                <li><strong>User behavior:</strong> Pages visited, time spent on site, and navigation patterns could be logged</li>
               </ul>
+              <p className="text-slate-700 leading-relaxed mb-4">
+                <strong>Important:</strong> Even if data is technically collected by our systems, it doesn't mean we 
+                actively review, use, or see it. Most data collection happens automatically through standard web 
+                infrastructure and may not be accessed at all.
+              </p>
               <p className="text-slate-700 leading-relaxed mb-4">
                 <strong>We do NOT collect:</strong> Personal identification information, names, email addresses, 
                 or any data that directly identifies you unless you voluntarily provide it in your messages.
               </p>
               <div className="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded mt-4">
                 <p className="text-sm text-slate-700">
-                  <strong>Important:</strong> Chat conversations with our AI assistant may be logged depending on operational needs. 
-                  Collection is not guaranteed for all interactions and depends on system configuration. 
-                  Do not share sensitive personal information, passwords, or confidential data in the chatbot.
+                  <strong>Transparency:</strong> While our systems may have the capability to log chat conversations, 
+                  this doesn't mean we're actively collecting, reviewing, or using your data. Data collection may or 
+                  may not occur depending on system configuration and operational circumstances. Still, to be safe, 
+                  don't share sensitive personal information, passwords, or confidential data in the chatbot.
                 </p>
               </div>
             </div>

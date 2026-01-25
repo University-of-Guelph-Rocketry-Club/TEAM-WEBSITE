@@ -205,12 +205,12 @@ CLUB_INFO = {
     },
     
     "privacy_policy": {
-        "summary": "We have a comprehensive privacy policy for our AI chatbot. All chat conversations are logged and stored. We collect chat messages, timestamps, and basic analytics like visitor counts. We do NOT collect personal identification unless you provide it. Maximum 12 messages per user every 12 hours.",
+        "summary": "We have a comprehensive privacy policy for our AI chatbot. Chat conversations may or may not be logged - collection is not guaranteed and depends on system configuration. Even if data is technically collected, we don't actively monitor, review, or use most of it. We do NOT collect personal identification unless you provide it. Maximum 12 messages per user every 12 hours.",
         "data_collected": [
-            "Chat messages with AI assistant (all conversations are logged)",
-            "Timestamps and conversation history",
-            "Website analytics: visitor numbers, page views, usage patterns",
-            "Technical data: browser type, device info, IP addresses",
+            "Chat messages with AI assistant (may or may not be logged, not guaranteed)",
+            "Timestamps and conversation history (collection is conditional)",
+            "Website analytics: visitor numbers, page views, usage patterns (passive collection)",
+            "Technical data: browser type, device info, IP addresses (may be logged but not actively monitored)",
             "Cookies for website functionality and analytics"
         ],
         "cookies": {
