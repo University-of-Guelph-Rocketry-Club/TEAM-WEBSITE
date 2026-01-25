@@ -242,7 +242,7 @@ async def send_message(
         # Add recent conversation history (including the user message we just saved)
         recent_messages = db.query(ChatMessageModel).filter(
             ChatMessageModel.conversation_id == conversation.id
-        ).order_by(ChatMessageModel.timestamp.desc()).limit(10).all()
+        ).order_by(ChatMessageModel.timestamp.desc()).limit(12).all()
 
         for msg in reversed(recent_messages):
             role = "user" if msg.is_user else "assistant"

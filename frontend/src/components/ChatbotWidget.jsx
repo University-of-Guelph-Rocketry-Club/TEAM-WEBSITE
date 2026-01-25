@@ -90,7 +90,7 @@ const ChatbotWidget = () => {
   }, [isOpen, messages.length, currentConversation?.id])
 
   // Global message limit using localStorage with 12-hour cooldown
-  const MESSAGE_LIMIT = 8
+  const MESSAGE_LIMIT = 12
   const COOLDOWN_HOURS = 12
   const STORAGE_KEY = 'chatbot_total_messages'
   const LOCKOUT_TIME_KEY = 'chatbot_lockout_time'
@@ -212,8 +212,19 @@ const ChatbotWidget = () => {
       scrollToBottom()
     } catch (error) {
       console.error('Failed to send message:', error)
-      setMessages(prev => prev.filter(m => m.id !== 'typing').slice(0, -1))
-      alert('Failed to send message. Please try again.')
+      setMessages(prev => {
+        const cleaned = prev.filter(m => m.id !== 'typing')
+        return [
+          ...cleaned,
+          {
+            id: Date.now(),
+            content: '❌ Connection error. Please check your internet connection and try again.',
+            is_user: false,
+            timestamp: new Date().toISOString(),
+            error: true
+          }
+        ]
+      })
     } finally {
       setLoading(false)
     }
