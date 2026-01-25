@@ -1,15 +1,87 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from typing import List
+from sqlalchemy import func
+from typing import List, Dict, Any
 from openai import AsyncOpenAI
 import os
 from ..db import get_db
 from ..models import Conversation as ConversationModel, ChatMessage as ChatMessageModel
 from ..schemas import Conversation, ChatMessage, ChatMessageCreate, ChatResponse, ConversationCreate
 from .team_info import TEAM_MEMBERS_INFO, PAGE_INFO, CLUB_INFO
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
 router = APIRouter()
+
+# Admin configuration
+ADMIN_STUDENT_NUMBER = "1326089"
+ADMIN_INFO = {
+    "name": "Nick",
+    "role": "Software Lead",
+    "title": "Club Executive - Software Lead"
+}
+
+def check_admin_auth(message_content: str) -> bool:
+    """Check if message contains admin student number for authentication"""
+    return ADMIN_STUDENT_NUMBER in message_content.strip()
+
+@router.get("/analytics")
+def get_analytics(db: Session = Depends(get_db)) -> Dict[str, Any]:
+    """Return chatbot analytics for admin dashboard"""
+    # Total conversations
+    total_conversations = db.query(func.count(ConversationModel.id)).scalar()
+    
+    # Total messages
+    total_messages = db.query(func.count(ChatMessageModel.id)).scalar()
+    user_messages = db.query(func.count(ChatMessageModel.id)).filter(
+        ChatMessageModel.is_user == True
+    ).scalar()
+    ai_messages = db.query(func.count(ChatMessageModel.id)).filter(
+        ChatMessageModel.is_user == False
+    ).scalar()
+    
+    # Messages in last 24 hours
+    yesterday = datetime.now(timezone.utc) - timedelta(days=1)
+    messages_24h = db.query(func.count(ChatMessageModel.id)).filter(
+        ChatMessageModel.timestamp >= yesterday
+    ).scalar()
+    
+    # Messages in last 7 days
+    last_week = datetime.now(timezone.utc) - timedelta(days=7)
+    messages_7d = db.query(func.count(ChatMessageModel.id)).filter(
+        ChatMessageModel.timestamp >= last_week
+    ).scalar()
+    
+    # Average messages per conversation
+    avg_messages = round(total_messages / total_conversations, 2) if total_conversations > 0 else 0
+    
+    # Recent conversations (last 10)
+    recent_convos = db.query(ConversationModel).order_by(
+        ConversationModel.updated_at.desc()
+    ).limit(10).all()
+    
+    recent_list = []
+    for conv in recent_convos:
+        msg_count = db.query(func.count(ChatMessageModel.id)).filter(
+            ChatMessageModel.conversation_id == conv.id
+        ).scalar()
+        recent_list.append({
+            "id": conv.id,
+            "title": conv.title,
+            "message_count": msg_count,
+            "last_updated": conv.updated_at.isoformat(),
+            "created_at": conv.created_at.isoformat()
+        })
+    
+    return {
+        "total_conversations": total_conversations,
+        "total_messages": total_messages,
+        "user_messages": user_messages,
+        "ai_messages": ai_messages,
+        "messages_last_24h": messages_24h,
+        "messages_last_7d": messages_7d,
+        "avg_messages_per_conversation": avg_messages,
+        "recent_conversations": recent_list
+    }
 
 # Initialize OpenAI client
 client = AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))  # Update client initialization
@@ -217,6 +289,9 @@ async def send_message(
     db: Session = Depends(get_db)
 ):
     try:
+        # Check for admin authentication
+        is_admin = check_admin_auth(message.content)
+        
         # Find or create conversation first
         conversation = None
         if message.conversation_id:
@@ -225,7 +300,7 @@ async def send_message(
         if not conversation:
             # Create new conversation for anonymous user
             conversation = ConversationModel(
-                title="New Conversation",
+                title="Admin Session" if is_admin else "New Conversation",
                 user_id=None
             )
             db.add(conversation)
@@ -244,7 +319,96 @@ async def send_message(
         db.refresh(user_msg)
         # -------------------------------------------------------------------------------
 
+        # Handle admin authentication
+        if is_admin:
+            admin_response = f"""🔐 **Admin Access Granted**
+            
+Welcome back, {ADMIN_INFO['name']}!
+**Role:** {ADMIN_INFO['title']}
+
+✅ **Executive Mode Activated**
+• Unlimited chat messages
+• Analytics dashboard access
+• Full conversation history
+• Priority AI responses
+
+**Available Commands:**
+• Type "analytics" to view chatbot statistics
+• Type "recent" to see recent conversations
+• Type "help" for admin features
+
+You now have full executive access to all club systems. How can I assist you today?"""
+            
+            current_time = datetime.now(timezone.utc)
+            ai_message = ChatMessageModel(
+                conversation_id=conversation.id,
+                content=admin_response,
+                is_user=False,
+                timestamp=current_time
+            )
+            db.add(ai_message)
+            db.commit()
+            db.refresh(ai_message)
+            
+            conversation.updated_at = ai_message.timestamp
+            db.commit()
+            db.refresh(conversation)
+            
+            messages_for_response = db.query(ChatMessageModel).filter(
+                ChatMessageModel.conversation_id == conversation.id
+            ).order_by(ChatMessageModel.timestamp.asc()).all()
+
+            message_list = [
+                {
+                    "id": m.id,
+                    "conversation_id": m.conversation_id,
+                    "content": m.content,
+                    "is_user": m.is_user,
+                    "timestamp": m.timestamp.isoformat()
+                } for m in messages_for_response
+            ]
+
+            conversation_dict = {
+                "id": conversation.id,
+                "title": conversation.title,
+                "user_id": conversation.user_id,
+                "created_at": conversation.created_at.isoformat(),
+                "updated_at": conversation.updated_at.isoformat(),
+                "messages": message_list
+            }
+
+            ai_message_dict = {
+                "id": ai_message.id,
+                "conversation_id": ai_message.conversation_id,
+                "content": ai_message.content,
+                "is_user": ai_message.is_user,
+                "timestamp": ai_message.timestamp.isoformat()
+            }
+
+            return {
+                "message": ai_message_dict,
+                "conversation": conversation_dict,
+                "admin_mode": True,
+                "admin_info": ADMIN_INFO
+            }
+
         # After conversation is defined, create system message and handle chat
+        # Check if this conversation has admin privileges
+        admin_msgs = db.query(ChatMessageModel).filter(
+            ChatMessageModel.conversation_id == conversation.id,
+            ChatMessageModel.content.contains(ADMIN_STUDENT_NUMBER)
+        ).first()
+        has_admin_access = admin_msgs is not None
+        
+        admin_context = ""
+        if has_admin_access:
+            admin_context = f"""\n\n**ADMIN MODE ACTIVE**
+User: {ADMIN_INFO['name']} ({ADMIN_INFO['title']})
+Executive privileges: Enabled
+
+You can provide analytics data, detailed club statistics, and executive-level information.
+When the user asks for "analytics" or "stats", provide detailed chatbot usage statistics."""
+        
         system_message = {
             "role": "system",
             "content": f"""You are the University of Guelph Rocketry Club's AI assistant. 
@@ -254,7 +418,7 @@ async def send_message(
             For example: To view our projects, visit <a href='/projects' class='text-primary-600 hover:text-primary-800 transition-colors'>Projects page</a>.
 
             {get_team_context()}
-            {get_page_context()}
+            {get_page_context()}{admin_context}
 
             Always use HTML anchor tags for links, not markdown or plain URLs."""
         }
@@ -462,7 +626,12 @@ Ask me anything about our club, projects, or how to get involved!"""
             "timestamp": ai_message.timestamp.isoformat()
         }
 
-        return {"message": ai_message_dict, "conversation": conversation_dict}
+        response_data = {"message": ai_message_dict, "conversation": conversation_dict}
+        if has_admin_access:
+            response_data["admin_mode"] = True
+            response_data["admin_info"] = ADMIN_INFO
+        
+        return response_data
 
     except Exception as e:
         print(f"Detailed error: {str(e)}")

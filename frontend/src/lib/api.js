@@ -62,6 +62,7 @@ export const getConversation = (id) => api.get(`/chatbot/conversations/${id}`)
 export const sendChatMessage = (data) => api.post('/chatbot/chat', data)
 export const deleteConversation = (id) => api.delete(`/chatbot/conversations/${id}`)
 export const getConversationMessages = (id) => api.get(`/chatbot/conversations/${id}/messages`)
+export const getChatbotAnalytics = () => api.get('/chatbot/analytics')
 
 // Set up request interceptor to add auth token
 api.interceptors.request.use(

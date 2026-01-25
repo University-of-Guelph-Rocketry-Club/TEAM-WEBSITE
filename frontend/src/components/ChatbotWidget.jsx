@@ -3,7 +3,8 @@ import {
   getConversations, 
   createConversation, 
   getConversation,
-  deleteConversation 
+  deleteConversation,
+  getChatbotAnalytics
 } from '../lib/api'
 import DOMPurify from 'dompurify'
 import { useState, useEffect, useRef } from 'react'
@@ -17,6 +18,10 @@ const ChatbotWidget = () => {
   const [inputMessage, setInputMessage] = useState('')
   const [loading, setLoading] = useState(false)
   const [showConversations, setShowConversations] = useState(false)
+  const [adminMode, setAdminMode] = useState(false)
+  const [adminInfo, setAdminInfo] = useState(null)
+  const [showAnalytics, setShowAnalytics] = useState(false)
+  const [analyticsData, setAnalyticsData] = useState(null)
   
   const navigate = useNavigate()
   const messagesContainerRef = useRef(null) // NEW: container ref for intercepting clicks
@@ -143,7 +148,17 @@ const ChatbotWidget = () => {
   
   const [totalMessageCount, setTotalMessageCount] = useState(getTotalMessageCount)
   const [timeUntilReset, setTimeUntilReset] = useState(getTimeUntilReset)
-  const isLockedOut = totalMessageCount >= MESSAGE_LIMIT
+  const isLockedOut = totalMessageCount >= MESSAGE_LIMIT && !adminMode
+  
+  // Load admin mode from localStorage on mount
+  useEffect(() => {
+    const savedAdminMode = localStorage.getItem('chatbot_admin_mode')
+    const savedAdminInfo = localStorage.getItem('chatbot_admin_info')
+    if (savedAdminMode === 'true' && savedAdminInfo) {
+      setAdminMode(true)
+      setAdminInfo(JSON.parse(savedAdminInfo))
+    }
+  }, [])
   
   // Update time remaining every minute
   useEffect(() => {
@@ -161,11 +176,14 @@ const ChatbotWidget = () => {
 
   const handleSendMessage = async (e) => {
     e.preventDefault()
-    if (!inputMessage.trim() || loading || isLockedOut) return
+    // Skip limit check if admin mode is active
+    if (!inputMessage.trim() || loading || (isLockedOut && !adminMode)) return
     
-    // Increment global message count
-    incrementMessageCount()
-    setTotalMessageCount(prev => prev + 1)
+    // Only increment message count if not in admin mode
+    if (!adminMode) {
+      incrementMessageCount()
+      setTotalMessageCount(prev => prev + 1)
+    }
 
     const userMessage = inputMessage.trim()
     setInputMessage('')
@@ -194,7 +212,19 @@ const ChatbotWidget = () => {
         conversation_id: currentConversation?.id
       })
 
-      const { message: aiMessage, conversation } = response.data
+      const { message: aiMessage, conversation, admin_mode, admin_info } = response.data
+
+      // Check for admin mode activation
+      if (admin_mode && !adminMode) {
+        setAdminMode(true)
+        setAdminInfo(admin_info)
+        localStorage.setItem('chatbot_admin_mode', 'true')
+        localStorage.setItem('chatbot_admin_info', JSON.stringify(admin_info))
+        // Reset message count when admin mode activates
+        localStorage.removeItem(STORAGE_KEY)
+        localStorage.removeItem(LOCKOUT_TIME_KEY)
+        setTotalMessageCount(0)
+      }
 
       if (!currentConversation) {
         setCurrentConversation(conversation)
@@ -263,10 +293,23 @@ const ChatbotWidget = () => {
       setCurrentConversation(conv)
       setMessages([])
       setShowConversations(false)
+      setShowAnalytics(false)
       setTimeout(() => scrollToBottom(), 50)
     } catch (err) {
       console.error('Failed to create conversation:', err)
       alert('Could not create a new conversation.')
+    }
+  }
+  
+  const fetchAnalytics = async () => {
+    if (!adminMode) return
+    try {
+      const res = await getChatbotAnalytics()
+      setAnalyticsData(res.data)
+      setShowAnalytics(true)
+      setShowConversations(false)
+    } catch (err) {
+      console.error('Failed to fetch analytics:', err)
     }
   }
 
@@ -349,12 +392,26 @@ const ChatbotWidget = () => {
                 <div className="flex items-center space-x-2 sm:space-x-3">
                   <span className="text-xl sm:text-2xl">🤖</span>
                   <div>
-                    <h3 className="font-semibold text-sm sm:text-base">Rocketry AI Assistant</h3>
-                    <p className="text-xs opacity-90">Ask me anything!</p>
+                    <h3 className="font-semibold text-sm sm:text-base">
+                      Rocketry AI Assistant
+                      {adminMode && <span className="ml-2 text-xs bg-yellow-400 text-slate-900 px-2 py-0.5 rounded-full font-bold">ADMIN</span>}
+                    </h3>
+                    <p className="text-xs opacity-90">
+                      {adminMode ? `Executive: ${adminInfo?.name} - ${adminInfo?.role}` : 'Ask me anything!'}
+                    </p>
                   </div>
                 </div>
 
                 <div className="flex items-center space-x-2">
+                  {adminMode && (
+                    <button 
+                      onClick={fetchAnalytics} 
+                      className="p-1 hover:bg-white/10 rounded text-sm"
+                      title="Analytics Dashboard"
+                    >
+                      📊
+                    </button>
+                  )}
                   <button 
                     onClick={() => setShowConversations(!showConversations)} 
                     className="p-1 hover:bg-white/10 rounded text-sm"
@@ -402,6 +459,70 @@ const ChatbotWidget = () => {
                       ))}
                     </ul>
                   )}
+                </div>
+              )}
+
+              {/* Analytics Panel */}
+              {showAnalytics && analyticsData && (
+                <div className="absolute inset-0 bg-white z-20 overflow-y-auto p-4">
+                  <div className="flex justify-between items-center mb-4">
+                    <h3 className="font-bold text-lg">📊 Analytics Dashboard</h3>
+                    <button onClick={() => setShowAnalytics(false)} className="text-gray-500 hover:text-gray-700">✕</button>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="bg-primary-50 p-3 rounded-lg">
+                        <div className="text-2xl font-bold text-primary-700">{analyticsData.total_conversations}</div>
+                        <div className="text-xs text-gray-600">Total Conversations</div>
+                      </div>
+                      <div className="bg-blue-50 p-3 rounded-lg">
+                        <div className="text-2xl font-bold text-blue-700">{analyticsData.total_messages}</div>
+                        <div className="text-xs text-gray-600">Total Messages</div>
+                      </div>
+                      <div className="bg-green-50 p-3 rounded-lg">
+                        <div className="text-2xl font-bold text-green-700">{analyticsData.messages_last_24h}</div>
+                        <div className="text-xs text-gray-600">Last 24 Hours</div>
+                      </div>
+                      <div className="bg-purple-50 p-3 rounded-lg">
+                        <div className="text-2xl font-bold text-purple-700">{analyticsData.messages_last_7d}</div>
+                        <div className="text-xs text-gray-600">Last 7 Days</div>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-gray-50 p-3 rounded-lg">
+                      <div className="text-sm font-semibold mb-2">Message Breakdown</div>
+                      <div className="space-y-1 text-xs">
+                        <div className="flex justify-between">
+                          <span>User Messages:</span>
+                          <span className="font-medium">{analyticsData.user_messages}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>AI Messages:</span>
+                          <span className="font-medium">{analyticsData.ai_messages}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Avg per Conversation:</span>
+                          <span className="font-medium">{analyticsData.avg_messages_per_conversation}</span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-gray-50 p-3 rounded-lg">
+                      <div className="text-sm font-semibold mb-2">Recent Conversations</div>
+                      <div className="space-y-2 max-h-48 overflow-y-auto">
+                        {analyticsData.recent_conversations.map(conv => (
+                          <div key={conv.id} className="text-xs bg-white p-2 rounded border">
+                            <div className="font-medium">{conv.title}</div>
+                            <div className="text-gray-500 flex justify-between mt-1">
+                              <span>{conv.message_count} messages</span>
+                              <span>{new Date(conv.last_updated).toLocaleDateString()}</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               )}
 
@@ -457,7 +578,7 @@ const ChatbotWidget = () => {
 
               {/* Input Area */}
               <div className="p-3 bg-white border-t flex-shrink-0">
-                {isLockedOut ? (
+                {(isLockedOut && !adminMode) ? (
                   <div className="text-center py-3">
                     <div className="text-2xl mb-2">🔒</div>
                     <p className="text-sm text-gray-600 mb-1">
@@ -480,7 +601,7 @@ const ChatbotWidget = () => {
                         type="text"
                         value={inputMessage}
                         onChange={(e) => setInputMessage(e.target.value)}
-                        placeholder="Ask about the club..."
+                        placeholder={adminMode ? "Admin access - unlimited messages..." : "Ask about the club..."}
                         className="flex-1 px-4 py-2 border rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
                         disabled={loading}
                       />
@@ -492,9 +613,15 @@ const ChatbotWidget = () => {
                         Send
                       </button>
                     </form>
-                    <p className="text-xs text-gray-400 text-center mt-1">
-                      {totalMessageCount}/{MESSAGE_LIMIT} messages used
-                    </p>
+                    {adminMode ? (
+                      <p className="text-xs text-green-600 font-medium text-center mt-1">
+                        ✅ Executive Mode - Unlimited Messages
+                      </p>
+                    ) : (
+                      <p className="text-xs text-gray-400 text-center mt-1">
+                        {totalMessageCount}/{MESSAGE_LIMIT} messages used
+                      </p>
+                    )}
                   </>
                 )}
               </div>
