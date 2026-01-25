@@ -19,22 +19,95 @@ SYSTEM_PROMPT = os.getenv(
 )
 
 def get_team_context():
-    """Generate context about team members for the chatbot"""
-    context = f"Club: {CLUB_INFO['name']}\n"
-    context += f"Email: {CLUB_INFO['email']}\n"
-    context += f"Vision: {CLUB_INFO['vision']}\n"
-    context += f"Description: {CLUB_INFO['description']}\n"
-    context += f"Current Project: {CLUB_INFO['current_project']}\n"
-    context += f"Departments: {', '.join(CLUB_INFO['departments'])}\n"
-    context += f"Discord: {CLUB_INFO['social_links']['discord']}\n"
-    context += f"Instagram: {CLUB_INFO['social_links']['instagram']}\n"
-    context += f"LinkedIn: {CLUB_INFO['social_links']['linkedin']}\n\n"
-    context += "Projects:\n"
-    for project in CLUB_INFO['projects']:
-        context += f"- {project}\n"
-    context += "\nExecutive Team:\n"
+    """Generate comprehensive context about the club for the chatbot"""
+    context = f"# {CLUB_INFO['name']} ({CLUB_INFO['short_name']})\n\n"
+    
+    # Basic Info
+    context += f"**Founded:** {CLUB_INFO['founded']}\n"
+    context += f"**Location:** {CLUB_INFO['location']}\n"
+    context += f"**Structure:** {CLUB_INFO['student_run']}\n"
+    context += f"**Members:** {CLUB_INFO['members_count']}\n"
+    context += f"**Email:** {CLUB_INFO['email']}\n\n"
+    
+    # Mission & Vision
+    context += f"**Vision:** {CLUB_INFO['vision']}\n"
+    context += f"**Mission:** {CLUB_INFO['mission']}\n"
+    context += f"**Description:** {CLUB_INFO['description']}\n\n"
+    
+    # Social Links
+    context += "**Connect With Us:**\n"
+    context += f"- Discord: {CLUB_INFO['social_links']['discord']}\n"
+    context += f"- Instagram: {CLUB_INFO['social_links']['instagram']}\n"
+    context += f"- LinkedIn: {CLUB_INFO['social_links']['linkedin']}\n"
+    context += f"- Email: {CLUB_INFO['email']}\n\n"
+    
+    # Launch Canada Info
+    lc = CLUB_INFO['launch_canada_info']
+    context += "**Launch Canada 2026:**\n"
+    context += f"- Competition: {lc['competition']}\n"
+    context += f"- Website: {lc['website']}\n"
+    context += f"- Status: {lc['status']}\n"
+    context += f"- Launch Date: {lc['launch_date']}\n"
+    context += f"- Description: {lc['description']}\n"
+    context += f"- Our Goal: {lc['our_goal']}\n\n"
+    
+    # Current Projects
+    context += "**Current Projects:**\n"
+    for project in CLUB_INFO['current_projects']:
+        context += f"\n{project['name']} ({project['status']}):\n"
+        context += f"- {project['description']}\n"
+        context += f"- Timeline: {project['timeline']}\n"
+        context += f"- Teams: {', '.join(project['teams_involved'])}\n"
+    context += "\n"
+    
+    # Departments
+    context += "**Departments:**\n"
+    for dept in CLUB_INFO['departments']:
+        context += f"\n{dept['name']}:\n"
+        context += f"- {dept['description']}\n"
+    context += "\n"
+    
+    # Sponsorship Benefits
+    context += "**Sponsorship Information:**\n"
+    context += f"Contact: {CLUB_INFO['sponsorship_benefits']['contact_for_sponsorship']}\n\n"
+    context += "Why Sponsor Us:\n"
+    for benefit in CLUB_INFO['sponsorship_benefits']['why_sponsor']:
+        context += f"- {benefit}\n"
+    context += "\nFunding Supports:\n"
+    for item in CLUB_INFO['sponsorship_benefits']['what_funding_supports']:
+        context += f"- {item}\n"
+    context += "\n"
+    
+    # How to Join
+    join_info = CLUB_INFO['how_to_join']
+    context += "**How to Join:**\n"
+    context += f"Requirements: {join_info['requirements']}\n"
+    context += f"Eligibility: {join_info['eligibility']}\n"
+    context += "Steps:\n"
+    for i, step in enumerate(join_info['steps'], 1):
+        context += f"{i}. {step}\n"
+    context += "\nWhat You'll Learn:\n"
+    for skill in join_info['what_you_learn']:
+        context += f"- {skill}\n"
+    context += "\n"
+    
+    # FAQs
+    context += "**Frequently Asked Questions:**\n"
+    for q, a in CLUB_INFO['frequently_asked'].items():
+        question = q.replace('_', ' ').title()
+        context += f"Q: {question}?\n"
+        context += f"A: {a}\n\n"
+    
+    # Executive Team
+    context += "**Executive Team:**\n"
     for exec in TEAM_MEMBERS_INFO["executives"]:
         context += f"- {exec['name']}: {exec['role']}\n"
+    
+    # Achievements
+    context += "\n**Recent Achievements:**\n"
+    for achievement in CLUB_INFO['achievements']:
+        context += f"- {achievement}\n"
+    
     return context
 
 def get_page_context():

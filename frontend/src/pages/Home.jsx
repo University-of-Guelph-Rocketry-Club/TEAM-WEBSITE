@@ -76,11 +76,11 @@ const Home = () => {
                 transition={{ duration: 2, repeat: Infinity }}
               >
                 <span className="w-2 h-2 bg-white rounded-full animate-pulse" />
-                <span className="text-sm font-bold tracking-wider">COMING SOON</span>
+                <span className="text-sm font-bold tracking-wider">ACTIVE BUILD</span>
               </motion.div>
               <h2 className="text-5xl md:text-6xl font-bold mb-6">Launch Canada 2026</h2>
               <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto">
-                We're building a competition rocket to fly at Launch Canada this summer. Our first major launch.
+                We're currently building our competition rocket for Launch Canada this summer. First major launch as a club.
               </p>
             </div>
           </ScrollReveal>
@@ -182,17 +182,17 @@ const Home = () => {
                 </div>
                 <h3 className="text-3xl font-bold text-slate-900 mb-4">Hybrid Rocket Motor</h3>
                 <p className="text-slate-600 mb-8 leading-relaxed">
-                  Working on a hybrid engine that mixes solid fuel with liquid oxidizer. Safer than pure solid motors and gives us throttle control. Long-term R&D project.
+                  Students designing and building a forward hybrid engine from scratch. Gaseous Nitrous Oxide oxidizer with Aluminized HTPB fuel grain. R&D project targeting Launch Canada 2027.
                 </p>
                 <div className="flex flex-wrap gap-2 mb-8">
-                  {['N₂O Oxidizer', 'HTPB Fuel', '3D Printed Injector', 'Test Stand'].map((tag) => (
+                  {['N₂O Oxidizer', 'Aluminized HTPB', 'Forward Hybrid', 'Test Stand'].map((tag) => (
                     <span key={tag} className="px-3 py-1.5 bg-slate-200 text-slate-600 text-xs font-mono rounded-full">
                       {tag}
                     </span>
                   ))}
                 </div>
                 <div className="flex items-center justify-between pt-6 border-t border-slate-200">
-                  <span className="text-slate-400 text-sm">Timeline: 3-4 years</span>
+                  <span className="text-slate-400 text-sm">Target: Launch Canada 2027</span>
                   <div className="text-4xl font-bold text-slate-200 font-mono">HYB</div>
                 </div>
               </motion.div>

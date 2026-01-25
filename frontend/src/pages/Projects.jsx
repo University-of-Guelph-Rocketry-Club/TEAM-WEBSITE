@@ -23,12 +23,12 @@ const Projects = () => {
     {
       id: 3,
       title: 'Hybrid Rocket Propulsion',
-      description: 'Long-term research and development of an advanced hybrid rocket motor combining solid fuel with liquid oxidizer. This system offers improved safety and controllability for high-altitude flights, with the goal of developing flight-ready propulsion technology over the next 3-4 years.',
+      description: 'Student-designed and manufactured forward hybrid rocket engine using gaseous Nitrous Oxide (N2O) oxidizer with an Aluminized HTPB solid fuel grain. Research and development project targeting flight demonstration at Launch Canada 2027.',
       status: 'Research Phase',
       category: 'Propulsion',
-      technologies: ['Hybrid Propulsion', 'CAD Design', 'Fluid Dynamics', 'Control Systems', 'Test Stand Engineering'],
-      timeline: '2025-2029',
-      target: 'Flight-Ready System'
+      technologies: ['Hybrid Propulsion', 'N2O Oxidizer', 'Aluminized HTPB', 'CAD Design', 'Fluid Dynamics', 'Test Stand Engineering'],
+      timeline: '2025-2027',
+      target: 'Launch Canada 2027'
     }
   ]
 
