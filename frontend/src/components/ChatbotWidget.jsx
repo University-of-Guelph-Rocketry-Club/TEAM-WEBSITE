@@ -18,8 +18,16 @@ const ChatbotWidget = () => {
   const [inputMessage, setInputMessage] = useState('')
   const [loading, setLoading] = useState(false)
   const [showConversations, setShowConversations] = useState(false)
-  const [adminMode, setAdminMode] = useState(false)
-  const [adminInfo, setAdminInfo] = useState(null)
+  
+  // Initialize admin mode from localStorage immediately
+  const [adminMode, setAdminMode] = useState(() => {
+    return localStorage.getItem('chatbot_admin_mode') === 'true'
+  })
+  const [adminInfo, setAdminInfo] = useState(() => {
+    const saved = localStorage.getItem('chatbot_admin_info')
+    return saved ? JSON.parse(saved) : null
+  })
+  
   const [showAnalytics, setShowAnalytics] = useState(false)
   const [analyticsData, setAnalyticsData] = useState(null)
   
@@ -149,16 +157,6 @@ const ChatbotWidget = () => {
   const [totalMessageCount, setTotalMessageCount] = useState(getTotalMessageCount)
   const [timeUntilReset, setTimeUntilReset] = useState(getTimeUntilReset)
   const isLockedOut = totalMessageCount >= MESSAGE_LIMIT && !adminMode
-  
-  // Load admin mode from localStorage on mount
-  useEffect(() => {
-    const savedAdminMode = localStorage.getItem('chatbot_admin_mode')
-    const savedAdminInfo = localStorage.getItem('chatbot_admin_info')
-    if (savedAdminMode === 'true' && savedAdminInfo) {
-      setAdminMode(true)
-      setAdminInfo(JSON.parse(savedAdminInfo))
-    }
-  }, [])
   
   // Update time remaining every minute
   useEffect(() => {
