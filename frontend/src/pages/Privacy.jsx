@@ -30,15 +30,15 @@ const Privacy = () => {
             <div className="mb-12">
               <h2 className="text-2xl font-bold text-slate-900 mb-4">Information We Collect</h2>
               <p className="text-slate-700 leading-relaxed mb-4">
-                When you interact with our AI chatbot assistant, we collect:
+                When you interact with our AI chatbot assistant, we may collect:
               </p>
               <ul className="list-disc pl-6 text-slate-700 space-y-2 mb-4">
-                <li><strong>Chat messages:</strong> The questions and messages you send to the chatbot are logged and stored</li>
-                <li><strong>Conversation data:</strong> AI responses and conversation history during your session are recorded</li>
-                <li><strong>Timestamps:</strong> Date and time of your interactions</li>
-                <li><strong>Technical data:</strong> Browser type, device information, and IP address (standard web logs)</li>
+                <li><strong>Chat messages:</strong> Your questions and messages to the chatbot may be logged depending on system configuration and circumstances</li>
+                <li><strong>Conversation data:</strong> AI responses and conversation history may be recorded during your session</li>
+                <li><strong>Timestamps:</strong> Date and time information may be captured</li>
+                <li><strong>Technical data:</strong> Browser type, device information, and IP address may be collected through standard web logs</li>
                 <li><strong>Website analytics:</strong> We may track the number of visitors, page views, and general usage patterns</li>
-                <li><strong>User behavior:</strong> Pages visited, time spent on site, and navigation patterns</li>
+                <li><strong>User behavior:</strong> Pages visited, time spent on site, and navigation patterns may be logged</li>
               </ul>
               <p className="text-slate-700 leading-relaxed mb-4">
                 <strong>We do NOT collect:</strong> Personal identification information, names, email addresses, 
@@ -46,7 +46,8 @@ const Privacy = () => {
               </p>
               <div className="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded mt-4">
                 <p className="text-sm text-slate-700">
-                  <strong>Important:</strong> All chat conversations with our AI assistant are logged and stored. 
+                  <strong>Important:</strong> Chat conversations with our AI assistant may be logged depending on operational needs. 
+                  Collection is not guaranteed for all interactions and depends on system configuration. 
                   Do not share sensitive personal information, passwords, or confidential data in the chatbot.
                 </p>
               </div>
@@ -71,14 +72,15 @@ const Privacy = () => {
             <div className="mb-12">
               <h2 className="text-2xl font-bold text-slate-900 mb-4">Data Storage and Security</h2>
               <p className="text-slate-700 leading-relaxed mb-4">
-                Your chat conversations are stored securely in our database. We implement appropriate 
-                technical and organizational measures to protect your data against unauthorized access, 
+                When chat data is collected, it may be stored securely in our database. We implement appropriate 
+                technical and organizational measures to protect any collected data against unauthorized access, 
                 alteration, disclosure, or destruction.
               </p>
               <p className="text-slate-700 leading-relaxed">
-                <strong>Data Retention:</strong> Chat logs are retained for operational purposes and may 
-                be used to improve our services. Conversations may be reviewed by club administrators for 
-                quality assurance and improvement purposes.
+                <strong>Data Retention:</strong> If collected, chat logs may be retained for operational purposes 
+                and service improvement. Depending on system needs, conversations may occasionally be reviewed by 
+                club administrators for quality assurance and improvement purposes, but this is not guaranteed 
+                for all interactions.
               </p>
             </div>
 
