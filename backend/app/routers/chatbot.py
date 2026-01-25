@@ -336,6 +336,7 @@ Welcome back, {ADMIN_INFO['name']}!
 • Type "analytics" to view chatbot statistics
 • Type "recent" to see recent conversations
 • Type "help" for admin features
+• **Enter {ADMIN_STUDENT_NUMBER} again to disable admin mode**
 
 You now have full executive access to all club systems. How can I assist you today?"""
             

@@ -197,13 +197,33 @@ const ChatbotWidget = () => {
     if (!inputMessage.trim() || loading) return
     if (!adminMode && isLockedOut) return
     
+    const userMessage = inputMessage.trim()
+    
+    // Check if user wants to disable admin mode by entering ID again
+    if (adminMode && userMessage === '1326089') {
+      setAdminMode(false)
+      setAdminInfo(null)
+      localStorage.removeItem('chatbot_admin_mode')
+      localStorage.removeItem('chatbot_admin_info')
+      setInputMessage('')
+      
+      // Add system message
+      const systemMessage = {
+        id: Date.now(),
+        content: '🔓 **Admin Mode Disabled**\n\nYou have logged out of executive mode. Standard message limits now apply.',
+        is_user: false,
+        timestamp: new Date().toISOString()
+      }
+      setMessages(prev => [...prev, systemMessage])
+      return
+    }
+    
     // Only increment message count if not in admin mode
     if (!adminMode) {
       incrementMessageCount()
       setTotalMessageCount(prev => prev + 1)
     }
 
-    const userMessage = inputMessage.trim()
     setInputMessage('')
     setLoading(true)
 
