@@ -223,10 +223,13 @@ const ChatbotWidget = () => {
         conversation_id: currentConversation?.id
       })
 
+      console.log('Backend response:', response.data)
+      
       const { message: aiMessage, conversation, admin_mode, admin_info } = response.data
 
       // Check for admin mode activation or maintenance
       if (admin_mode) {
+        console.log('Admin mode detected! Setting admin state...')
         if (!adminMode) {
           setAdminMode(true)
           setAdminInfo(admin_info)
@@ -237,6 +240,7 @@ const ChatbotWidget = () => {
         localStorage.removeItem(STORAGE_KEY)
         localStorage.removeItem(LOCKOUT_TIME_KEY)
         setTotalMessageCount(0)
+        console.log('Admin mode set, message count reset to 0')
       }
 
       if (!currentConversation) {
