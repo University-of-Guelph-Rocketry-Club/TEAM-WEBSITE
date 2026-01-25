@@ -46,9 +46,13 @@ const Footer = () => {
           <p className="text-slate-500 text-sm">
             © 2025 University of Guelph Rocketry Club
           </p>
-          <p className="text-slate-500 text-sm mt-2 md:mt-0">
-            Guelph, Ontario, Canada
-          </p>
+          <div className="flex items-center gap-4 mt-2 md:mt-0">
+            <a href="/privacy" className="text-slate-500 hover:text-slate-300 text-sm transition-colors">Privacy Policy</a>
+            <span className="text-slate-700">•</span>
+            <p className="text-slate-500 text-sm">
+              Guelph, Ontario, Canada
+            </p>
+          </div>
         </div>
       </div>
     </footer>

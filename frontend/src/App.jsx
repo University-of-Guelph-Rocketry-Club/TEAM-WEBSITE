@@ -11,6 +11,7 @@ import Projects from './pages/Projects'
 import Team from './pages/Team'
 import Sponsors from './pages/Sponsors'
 import Join from './pages/Join'
+import Privacy from './pages/Privacy'
 
 // Previously protected pages - now public
 import Dashboard from './pages/Dashboard'
@@ -50,6 +51,7 @@ function App() {
             <Route path="/team" element={<Team />} />
             <Route path="/sponsors" element={<Sponsors />} />
             <Route path="/join" element={<Join />} />
+            <Route path="/privacy" element={<Privacy />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/teams" element={<Teams />} />
             <Route path="/teams/:id" element={<TeamDetail />} />
