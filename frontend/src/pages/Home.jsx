@@ -59,23 +59,79 @@ const Home = () => {
     <div className="page-transition overflow-hidden">
       <Hero />
       
+      {/* Launch Canada 2026 - Big Announcement */}
+      <section className="py-20 bg-gradient-to-br from-red-600 via-orange-600 to-red-700 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+            backgroundSize: '40px 40px'
+          }} />
+        </div>
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <ScrollReveal>
+            <div className="text-center text-white mb-12">
+              <motion.div
+                className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 border border-white/30 rounded-full mb-6 backdrop-blur-sm"
+                animate={{ scale: [1, 1.05, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                <span className="w-2 h-2 bg-white rounded-full animate-pulse" />
+                <span className="text-sm font-bold tracking-wider">COMING SOON</span>
+              </motion.div>
+              <h2 className="text-5xl md:text-6xl font-bold mb-6">Launch Canada 2026</h2>
+              <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto">
+                We're building a competition rocket to fly at Launch Canada this summer. Our first major launch.
+              </p>
+            </div>
+          </ScrollReveal>
+          
+          <ScrollReveal delay={0.2}>
+            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 text-center">
+                <div className="text-4xl font-bold text-white mb-2">10,000ft</div>
+                <div className="text-white/80">Target Altitude</div>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 text-center">
+                <div className="text-4xl font-bold text-white mb-2">5 months</div>
+                <div className="text-white/80">Until Launch Day</div>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 text-center">
+                <div className="text-4xl font-bold text-white mb-2">30+ students</div>
+                <div className="text-white/80">On the team</div>
+              </div>
+            </div>
+          </ScrollReveal>
+          
+          <ScrollReveal delay={0.3}>
+            <div className="text-center mt-10">
+              <Link 
+                to="/projects" 
+                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-red-600 font-bold rounded-xl hover:bg-white/90 transition-colors"
+              >
+                <span>See the build</span>
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+      
       {/* Active Projects - Featured */}
       <section className="py-32 bg-white relative">
         <div className="max-w-7xl mx-auto px-6">
           <ScrollReveal>
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-16">
               <div>
-                <span className="text-sm font-mono text-slate-400 tracking-wider uppercase mb-3 block">Currently Building</span>
-                <h2 className="text-4xl md:text-5xl font-bold text-slate-900">Active Projects</h2>
+                <span className="text-sm text-slate-500 mb-3 block">What else we're working on</span>
+                <h2 className="text-4xl md:text-5xl font-bold text-slate-900">Other Projects</h2>
               </div>
               <Link 
                 to="/projects" 
                 className="group inline-flex items-center gap-2 text-slate-600 hover:text-slate-900 transition-colors"
               >
-                <span className="text-sm font-medium">View all projects</span>
-                <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
+                <span className="text-sm font-medium">See all →</span>
               </Link>
             </div>
           </ScrollReveal>
@@ -94,9 +150,9 @@ const Home = () => {
                     <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
                     <span className="text-green-400 text-sm font-medium">In Development</span>
                   </div>
-                  <h3 className="text-3xl font-bold text-white mb-4">CubeSat ML Mission</h3>
+                  <h3 className="text-3xl font-bold text-white mb-4">CubeSat Satellite</h3>
                   <p className="text-slate-300 mb-8 leading-relaxed">
-                    Student-led satellite mission featuring on-orbit Machine Learning inference using ASICs and FPGAs. Processing spectrometric and visual data in real-time at the edge of space.
+                    Building our own satellite with ML inference running on custom hardware. We're designing ASICs and FPGAs to process visual and spectrometric data in orbit—basically edge computing in space.
                   </p>
                   <div className="flex flex-wrap gap-2 mb-8">
                     {['ML Inference', 'ASIC/FPGA', 'Spectrometry', 'Edge Computing'].map((tag) => (
@@ -124,9 +180,9 @@ const Home = () => {
                   <span className="w-2 h-2 bg-blue-500 rounded-full" />
                   <span className="text-blue-600 text-sm font-medium">Research Phase</span>
                 </div>
-                <h3 className="text-3xl font-bold text-slate-900 mb-4">Hybrid Rocket Engine</h3>
+                <h3 className="text-3xl font-bold text-slate-900 mb-4">Hybrid Rocket Motor</h3>
                 <p className="text-slate-600 mb-8 leading-relaxed">
-                  Developing an advanced hybrid propulsion system combining solid fuel with liquid oxidizer for superior control and safety in high-altitude missions.
+                  Working on a hybrid engine that mixes solid fuel with liquid oxidizer. Safer than pure solid motors and gives us throttle control. Long-term R&D project.
                 </p>
                 <div className="flex flex-wrap gap-2 mb-8">
                   {['N₂O Oxidizer', 'HTPB Fuel', '3D Printed Injector', 'Test Stand'].map((tag) => (
@@ -158,16 +214,8 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <ScrollReveal>
             <div className="text-center mb-20">
-              <motion.div 
-                className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full mb-6"
-                animate={{ opacity: [0.5, 1, 0.5] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
-                <span className="w-2 h-2 bg-green-400 rounded-full" />
-                <span className="text-sm text-slate-300 font-mono">LIVE UPDATES</span>
-              </motion.div>
-              <h2 className="text-5xl md:text-6xl font-bold mb-6">What&apos;s Happening</h2>
-              <p className="text-xl text-slate-400 max-w-2xl mx-auto">The latest from our workshops, labs, and launch sites</p>
+              <h2 className="text-5xl md:text-6xl font-bold mb-4">Recent Updates</h2>
+              <p className="text-xl text-slate-400 max-w-2xl mx-auto">What's been happening in the workshop</p>
             </div>
           </ScrollReveal>
 
@@ -188,7 +236,7 @@ const Home = () => {
                   <div className="text-sm text-blue-200 font-mono mb-2">MARCH 2026</div>
                   <h3 className="text-2xl font-bold mb-4">CubeSat Conference</h3>
                   <p className="text-blue-100 mb-8 flex-grow">
-                    Canadian CubeSat Launch Conference at Concordia University. CUBICS teams presenting satellites destined for LEO. We&apos;ll be there.
+                    Canadian CubeSat Conference at Concordia in March. Teams from across Canada presenting their satellite designs. We're going.
                   </p>
                   <a 
                     href="https://ccc.seds.ca/" 
@@ -216,9 +264,9 @@ const Home = () => {
                   <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
                   <span className="text-xs font-mono text-green-400">JUST IN</span>
                 </div>
-                <h3 className="text-xl font-bold mb-3">Rocketry Kits Landed</h3>
+                <h3 className="text-xl font-bold mb-3">Hardware Arrived</h3>
                 <p className="text-slate-400 text-sm leading-relaxed">
-                  Avionics and Rocketry departments just received their hardware kits and electronics. Assembly begins next week—stay tuned for build updates.
+                  Got our avionics kits and electronics shipment last week. Starting assembly soon.
                 </p>
               </motion.div>
             </StaggerItem>
@@ -234,9 +282,9 @@ const Home = () => {
                   <span className="w-2 h-2 bg-purple-400 rounded-full" />
                   <span className="text-xs font-mono text-purple-400">ONGOING</span>
                 </div>
-                <h3 className="text-xl font-bold mb-3">Software Development</h3>
+                <h3 className="text-xl font-bold mb-3">Code in Progress</h3>
                 <p className="text-slate-400 text-sm leading-relaxed">
-                  Flight computer firmware, real-time telemetry dashboard, trajectory simulations, and ground station UI all in active development. Planning to open source.
+                  Flight computer firmware, telemetry dashboard, trajectory sims, ground station UI. Might open source it when it's ready.
                 </p>
               </motion.div>
             </StaggerItem>
@@ -252,9 +300,9 @@ const Home = () => {
                   <span className="w-2 h-2 bg-orange-400 rounded-full" />
                   <span className="text-xs font-mono text-orange-400">UPCOMING</span>
                 </div>
-                <h3 className="text-xl font-bold mb-3">Lab Funding Bid</h3>
+                <h3 className="text-xl font-bold mb-3">Applying for Lab Space</h3>
                 <p className="text-slate-400 text-sm leading-relaxed">
-                  Preparing proposal for dedicated workshop space and equipment. Would give us room for static testing and assembly.
+                  Writing a proposal for our own workshop with test stands and assembly area. Fingers crossed.
                 </p>
               </motion.div>
             </StaggerItem>
@@ -310,17 +358,17 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-6">
           <ScrollReveal>
             <div className="text-center mb-20">
-              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Four Teams. One Mission.</h2>
-              <p className="text-xl text-slate-500">Pick your department</p>
+              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Four Teams</h2>
+              <p className="text-xl text-slate-500">Choose where you want to contribute</p>
             </div>
           </ScrollReveal>
 
           <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
-              { name: 'Software', desc: 'Flight computers, telemetry, simulations', color: 'from-blue-500 to-blue-600' },
-              { name: 'Avionics', desc: 'Circuits, sensors, control systems', color: 'from-emerald-500 to-emerald-600' },
-              { name: 'Rocketry', desc: 'Propulsion, structures, aerodynamics', color: 'from-red-500 to-red-600' },
-              { name: 'Finance', desc: 'Sponsorship, budgets, operations', color: 'from-amber-500 to-amber-600' },
+              { name: 'Software', desc: 'Code flight computers and ground station software', color: 'from-blue-500 to-blue-600' },
+              { name: 'Avionics', desc: 'Design circuits and sensor systems', color: 'from-emerald-500 to-emerald-600' },
+              { name: 'Rocketry', desc: 'Build motors, airframes, and recovery', color: 'from-red-500 to-red-600' },
+              { name: 'Finance', desc: 'Handle sponsorships and budget', color: 'from-amber-500 to-amber-600' },
             ].map((dept) => (
               <StaggerItem key={dept.name}>
                 <motion.div 
@@ -356,9 +404,9 @@ const Home = () => {
         </div>
         <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
           <ScrollReveal>
-            <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">Ready to build?</h2>
+            <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">Want to join?</h2>
             <p className="text-xl text-slate-400 mb-12 max-w-2xl mx-auto">
-              No experience needed. Just curiosity and commitment. Join 50+ students building real aerospace systems.
+              No experience required. We'll teach you what you need to know. Just show up ready to learn and build.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <motion.a 

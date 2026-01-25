@@ -79,7 +79,7 @@ const Hero = () => {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.5 }}
               >
-                Hybrid engines. CubeSat payloads. National competition. Building aerospace systems from scratch.
+                Building rockets, satellites, and flight computers. Students learning aerospace engineering by actually doing it.
               </motion.p>
             </motion.div>
 
