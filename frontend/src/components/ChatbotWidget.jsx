@@ -30,6 +30,13 @@ const ChatbotWidget = () => {
   
   const [showAnalytics, setShowAnalytics] = useState(false)
   const [analyticsData, setAnalyticsData] = useState(null)
+  const [selectedConversationDetails, setSelectedConversationDetails] = useState(null)
+  
+  // Chatbot enabled/disabled state (persisted in localStorage)
+  const [chatbotEnabled, setChatbotEnabled] = useState(() => {
+    const saved = localStorage.getItem('chatbot_enabled')
+    return saved === null ? true : saved === 'true' // Default to enabled
+  })
   
   const navigate = useNavigate()
   const messagesContainerRef = useRef(null) // NEW: container ref for intercepting clicks
@@ -325,8 +332,24 @@ const ChatbotWidget = () => {
       setAnalyticsData(res.data)
       setShowAnalytics(true)
       setShowConversations(false)
+      setSelectedConversationDetails(null)
     } catch (err) {
       console.error('Failed to fetch analytics:', err)
+    }
+  }
+  
+  const toggleChatbot = () => {
+    const newState = !chatbotEnabled
+    setChatbotEnabled(newState)
+    localStorage.setItem('chatbot_enabled', newState.toString())
+  }
+  
+  const viewConversationDetails = async (convId) => {
+    try {
+      const res = await getConversation(convId)
+      setSelectedConversationDetails(res.data)
+    } catch (err) {
+      console.error('Failed to load conversation details:', err)
     }
   }
 
@@ -385,7 +408,7 @@ const ChatbotWidget = () => {
   return (
     <>
       {/* CLOSED: small floating button */}
-      {!isOpen && (
+      {!isOpen && (chatbotEnabled || adminMode) && (
         <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 pointer-events-auto">
           <div className="relative">
             <button
@@ -480,14 +503,46 @@ const ChatbotWidget = () => {
               )}
 
               {/* Analytics Panel */}
-              {showAnalytics && analyticsData && (
+              {showAnalytics && analyticsData && !selectedConversationDetails && (
                 <div className="absolute inset-0 bg-white z-20 overflow-y-auto p-4">
                   <div className="flex justify-between items-center mb-4">
-                    <h3 className="font-bold text-lg">📊 Analytics Dashboard</h3>
-                    <button onClick={() => setShowAnalytics(false)} className="text-gray-500 hover:text-gray-700">✕</button>
+                    <h3 className="font-bold text-lg">📊 Admin Dashboard</h3>
+                    <button onClick={() => setShowAnalytics(false)} className="text-gray-500 hover:text-gray-700 text-xl">✕</button>
                   </div>
                   
                   <div className="space-y-4">
+                    {/* Chatbot Toggle */}
+                    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border-2 border-blue-200">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <div className="font-semibold text-sm text-gray-800">Chatbot Status</div>
+                          <div className="text-xs text-gray-600 mt-1">
+                            {chatbotEnabled ? 'Users can interact with the chatbot' : 'Chatbot is disabled for all users'}
+                          </div>
+                        </div>
+                        <button
+                          onClick={toggleChatbot}
+                          className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors ${
+                            chatbotEnabled ? 'bg-green-500' : 'bg-gray-300'
+                          }`}
+                        >
+                          <span
+                            className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform ${
+                              chatbotEnabled ? 'translate-x-7' : 'translate-x-1'
+                            }`}
+                          />
+                        </button>
+                      </div>
+                      <div className="mt-2 text-center">
+                        <span className={`text-sm font-bold ${
+                          chatbotEnabled ? 'text-green-600' : 'text-red-600'
+                        }`}>
+                          {chatbotEnabled ? '🟢 ENABLED' : '🔴 DISABLED'}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Stats Grid */}
                     <div className="grid grid-cols-2 gap-3">
                       <div className="bg-primary-50 p-3 rounded-lg">
                         <div className="text-2xl font-bold text-primary-700">{analyticsData.total_conversations}</div>
@@ -527,18 +582,74 @@ const ChatbotWidget = () => {
                     
                     <div className="bg-gray-50 p-3 rounded-lg">
                       <div className="text-sm font-semibold mb-2">Recent Conversations</div>
-                      <div className="space-y-2 max-h-48 overflow-y-auto">
+                      <div className="space-y-2 max-h-64 overflow-y-auto">
                         {analyticsData.recent_conversations.map(conv => (
-                          <div key={conv.id} className="text-xs bg-white p-2 rounded border">
-                            <div className="font-medium">{conv.title}</div>
+                          <button
+                            key={conv.id}
+                            onClick={() => viewConversationDetails(conv.id)}
+                            className="w-full text-left text-xs bg-white p-3 rounded border hover:border-primary-500 hover:shadow-md transition-all"
+                          >
+                            <div className="font-medium text-gray-800">{conv.title}</div>
                             <div className="text-gray-500 flex justify-between mt-1">
                               <span>{conv.message_count} messages</span>
-                              <span>{new Date(conv.last_updated).toLocaleDateString()}</span>
+                              <span>{new Date(conv.last_updated).toLocaleDateString()} {new Date(conv.last_updated).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}</span>
                             </div>
-                          </div>
+                            <div className="text-primary-600 text-xs mt-1 font-medium">Click to view →</div>
+                          </button>
                         ))}
                       </div>
                     </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Conversation Details Panel */}
+              {selectedConversationDetails && (
+                <div className="absolute inset-0 bg-white z-20 overflow-y-auto p-4">
+                  <div className="flex justify-between items-center mb-4">
+                    <div>
+                      <button
+                        onClick={() => setSelectedConversationDetails(null)}
+                        className="text-primary-600 hover:text-primary-800 text-sm mb-1"
+                      >
+                        ← Back to Analytics
+                      </button>
+                      <h3 className="font-bold text-lg">{selectedConversationDetails.title}</h3>
+                      <p className="text-xs text-gray-500">
+                        Created: {new Date(selectedConversationDetails.created_at).toLocaleDateString()} at {new Date(selectedConversationDetails.created_at).toLocaleTimeString()}
+                      </p>
+                    </div>
+                    <button onClick={() => setSelectedConversationDetails(null)} className="text-gray-500 hover:text-gray-700 text-xl">✕</button>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    {selectedConversationDetails.messages && selectedConversationDetails.messages.length > 0 ? (
+                      selectedConversationDetails.messages.map((msg, idx) => (
+                        <div
+                          key={msg.id || idx}
+                          className={`p-3 rounded-lg ${
+                            msg.is_user ? 'bg-primary-50 border-l-4 border-primary-500' : 'bg-gray-50 border-l-4 border-gray-400'
+                          }`}
+                        >
+                          <div className="flex justify-between items-start mb-1">
+                            <span className="text-xs font-semibold text-gray-600">
+                              {msg.is_user ? '👤 User' : '🤖 AI Assistant'}
+                            </span>
+                            <span className="text-xs text-gray-400">
+                              {formatMessageTime(msg.timestamp)}
+                            </span>
+                          </div>
+                          <div 
+                            className="text-sm text-gray-800 whitespace-pre-wrap"
+                            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(msg.content) }}
+                          />
+                        </div>
+                      ))
+                    ) : (
+                      <div className="text-center text-gray-500 py-8">
+                        <p>No messages in this conversation</p>
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
@@ -548,7 +659,14 @@ const ChatbotWidget = () => {
                 ref={messagesContainerRef}
                 className="flex-1 overflow-y-auto p-4 space-y-3 min-h-0"
               >
-                {messages.length === 0 ? (
+                {!chatbotEnabled && !adminMode ? (
+                  <div className="text-center text-gray-500 py-8">
+                    <div className="text-4xl mb-3">🔒</div>
+                    <p className="text-sm font-semibold mb-2">Chatbot Temporarily Unavailable</p>
+                    <p className="text-xs">Our AI assistant is currently offline. Please check back later or contact us at:</p>
+                    <a href="mailto:rocketry@uoguelph.ca" className="text-primary-600 hover:underline text-xs">rocketry@uoguelph.ca</a>
+                  </div>
+                ) : messages.length === 0 ? (
                   <div className="text-center text-gray-500 py-8">
                     <div className="text-4xl mb-3">👋</div>
                     <p className="text-sm">Hi! Ask me about the UofG Rocketry Club, our projects, or how to join!</p>
@@ -595,7 +713,11 @@ const ChatbotWidget = () => {
 
               {/* Input Area */}
               <div className="p-3 bg-white border-t flex-shrink-0">
-                {(!adminMode && isLockedOut) ? (
+                {(!chatbotEnabled && !adminMode) ? (
+                  <div className="text-center py-2">
+                    <p className="text-xs text-gray-500">Chatbot is currently disabled</p>
+                  </div>
+                ) : (!adminMode && isLockedOut) ? (
                   <div className="text-center py-3">
                     <div className="text-2xl mb-2">🔒</div>
                     <p className="text-sm text-gray-600 mb-1">
