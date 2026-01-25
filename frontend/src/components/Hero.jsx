@@ -44,32 +44,22 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             >
-              <motion.div 
-                className="inline-flex items-center px-4 py-2 rounded-full bg-white/5 border border-white/10 text-slate-300 text-sm font-mono backdrop-blur-sm"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-              >
-                <span className="w-2 h-2 bg-green-400 rounded-full mr-3 animate-pulse"></span>
-                TARGET: LAUNCH CANADA 2026
-              </motion.div>
-              
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] tracking-tight">
+                <motion.span 
+                  className="block text-slate-400 text-lg font-normal mb-2"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                >
+                  University of Guelph
+                </motion.span>
                 <motion.span 
                   className="block"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.3 }}
                 >
-                  UofG
-                </motion.span>
-                <motion.span 
-                  className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-blue-300 to-red-400"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.4 }}
-                >
-                  Rocketry
+                  Rocketry Club
                 </motion.span>
               </h1>
               
