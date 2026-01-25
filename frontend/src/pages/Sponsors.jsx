@@ -33,49 +33,16 @@ const Sponsors = () => {
         </div>
       </section>
 
-      {/* Tiers */}
+      {/* Support Message */}
       <section className="py-16 bg-slate-50">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-2xl font-bold text-slate-900 mb-8">Sponsorship Tiers</h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            {/* Gold */}
-            <div className="bg-white rounded-xl p-8 border-2 border-amber-400">
-              <div className="text-amber-500 font-semibold text-sm mb-2">GOLD</div>
-              <div className="text-3xl font-bold text-slate-900 mb-4">$5,000+</div>
-              <ul className="space-y-3 text-sm text-slate-600">
-                <li>• Logo on rocket & team gear</li>
-                <li>• Prominent website placement</li>
-                <li>• Social media recognition</li>
-                <li>• Recruitment event access</li>
-                <li>• Custom collaboration opportunities</li>
-              </ul>
-            </div>
-
-            {/* Silver */}
-            <div className="bg-white rounded-xl p-8 border border-slate-200">
-              <div className="text-slate-500 font-semibold text-sm mb-2">SILVER</div>
-              <div className="text-3xl font-bold text-slate-900 mb-4">$2,500+</div>
-              <ul className="space-y-3 text-sm text-slate-600">
-                <li>• Logo on team materials</li>
-                <li>• Website sponsor listing</li>
-                <li>• Social media mentions</li>
-                <li>• Competition updates</li>
-                <li>• Networking event invitations</li>
-              </ul>
-            </div>
-
-            {/* Bronze */}
-            <div className="bg-white rounded-xl p-8 border border-slate-200">
-              <div className="text-orange-500 font-semibold text-sm mb-2">BRONZE</div>
-              <div className="text-3xl font-bold text-slate-900 mb-4">$1,000+</div>
-              <ul className="space-y-3 text-sm text-slate-600">
-                <li>• Website sponsor listing</li>
-                <li>• Social media recognition</li>
-                <li>• Project updates</li>
-                <li>• Team appreciation</li>
-              </ul>
-            </div>
-          </div>
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h2 className="text-2xl font-bold text-slate-900 mb-6">Support Our Mission</h2>
+          <p className="text-lg text-slate-700 mb-4">
+            Every contribution helps us reach new heights—whether it's materials, equipment, or competition expenses.
+          </p>
+          <p className="text-slate-600">
+            Any support you can provide makes a real difference in advancing aerospace innovation and education.
+          </p>
         </div>
       </section>
 
