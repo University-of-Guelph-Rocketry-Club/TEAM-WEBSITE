@@ -154,9 +154,21 @@ const ChatbotWidget = () => {
     return `${hoursRemaining}h ${minutesRemaining}m`
   }
   
-  const [totalMessageCount, setTotalMessageCount] = useState(getTotalMessageCount)
+  const [totalMessageCount, setTotalMessageCount] = useState(() => {
+    // If admin mode is active, always return 0
+    if (localStorage.getItem('chatbot_admin_mode') === 'true') {
+      return 0
+    }
+    return getTotalMessageCount()
+  })
   const [timeUntilReset, setTimeUntilReset] = useState(getTimeUntilReset)
   const isLockedOut = totalMessageCount >= MESSAGE_LIMIT && !adminMode
+  
+  // Debug logging
+  useEffect(() => {
+    console.log('Admin Mode:', adminMode, 'Admin Info:', adminInfo)
+    console.log('Message Count:', totalMessageCount, 'Locked Out:', isLockedOut)
+  }, [adminMode, adminInfo, totalMessageCount, isLockedOut])
   
   // Update time remaining every minute
   useEffect(() => {
@@ -213,13 +225,15 @@ const ChatbotWidget = () => {
 
       const { message: aiMessage, conversation, admin_mode, admin_info } = response.data
 
-      // Check for admin mode activation
-      if (admin_mode && !adminMode) {
-        setAdminMode(true)
-        setAdminInfo(admin_info)
-        localStorage.setItem('chatbot_admin_mode', 'true')
-        localStorage.setItem('chatbot_admin_info', JSON.stringify(admin_info))
-        // Reset message count when admin mode activates
+      // Check for admin mode activation or maintenance
+      if (admin_mode) {
+        if (!adminMode) {
+          setAdminMode(true)
+          setAdminInfo(admin_info)
+          localStorage.setItem('chatbot_admin_mode', 'true')
+          localStorage.setItem('chatbot_admin_info', JSON.stringify(admin_info))
+        }
+        // Always reset message count when admin mode is active
         localStorage.removeItem(STORAGE_KEY)
         localStorage.removeItem(LOCKOUT_TIME_KEY)
         setTotalMessageCount(0)
