@@ -174,8 +174,9 @@ const ChatbotWidget = () => {
 
   const handleSendMessage = async (e) => {
     e.preventDefault()
-    // Skip limit check if admin mode is active
-    if (!inputMessage.trim() || loading || (isLockedOut && !adminMode)) return
+    // Admin mode bypasses all checks, otherwise check if locked out
+    if (!inputMessage.trim() || loading) return
+    if (!adminMode && isLockedOut) return
     
     // Only increment message count if not in admin mode
     if (!adminMode) {
@@ -576,7 +577,7 @@ const ChatbotWidget = () => {
 
               {/* Input Area */}
               <div className="p-3 bg-white border-t flex-shrink-0">
-                {(isLockedOut && !adminMode) ? (
+                {(!adminMode && isLockedOut) ? (
                   <div className="text-center py-3">
                     <div className="text-2xl mb-2">🔒</div>
                     <p className="text-sm text-gray-600 mb-1">
@@ -611,15 +612,13 @@ const ChatbotWidget = () => {
                         Send
                       </button>
                     </form>
-                    {adminMode ? (
-                      <p className="text-xs text-green-600 font-medium text-center mt-1">
-                        ✅ Executive Mode - Unlimited Messages
-                      </p>
-                    ) : (
-                      <p className="text-xs text-gray-400 text-center mt-1">
-                        {totalMessageCount}/{MESSAGE_LIMIT} messages used
-                      </p>
-                    )}
+                    <p className="text-xs text-center mt-1">
+                      {adminMode ? (
+                        <span className="text-green-600 font-medium">✅ Executive Mode - Unlimited Messages</span>
+                      ) : (
+                        <span className="text-gray-400">{totalMessageCount}/{MESSAGE_LIMIT} messages used</span>
+                      )}
+                    </p>
                   </>
                 )}
               </div>
