@@ -202,5 +202,22 @@ CLUB_INFO = {
         "which_programs": "All programs welcome, but especially engineering, physics, computer science, and business students.",
         "cost_to_join": "Free to join. No membership fees.",
         "can_i_switch_teams": "Yes, you can contribute to multiple departments or switch if interests change."
+    },
+    
+    "privacy_policy": {
+        "summary": "We have a comprehensive privacy policy for our AI chatbot. All chat conversations are logged and stored. We collect chat messages, timestamps, and basic analytics like visitor counts. We do NOT collect personal identification unless you provide it. Maximum 12 messages per user every 12 hours.",
+        "data_collected": [
+            "Chat messages with AI assistant (all conversations are logged)",
+            "Timestamps and conversation history",
+            "Website analytics: visitor numbers, page views, usage patterns",
+            "Technical data: browser type, device info, IP addresses"
+        ],
+        "what_not_collected": "No personal identification, names, or email addresses unless you voluntarily provide them in messages.",
+        "ai_processing": "Messages are sent to OpenAI (GPT) for processing. OpenAI has their own privacy policy.",
+        "user_rights": "You can request information about your data or request deletion of conversation data.",
+        "disclaimer": "We are not liable for chatbot accuracy, data loss, technical errors, or third-party service issues. Service provided 'as is' by a student-run organization.",
+        "contact_privacy_issues": "General: rocketry@uoguelph.ca | Serious privacy concerns: nick.buzali@gmail.com",
+        "page_url": "/privacy",
+        "important_notice": "Do not share sensitive personal information, passwords, or confidential data in the chatbot. All chats are logged."
     }
 }

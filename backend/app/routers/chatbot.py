@@ -98,6 +98,22 @@ def get_team_context():
         context += f"Q: {question}?\n"
         context += f"A: {a}\n\n"
     
+    # Privacy Policy
+    if 'privacy_policy' in CLUB_INFO:
+        privacy = CLUB_INFO['privacy_policy']
+        context += "**Privacy Policy Summary:**\n"
+        context += f"{privacy['summary']}\n\n"
+        context += "Data We Collect:\n"
+        for item in privacy['data_collected']:
+            context += f"- {item}\n"
+        context += f"\nWhat We Don't Collect: {privacy['what_not_collected']}\n"
+        context += f"AI Processing: {privacy['ai_processing']}\n"
+        context += f"Disclaimer: {privacy['disclaimer']}\n"
+        context += f"\nFull policy: {privacy['page_url']}\n"
+        context += f"IMPORTANT: {privacy['important_notice']}\n\n"
+        context += f"Privacy Contacts:\n"
+        context += f"- {privacy['contact_privacy_issues']}\n\n"
+    
     # Executive Team
     context += "**Executive Team:**\n"
     for exec in TEAM_MEMBERS_INFO["executives"]:

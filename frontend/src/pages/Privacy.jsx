@@ -33,15 +33,23 @@ const Privacy = () => {
                 When you interact with our AI chatbot assistant, we collect:
               </p>
               <ul className="list-disc pl-6 text-slate-700 space-y-2 mb-4">
-                <li><strong>Chat messages:</strong> The questions and messages you send to the chatbot</li>
-                <li><strong>Conversation data:</strong> AI responses and conversation history during your session</li>
+                <li><strong>Chat messages:</strong> The questions and messages you send to the chatbot are logged and stored</li>
+                <li><strong>Conversation data:</strong> AI responses and conversation history during your session are recorded</li>
                 <li><strong>Timestamps:</strong> Date and time of your interactions</li>
                 <li><strong>Technical data:</strong> Browser type, device information, and IP address (standard web logs)</li>
+                <li><strong>Website analytics:</strong> We may track the number of visitors, page views, and general usage patterns</li>
+                <li><strong>User behavior:</strong> Pages visited, time spent on site, and navigation patterns</li>
               </ul>
-              <p className="text-slate-700 leading-relaxed">
+              <p className="text-slate-700 leading-relaxed mb-4">
                 <strong>We do NOT collect:</strong> Personal identification information, names, email addresses, 
                 or any data that directly identifies you unless you voluntarily provide it in your messages.
               </p>
+              <div className="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded mt-4">
+                <p className="text-sm text-slate-700">
+                  <strong>Important:</strong> All chat conversations with our AI assistant are logged and stored. 
+                  Do not share sensitive personal information, passwords, or confidential data in the chatbot.
+                </p>
+              </div>
             </div>
 
             {/* How We Use Information */}
@@ -143,21 +151,64 @@ const Privacy = () => {
               <p className="text-slate-700 leading-relaxed mb-4">
                 If you have questions about this Privacy Policy or our data practices, please contact us:
               </p>
-              <div className="bg-slate-50 rounded-lg p-6 border border-slate-200">
+              <div className="bg-slate-50 rounded-lg p-6 border border-slate-200 mb-4">
                 <p className="text-slate-700"><strong>University of Guelph Rocketry Club</strong></p>
                 <p className="text-slate-700">Email: <a href="mailto:rocketry@uoguelph.ca" className="text-blue-600 hover:underline">rocketry@uoguelph.ca</a></p>
                 <p className="text-slate-700">Location: University of Guelph, Ontario, Canada</p>
               </div>
+              <div className="bg-red-50 rounded-lg p-6 border border-red-200">
+                <p className="text-slate-700 font-semibold mb-2">For Serious Privacy Concerns or Data Requests:</p>
+                <p className="text-slate-700">Technical Lead: <a href="mailto:nick.buzali@gmail.com" className="text-blue-600 hover:underline">nick.buzali@gmail.com</a></p>
+                <p className="text-slate-600 text-sm mt-2">Please use this email only for urgent privacy matters, data deletion requests, or security concerns.</p>
+              </div>
             </div>
 
             {/* Student Organization Notice */}
-            <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded">
+            <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded mb-12">
               <p className="text-slate-700 text-sm">
                 <strong>Note:</strong> The University of Guelph Rocketry Club is a student-run organization. 
                 This privacy policy applies specifically to our chatbot assistant and website. For questions 
                 about University of Guelph's general privacy practices, please visit the university's official 
                 privacy policy.
               </p>
+            </div>
+
+            {/* Disclaimer and Liability */}
+            <div className="mb-12">
+              <h2 className="text-2xl font-bold text-slate-900 mb-4">Disclaimer and Limitation of Liability</h2>
+              <div className="bg-slate-50 border border-slate-300 rounded-lg p-6">
+                <p className="text-slate-700 leading-relaxed mb-4">
+                  <strong>No Warranty:</strong> Our website and AI chatbot are provided "as is" without any warranties, 
+                  express or implied. The University of Guelph Rocketry Club makes no guarantees about the accuracy, 
+                  completeness, or reliability of information provided by the chatbot.
+                </p>
+                <p className="text-slate-700 leading-relaxed mb-4">
+                  <strong>Not Liable For:</strong>
+                </p>
+                <ul className="list-disc pl-6 text-slate-700 space-y-2 mb-4">
+                  <li>Inaccurate or incomplete information provided by the AI chatbot</li>
+                  <li>Technical errors, interruptions, or data loss</li>
+                  <li>Unauthorized access to or alteration of your transmissions or data</li>
+                  <li>Third-party actions or content (including OpenAI's processing)</li>
+                  <li>Any damages arising from use or inability to use our services</li>
+                  <li>Loss of data, chat history, or conversation content</li>
+                </ul>
+                <p className="text-slate-700 leading-relaxed mb-4">
+                  <strong>Third-Party Services:</strong> We are not responsible for the privacy practices or content 
+                  of third-party services (OpenAI, Vercel) that process your data. Use of our services indicates 
+                  acceptance of their respective terms and policies.
+                </p>
+                <p className="text-slate-700 leading-relaxed mb-4">
+                  <strong>Student Organization:</strong> As a student-run club, we operate with limited resources. 
+                  While we strive to protect your privacy and maintain secure systems, we cannot guarantee absolute 
+                  security. Use our services at your own discretion.
+                </p>
+                <p className="text-slate-700 leading-relaxed">
+                  <strong>Indemnification:</strong> By using our website and chatbot, you agree to indemnify and hold 
+                  harmless the University of Guelph Rocketry Club, its members, and affiliates from any claims, losses, 
+                  or damages arising from your use of our services or violation of this policy.
+                </p>
+              </div>
             </div>
 
           </div>
