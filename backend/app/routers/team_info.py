@@ -210,8 +210,15 @@ CLUB_INFO = {
             "Chat messages with AI assistant (all conversations are logged)",
             "Timestamps and conversation history",
             "Website analytics: visitor numbers, page views, usage patterns",
-            "Technical data: browser type, device info, IP addresses"
+            "Technical data: browser type, device info, IP addresses",
+            "Cookies for website functionality and analytics"
         ],
+        "cookies": {
+            "necessary": "Required cookies for website functionality, chatbot, and session management (cannot be disabled)",
+            "analytics": "Optional Google Analytics cookies to track visitor behavior and improve website (can be disabled)",
+            "functional": "Optional cookies to remember preferences and chat history (can be disabled)",
+            "control": "Users can accept/reject optional cookies via cookie banner. Required cookies cannot be disabled."
+        },
         "what_not_collected": "No personal identification, names, or email addresses unless you voluntarily provide them in messages.",
         "ai_processing": "Messages are sent to OpenAI (GPT) for processing. OpenAI has their own privacy policy.",
         "user_rights": "You can request information about your data or request deletion of conversation data.",

@@ -107,10 +107,17 @@ const Privacy = () => {
                 <li>Request deletion of your conversation data</li>
                 <li>Contact us with any privacy concerns or questions</li>
               </ul>
-              <p className="text-slate-700 leading-relaxed">
-                <strong>Usage Limits:</strong> To ensure fair access and prevent abuse, we limit chatbot 
-                usage to 12 messages per user every 12 hours.
-              </p>
+              <div className="bg-slate-50 border border-slate-300 rounded-lg p-6">
+                <p className="text-slate-700 leading-relaxed mb-2">
+                  <strong>Usage Limits:</strong> To ensure fair access for all users and prevent abuse or overuse 
+                  of our resources, we limit chatbot usage to 12 messages per user every 12 hours.
+                </p>
+                <p className="text-slate-700 leading-relaxed">
+                  This helps us maintain service quality, manage costs, and ensure the AI assistant remains 
+                  available to everyone in our community. As a student-run organization with limited resources, 
+                  these limits allow us to provide this service sustainably.
+                </p>
+              </div>
             </div>
 
             {/* Third-Party Services */}
@@ -122,7 +129,77 @@ const Privacy = () => {
               <ul className="list-disc pl-6 text-slate-700 space-y-2">
                 <li><strong>OpenAI:</strong> For AI chatbot responses - <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">OpenAI Privacy Policy</a></li>
                 <li><strong>Vercel:</strong> For website hosting - <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Vercel Privacy Policy</a></li>
+                <li><strong>Google Analytics:</strong> For website analytics (if you consent) - <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Google Privacy Policy</a></li>
               </ul>
+            </div>
+
+            {/* Cookies */}
+            <div className="mb-12">
+              <h2 className="text-2xl font-bold text-slate-900 mb-4">Cookies and Tracking Technologies</h2>
+              <p className="text-slate-700 leading-relaxed mb-4">
+                We use cookies and similar tracking technologies to improve your experience on our website.
+              </p>
+              
+              <h3 className="text-lg font-bold text-slate-900 mb-3">What Are Cookies?</h3>
+              <p className="text-slate-700 leading-relaxed mb-4">
+                Cookies are small text files stored on your device when you visit our website. They help us recognize 
+                you, remember your preferences, and provide a better user experience.
+              </p>
+
+              <h3 className="text-lg font-bold text-slate-900 mb-3">Types of Cookies We Use:</h3>
+              <div className="space-y-4 mb-4">
+                <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
+                  <h4 className="font-semibold text-slate-900 mb-2 flex items-center gap-2">
+                    <span className="px-2 py-0.5 bg-slate-700 text-white text-xs rounded-full">Required</span>
+                    Necessary Cookies
+                  </h4>
+                  <p className="text-sm text-slate-700 mb-2">
+                    Essential for the website to function. These cookies enable basic features like page navigation, 
+                    chatbot functionality, and access to secure areas.
+                  </p>
+                  <p className="text-xs text-slate-600"><strong>Examples:</strong> Session management, cookie consent preferences</p>
+                </div>
+
+                <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
+                  <h4 className="font-semibold text-slate-900 mb-2 flex items-center gap-2">
+                    <span className="px-2 py-0.5 bg-blue-600 text-white text-xs rounded-full">Optional</span>
+                    Analytics Cookies
+                  </h4>
+                  <p className="text-sm text-slate-700 mb-2">
+                    Help us understand how visitors use our website. We use Google Analytics to collect anonymous data 
+                    about page views, visitor numbers, popular content, and user behavior patterns.
+                  </p>
+                  <p className="text-xs text-slate-600"><strong>Examples:</strong> Google Analytics (_ga, _gid), page view tracking</p>
+                </div>
+
+                <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
+                  <h4 className="font-semibold text-slate-900 mb-2 flex items-center gap-2">
+                    <span className="px-2 py-0.5 bg-blue-600 text-white text-xs rounded-full">Optional</span>
+                    Functional Cookies
+                  </h4>
+                  <p className="text-sm text-slate-700 mb-2">
+                    Enhance your experience by remembering your preferences and settings, such as chat history 
+                    and language preferences.
+                  </p>
+                  <p className="text-xs text-slate-600"><strong>Examples:</strong> Chat preferences, UI customizations</p>
+                </div>
+              </div>
+
+              <h3 className="text-lg font-bold text-slate-900 mb-3">Managing Cookies</h3>
+              <p className="text-slate-700 leading-relaxed mb-4">
+                You can control and manage cookies through our cookie consent banner (appears on your first visit) 
+                or through your browser settings. You can:
+              </p>
+              <ul className="list-disc pl-6 text-slate-700 space-y-2 mb-4">
+                <li>Accept or reject optional cookies (analytics and functional)</li>
+                <li>Change your cookie preferences at any time</li>
+                <li>Delete cookies through your browser settings</li>
+                <li>Block cookies entirely (may affect website functionality)</li>
+              </ul>
+              <p className="text-slate-700 leading-relaxed">
+                <strong>Note:</strong> Blocking necessary cookies will prevent the website from functioning properly. 
+                Analytics cookies are anonymized and do not contain personally identifiable information.
+              </p>
             </div>
 
             {/* Children's Privacy */}

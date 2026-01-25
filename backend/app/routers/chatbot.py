@@ -109,6 +109,12 @@ def get_team_context():
         context += f"\nWhat We Don't Collect: {privacy['what_not_collected']}\n"
         context += f"AI Processing: {privacy['ai_processing']}\n"
         context += f"Disclaimer: {privacy['disclaimer']}\n"
+        if 'cookies' in privacy:
+            context += "\nCookies:\n"
+            context += f"- Necessary: {privacy['cookies']['necessary']}\n"
+            context += f"- Analytics: {privacy['cookies']['analytics']}\n"
+            context += f"- Functional: {privacy['cookies']['functional']}\n"
+            context += f"- Control: {privacy['cookies']['control']}\n"
         context += f"\nFull policy: {privacy['page_url']}\n"
         context += f"IMPORTANT: {privacy['important_notice']}\n\n"
         context += f"Privacy Contacts:\n"

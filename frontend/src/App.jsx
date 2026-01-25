@@ -3,7 +3,9 @@ import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'r
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ChatbotWidget from './components/ChatbotWidget'
+import CookieConsent from './components/CookieConsent'
 import MaintenanceMode from './components/MaintenanceMode'
+import { initGA, trackPageView } from './utils/analytics'
 
 // Public pages
 import Home from './pages/Home'
@@ -24,12 +26,22 @@ const ScrollToTop = () => {
   
   useEffect(() => {
     window.scrollTo(0, 0)
+    // Track page views
+    trackPageView(pathname)
   }, [pathname])
   
   return null
 }
 
 function App() {
+  // Initialize Google Analytics
+  useEffect(() => {
+    const gaId = import.meta.env.VITE_GA_MEASUREMENT_ID
+    if (gaId) {
+      initGA(gaId)
+    }
+  }, [])
+  
   // Check if maintenance mode is enabled
   const isMaintenanceMode = import.meta.env.VITE_MAINTENANCE_MODE === 'true'
 
@@ -62,6 +74,7 @@ function App() {
         </main>
         <Footer />
         <ChatbotWidget />
+        <CookieConsent />
       </div>
     </Router>
   )
