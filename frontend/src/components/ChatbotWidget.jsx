@@ -210,11 +210,13 @@ const ChatbotWidget = () => {
       // Add system message
       const systemMessage = {
         id: Date.now(),
-        content: '🔓 **Admin Mode Disabled**\n\nYou have logged out of executive mode. Standard message limits now apply.',
+        content: '🔓 **Admin Mode Disabled**\n\nYou have logged out of executive mode. Standard message limits now apply. You can continue chatting normally.',
         is_user: false,
         timestamp: new Date().toISOString()
       }
       setMessages(prev => [...prev, systemMessage])
+      // Don't return - user can continue chatting normally
+      scrollToBottom()
       return
     }
     
