@@ -366,6 +366,30 @@ const ChatbotWidget = () => {
     localStorage.setItem('chatbot_enabled', newState.toString())
   }
   
+  // Reset chatbot to default state (useful if chatbot gets hidden)
+  const resetChatbot = () => {
+    // Reset all localStorage items
+    localStorage.setItem('chatbot_enabled', 'true')
+    setChatbotEnabled(true)
+    
+    // Show confirmation message
+    const systemMessage = {
+      id: Date.now(),
+      content: '✅ **Chatbot Reset**\n\nThe chatbot has been reset to default settings and is now enabled.',
+      is_user: false,
+      timestamp: new Date().toISOString()
+    }
+    setMessages(prev => [...prev, systemMessage])
+  }
+  
+  // Add global reset function
+  useEffect(() => {
+    window.resetChatbot = resetChatbot
+    return () => {
+      delete window.resetChatbot
+    }
+  }, [])
+  
   const viewConversationDetails = async (convId) => {
     try {
       const res = await getConversation(convId)
