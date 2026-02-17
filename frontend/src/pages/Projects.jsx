@@ -104,6 +104,24 @@ const Projects = () => {
         </div>
       </section>
 
+      {/* Video Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">Launch Highlights</h2>
+            <p className="text-slate-600">Watch our rockets in action</p>
+          </div>
+          <div className="aspect-video bg-slate-900 rounded-2xl overflow-hidden shadow-xl">
+            <video 
+              controls 
+              className="w-full h-full object-cover"
+            >
+              <source src="/Videos/Launch%20cool.mp4" type="video/mp4" />
+            </video>
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="py-16 bg-white">
         <div className="max-w-4xl mx-auto px-6 text-center">

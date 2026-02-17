@@ -1,81 +1,40 @@
 import { motion } from 'framer-motion'
-import { useState, useEffect } from 'react'
 
 const Hero = () => {
-  const [currentVideo, setCurrentVideo] = useState(0)
-  const videos = [
-    '/Videos/Launch%20cool.mp4',
-    '/Videos/rocket%20launch.mp4',
-    '/Videos/team%20drone.mp4'
-  ]
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentVideo((prev) => (prev + 1) % videos.length)
-    }, 15000) // Change video every 15 seconds
-    return () => clearInterval(interval)
-  }, [videos.length])
-
   return (
     <section className="relative min-h-screen flex items-center bg-slate-950 overflow-hidden">
-      {/* Video Background */}
-      <div className="absolute inset-0 z-0">
-        {videos.map((video, index) => (
-          <video
-            key={video}
-            src={video}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
-              index === currentVideo ? 'opacity-100' : 'opacity-0'
-            }`}
-          />
-        ))}
-        {/* Gradient overlay for better text readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/70 via-slate-950/50 to-transparent"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/40 via-transparent to-slate-950/60"></div>
+      {/* Animated grid background */}
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `
+            linear-gradient(rgba(59, 130, 246, 0.08) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(59, 130, 246, 0.08) 1px, transparent 1px)
+          `,
+          backgroundSize: '80px 80px'
+        }}></div>
       </div>
       
       {/* Dynamic gradient orbs */}
       <motion.div 
-        className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-[120px] z-10"
+        className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[120px]"
         animate={{ 
           scale: [1, 1.2, 1],
           x: [0, 50, 0],
-          opacity: [0.05, 0.1, 0.05]
+          opacity: [0.2, 0.3, 0.2]
         }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div 
-        className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-red-500/5 rounded-full blur-[100px] z-10"
+        className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-red-500/15 rounded-full blur-[100px]"
         animate={{ 
           scale: [1.2, 1, 1.2],
           y: [0, -30, 0],
-          opacity: [0.05, 0.1, 0.05]
+          opacity: [0.15, 0.25, 0.15]
         }}
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      {/* Video indicators */}
-      <div className="absolute top-8 right-8 z-50 flex gap-2">
-        {videos.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentVideo(index)}
-            className={`w-2 h-2 rounded-full transition-all ${
-              index === currentVideo 
-                ? 'bg-white w-8 shadow-lg shadow-white/50' 
-                : 'bg-white/50 hover:bg-white/80'
-            }`}
-            aria-label={`View video ${index + 1}`}
-          />
-        ))}
-      </div>
-
-
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-20 w-full z-20">
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-20 w-full">
         <div className="grid lg:grid-cols-2 gap-20 items-center">
           {/* Left: Content */}
           <div className="space-y-10">
