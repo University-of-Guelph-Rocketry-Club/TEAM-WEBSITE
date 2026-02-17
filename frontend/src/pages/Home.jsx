@@ -341,14 +341,14 @@ const Home = () => {
             </div>
           </ScrollReveal>
           <ScrollReveal delay={0.2}>
-            <div className="aspect-video bg-slate-900 rounded-3xl overflow-hidden shadow-2xl">
+            <div className="w-full max-w-3xl mx-auto bg-slate-900 rounded-3xl overflow-hidden shadow-2xl" style={{aspectRatio: '9/16'}}>
               <video 
                 controls 
                 autoPlay
                 loop
                 muted
                 playsInline
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain"
               >
                 <source src="/Videos/rocket%20launch.mp4" type="video/mp4" />
               </video>

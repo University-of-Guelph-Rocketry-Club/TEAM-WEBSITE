@@ -111,14 +111,14 @@ const Projects = () => {
             <h2 className="text-3xl font-bold text-slate-900 mb-4">Launch Highlights</h2>
             <p className="text-slate-600">Watch our rockets in action</p>
           </div>
-          <div className="aspect-video bg-slate-900 rounded-2xl overflow-hidden shadow-xl">
+          <div className="w-full max-w-3xl mx-auto bg-slate-900 rounded-2xl overflow-hidden shadow-xl" style={{aspectRatio: '9/16'}}>
             <video 
               controls 
               autoPlay
               loop
               muted
               playsInline
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain"
             >
               <source src="/Videos/Launch%20cool.mp4" type="video/mp4" />
               Your browser does not support the video tag.
