@@ -344,7 +344,11 @@ const Home = () => {
             <div className="aspect-video bg-slate-900 rounded-3xl overflow-hidden shadow-2xl">
               <video 
                 controls 
-                className="w-full h-full object-contain"
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover"
               >
                 <source src="/Videos/rocket%20launch.mp4" type="video/mp4" />
               </video>
