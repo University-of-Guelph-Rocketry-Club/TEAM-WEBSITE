@@ -114,7 +114,7 @@ const Projects = () => {
           <div className="aspect-video bg-slate-900 rounded-2xl overflow-hidden shadow-xl">
             <video 
               controls 
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain"
             >
               <source src="/Videos/Launch%20cool.mp4" type="video/mp4" />
               Your browser does not support the video tag.
