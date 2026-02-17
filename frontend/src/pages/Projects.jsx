@@ -117,6 +117,7 @@ const Projects = () => {
               className="w-full h-full object-cover"
             >
               <source src="/Videos/Launch%20cool.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
             </video>
           </div>
         </div>

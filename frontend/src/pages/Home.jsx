@@ -346,7 +346,7 @@ const Home = () => {
                 controls 
                 className="w-full h-full object-cover"
               >
-                <source src="/Videos/rocket launch.mp4" type="video/mp4" />
+                <source src="/Videos/rocket%20launch.mp4" type="video/mp4" />
               </video>
             </div>
           </ScrollReveal>
