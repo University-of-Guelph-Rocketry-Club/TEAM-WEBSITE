@@ -77,25 +77,6 @@ const Team = () => {
           </div>
         </div>
       </section>
-
-      {/* Team Video Section */}
-      <section className="py-16 bg-slate-50">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">Team in Action</h2>
-            <p className="text-slate-600">Behind the scenes with the crew</p>
-          </div>
-          <div className="aspect-video bg-slate-900 rounded-2xl overflow-hidden shadow-xl">
-            <video 
-              controls 
-              className="w-full h-full object-cover"
-            >
-              <source src="/Videos/team%20drone.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-          </div>
-        </div>
-      </section>
     </div>
   )
 }
