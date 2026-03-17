@@ -13,6 +13,25 @@ const Sponsors = () => {
         </div>
       </section>
 
+      {/* Current Sponsors */}
+      <section className="py-12 bg-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-2xl font-bold text-slate-900 mb-6">Current Sponsors</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="rounded-xl border border-slate-200 bg-slate-50 p-6">
+              <h3 className="text-xl font-semibold text-slate-900 mb-2">SOLIDWORKS</h3>
+              <p className="text-slate-700 mb-3">
+                We are officially sponsored through the SOLIDWORKS Sponsorship for Student Teams program.
+              </p>
+              <p className="text-sm text-slate-600">
+                The team now has access to 40 SOLIDWORKS licenses, including Flow Simulation, to support projects
+                like our Hybrid Rocket and LC2026 work.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Why Sponsor */}
       <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-6">
