@@ -12,73 +12,11 @@ const Team = () => {
     { id: 8, name: 'Yassin', position: 'Outreach Lead', image_url: '/Images/rocketrylogo.png' }
   ]
 
-  return (
-    <div className="page-transition">
-      {/* Header */}
-      <section className="pt-24 pb-8 bg-slate-50">
-        <div className="max-w-6xl mx-auto px-6">
-          <h1 className="text-4xl font-bold text-slate-900 mb-4">Team</h1>
-          <p className="text-lg text-slate-600">
-            2025 Executive Team & Department Leads
-          </p>
-        </div>
-      </section>
-
-      {/* Team Grid */}
-      <section className="py-16 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <TeamPhoto executives={executives} />
-        </div>
-      </section>
-
-      {/* Departments */}
-      <section className="py-16 bg-slate-50">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-2xl font-bold text-slate-900 mb-8">Departments</h2>
-          <div className="grid md:grid-cols-4 gap-6">
-            {[
-              { name: 'Software', lead: 'Nick', desc: 'Flight computers, telemetry, ground stations' },
-              { name: 'Avionics', lead: 'Aban', desc: 'Electronics, sensors, control systems' },
-              { name: 'Rocketry', lead: 'Juliet', desc: 'Propulsion, structures, aerodynamics' },
-              { name: 'Finance', lead: 'Julian', desc: 'Budgeting, sponsorship, operations' },
-            ].map((dept) => (
-              <div key={dept.name} className="bg-white rounded-xl p-6 border border-slate-200">
-                <h3 className="font-semibold text-slate-900 mb-1">{dept.name}</h3>
-                <p className="text-sm text-blue-600 mb-3">Lead: {dept.lead}</p>
-                <p className="text-sm text-slate-600">{dept.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Join CTA */}
-      <section className="py-16 bg-white">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-2xl font-bold text-slate-900 mb-4">Join the Team</h2>
-          <p className="text-slate-600 mb-6">
-            We're always looking for new members. All skill levels welcome.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <a 
-              href="https://discord.gg/asjHsm7DVj"
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="px-6 py-3 bg-slate-900 text-white font-medium rounded-lg hover:bg-slate-800 transition-colors"
-            >
-              Join Discord
-            </a>
-            <a 
-              href="mailto:rocketry@uoguelph.ca"
-              className="px-6 py-3 border border-slate-300 text-slate-700 font-medium rounded-lg hover:bg-slate-50 transition-colors"
-            >
-              Contact Us
-            </a>
-          </div>
-        </div>
-      </section>
-    </div>
-  )
+  return <div className="club-page team-page">
+    <section className="page-heading wrap"><h1>Meet the team.</h1><p>2025 executive team and department leads.</p></section>
+    <section className="wrap team-roster" aria-label="Executive team"><TeamPhoto executives={executives} /></section>
+    <section className="club-invitation"><div className="wrap invitation-layout"><h2>Build with us.</h2><div><p>Software, avionics, rocketry, and finance. Every department has a part to play, and every skill level is welcome.</p><a className="club-button red" href="https://discord.gg/asjHsm7DVj" target="_blank" rel="noopener noreferrer">Join our Discord</a></div></div></section>
+  </div>
 }
 
 export default Team

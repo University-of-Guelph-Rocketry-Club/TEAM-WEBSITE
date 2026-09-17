@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-import ChatbotWidget from './components/ChatbotWidget'
 import CookieConsent from './components/CookieConsent'
 import MaintenanceMode from './components/MaintenanceMode'
 import { initGA, trackPageView } from './utils/analytics'
@@ -22,13 +21,15 @@ import TeamDetail from './pages/TeamDetail'
 
 // Scroll to top on route change
 const ScrollToTop = () => {
-  const { pathname } = useLocation()
+  const { pathname, hash } = useLocation()
   
   useEffect(() => {
-    window.scrollTo(0, 0)
+    const section = hash ? document.getElementById(hash.slice(1)) : null
+    if (section) section.scrollIntoView()
+    else window.scrollTo(0, 0)
     // Track page views
     trackPageView(pathname)
-  }, [pathname])
+  }, [pathname, hash])
   
   return null
 }
@@ -39,6 +40,12 @@ function App() {
     const gaId = import.meta.env.VITE_GA_MEASUREMENT_ID
     if (gaId) {
       initGA(gaId)
+      try {
+        const consent = JSON.parse(localStorage.getItem('cookieConsent') || 'null')
+        if (consent?.analytics) window.gtag?.('consent', 'update', { analytics_storage: 'granted' })
+      } catch {
+        // Keep analytics disabled if saved preferences cannot be read.
+      }
     }
   }, [])
   
@@ -55,7 +62,7 @@ function App() {
       <ScrollToTop />
       <div className="min-h-screen bg-gray-50">
         <Navbar />
-        <main>
+        <main id="main-content">
           <Routes>
             {/* All routes are now public */}
             <Route path="/" element={<Home />} />
@@ -73,7 +80,6 @@ function App() {
           </Routes>
         </main>
         <Footer />
-        <ChatbotWidget />
         <CookieConsent />
       </div>
     </Router>
