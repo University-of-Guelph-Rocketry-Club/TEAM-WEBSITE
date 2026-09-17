@@ -44,7 +44,7 @@ const SponsorContactForm = () => {
             </a>
             
             <a 
-              href="https://discord.gg/VRZE2923" 
+              href="https://discord.gg/asjHsm7DVj"
               target="_blank" 
               rel="noopener noreferrer"
               className="flex items-center justify-center space-x-3 p-3 bg-indigo-50 rounded-lg hover:bg-indigo-100 transition-colors"

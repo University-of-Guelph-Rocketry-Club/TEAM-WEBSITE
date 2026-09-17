@@ -172,7 +172,7 @@ CLUB_INFO = {
         "requirements": "No experience needed - we teach everything. Just bring curiosity and commitment.",
         "eligibility": "Open to all University of Guelph students",
         "steps": [
-            "Join our Discord: https://discord.gg/VRZE2923",
+            "Join our Discord: https://discord.gg/asjHsm7DVj",
             "Attend a weekly meeting (schedule posted on Discord)",
             "Choose a department: Software, Avionics, Rocketry, or Finance",
             "Start contributing to projects with mentorship from senior members"
@@ -188,7 +188,7 @@ CLUB_INFO = {
     },
     
     "social_links": {
-        "discord": "https://discord.gg/VRZE2923",
+        "discord": "https://discord.gg/asjHsm7DVj",
         "instagram": "https://www.instagram.com/guelph_rockets",
         "linkedin": "https://www.linkedin.com/company/uofg-rocketry-club/posts/",
         "email": "rocketry@uoguelph.ca",

@@ -423,7 +423,7 @@ SMTP_USERNAME=your-email@gmail.com
 SMTP_PASSWORD=your-app-password
 
 # Discord (optional)
-DISCORD_INVITE_URL=https://discord.gg/rocketryguelph
+DISCORD_INVITE_URL=https://discord.gg/asjHsm7DVj
 ```
 
 ### Frontend Environment Variables

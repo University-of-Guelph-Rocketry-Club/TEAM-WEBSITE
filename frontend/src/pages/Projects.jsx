@@ -136,7 +136,7 @@ const Projects = () => {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <a 
-              href="https://discord.gg/VRZE2923" 
+              href="https://discord.gg/asjHsm7DVj"
               target="_blank" 
               rel="noopener noreferrer"
               className="px-6 py-3 bg-slate-900 text-white font-medium rounded-lg hover:bg-slate-800 transition-colors"

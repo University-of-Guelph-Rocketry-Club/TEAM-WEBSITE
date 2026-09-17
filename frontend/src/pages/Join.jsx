@@ -22,7 +22,7 @@ const Join = () => {
               Discord is where we coordinate projects, share updates, and build community. It's the easiest way to get started.
             </p>
             <a 
-              href="https://discord.gg/VRZE2923" 
+              href="https://discord.gg/asjHsm7DVj"
               target="_blank" 
               rel="noopener noreferrer"
               className="inline-block px-8 py-4 bg-white text-slate-900 font-semibold rounded-lg hover:bg-slate-100 transition-colors"

@@ -310,7 +310,7 @@ const Home = () => {
             {/* Discord CTA */}
             <StaggerItem>
               <motion.a 
-                href="https://discord.gg/VRZE2923"
+                href="https://discord.gg/asjHsm7DVj"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block bg-slate-800 border border-slate-700 rounded-3xl p-8 hover:border-slate-600 transition-colors group"
@@ -414,7 +414,7 @@ const Home = () => {
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <motion.a 
-                href="https://discord.gg/VRZE2923" 
+                href="https://discord.gg/asjHsm7DVj"
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="px-8 py-4 bg-white text-slate-900 font-semibold rounded-xl hover:bg-slate-100 transition-colors text-lg"

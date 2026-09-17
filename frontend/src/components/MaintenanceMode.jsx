@@ -54,7 +54,7 @@ const MaintenanceMode = () => {
               Email Us
             </a>
             <a 
-              href="https://discord.gg/VRZE2923" 
+              href="https://discord.gg/asjHsm7DVj"
               target="_blank" 
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"

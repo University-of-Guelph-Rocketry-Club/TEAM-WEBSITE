@@ -46,7 +46,7 @@ const Navbar = () => {
               </Link>
             ))}
             <a
-              href="https://discord.gg/VRZE2923"
+              href="https://discord.gg/asjHsm7DVj"
               target="_blank"
               rel="noopener noreferrer"
               className="ml-4 px-4 py-2 bg-slate-900 text-white text-sm font-medium rounded-lg hover:bg-slate-800 transition-colors"
@@ -91,7 +91,7 @@ const Navbar = () => {
                 </Link>
               ))}
               <a
-                href="https://discord.gg/VRZE2923"
+                href="https://discord.gg/asjHsm7DVj"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mx-4 mt-2 px-4 py-3 bg-slate-900 text-white text-sm font-medium rounded-lg text-center"

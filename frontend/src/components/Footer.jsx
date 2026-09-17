@@ -34,7 +34,7 @@ const Footer = () => {
           <div>
             <h3 className="font-medium text-sm text-slate-300 uppercase tracking-wider mb-4">Connect</h3>
             <ul className="space-y-3">
-              <li><a href="https://discord.gg/VRZE2923" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white text-sm transition-colors">Discord</a></li>
+              <li><a href="https://discord.gg/asjHsm7DVj" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white text-sm transition-colors">Discord</a></li>
               <li><a href="https://www.instagram.com/guelph_rockets" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white text-sm transition-colors">Instagram</a></li>
               <li><a href="https://www.linkedin.com/company/uofg-rocketry-club/posts/" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white text-sm transition-colors">LinkedIn</a></li>
               <li><a href="mailto:rocketry@uoguelph.ca" className="text-slate-400 hover:text-white text-sm transition-colors">rocketry@uoguelph.ca</a></li>
