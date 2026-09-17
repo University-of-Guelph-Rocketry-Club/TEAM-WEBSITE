@@ -13,9 +13,9 @@ const Team = () => {
   ]
 
   return <div className="club-page team-page">
-    <section className="page-heading wrap"><h1>Meet the team.</h1><p>2025 executive team and department leads.</p></section>
+    <section className="page-heading wrap"><h1>Meet the team</h1><p>Say hi to our 2025 execs and department leads</p></section>
     <section className="wrap team-roster" aria-label="Executive team"><TeamPhoto executives={executives} /></section>
-    <section className="club-invitation"><div className="wrap invitation-layout"><h2>Build with us.</h2><div><p>Software, avionics, rocketry, and finance. Every department has a part to play, and every skill level is welcome.</p><a className="club-button red" href="https://discord.gg/asjHsm7DVj" target="_blank" rel="noopener noreferrer">Join our Discord</a></div></div></section>
+    <section className="club-invitation"><div className="wrap invitation-layout"><h2>Make cool stuff<br />with us!</h2><div><p>Software, avionics, rocketry, finance, and plenty more — there’s something for every interest and every skill level</p><a className="club-button red" href="https://discord.gg/asjHsm7DVj" target="_blank" rel="noopener noreferrer">Join our Discord</a></div></div></section>
   </div>
 }
 
