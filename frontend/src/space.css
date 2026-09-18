@@ -140,9 +140,9 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline-color: var(
   .club-links { background: #0c182b; }
   .launch-scene.is-animated { height: 230svh; }
   .launch-stage { min-height: 760px; }
-  .launch-visual { inset: 0; opacity: .6; mask-image: linear-gradient(0deg, #000, #0008); }
+  .launch-visual { inset: 0; opacity: 1; mask-image: none; }
   .launch-visual img, .launch-visual video { object-position: 60% center; }
-  .launch-visual::after { background: linear-gradient(90deg, #060e1ce6, #060e1c44), linear-gradient(0deg, #060e1c, transparent 50%); }
+  .launch-visual::after { background: linear-gradient(90deg, #000b, #0003), linear-gradient(0deg, #0009, transparent 50%); }
   .launch-stage .hero-copy { width: calc(100% - 40px); justify-content: flex-start; padding-top: 52px; }
   .launch-stage h1 { font-size: clamp(72px, 15vw, 104px); }
   .launch-stage .hero-intro { font-size: 14px; }
