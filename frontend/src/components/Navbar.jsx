@@ -1,9 +1,10 @@
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink, Link, useLocation } from 'react-router-dom'
 import { useState } from 'react'
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
-  return <header className="club-header">
+  const { pathname } = useLocation()
+  return <header className={`club-header${pathname === '/' ? ' home-header' : ''}`}>
     <a className="skip-link" href="#main-content">Skip to content</a>
     <div className="club-nav wrap">
       <Link to="/" className="club-brand" onClick={() => setOpen(false)}>

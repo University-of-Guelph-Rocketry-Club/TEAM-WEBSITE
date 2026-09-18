@@ -9,6 +9,7 @@
 
 body, .club-page, .team-page { background: var(--space-night); }
 .club-header { background: #080f1e; color: var(--club-ink); border-bottom: 1px solid #ffffff12; }
+.club-header.home-header { position: sticky; top: 0; }
 .club-links a.active, .club-links a:hover { color: var(--club-gold); }
 .club-links a.active { box-shadow: 0 2px var(--club-gold); }
 .skip-link { background: var(--space-night); }
@@ -18,14 +19,13 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline-color: var(
 .cookie-notice { background: #132039; box-shadow: 0 8px 40px #0006; }
 .cookie-actions button:first-child { background: var(--club-gold); color: #141b29; }
 
-.launch-scene { --travel: 0; position: relative; background: var(--space-night); }
+.launch-scene { --travel: 0; --launch-header-height: 104px; position: relative; background: var(--space-night); }
 .launch-scene.is-animated { height: 260svh; }
 .launch-stage {
   position: sticky;
-  top: 0;
+  top: var(--launch-header-height);
   isolation: isolate;
-  height: 100svh;
-  min-height: 710px;
+  height: calc(100svh - var(--launch-header-height));
   overflow: hidden;
   background: radial-gradient(ellipse at 10% 45%, #152947 0%, #060e1c 65%);
 }
@@ -66,7 +66,6 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline-color: var(
   margin-inline: auto;
   padding: clamp(48px, 8vh, 100px) 0 32px;
   justify-content: center;
-  transform: translateY(calc(var(--travel) * -45px));
 }
 .launch-stage .hero-intro { color: #b6c9e1; font-size: 16px; margin-bottom: 24px; }
 .launch-stage h1 { font-size: clamp(78px, 8vw, 124px); line-height: .94; letter-spacing: -2px; margin-bottom: 28px; }
@@ -100,6 +99,7 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline-color: var(
 .launch-progress span { display: block; height: 100%; background: var(--club-gold); transform-origin: left; transform: scaleX(var(--travel)); }
 
 .project-preview { position: relative; padding-block: 100px 110px; }
+#home-projects { scroll-margin-top: 104px; }
 .project-preview .section-intro { margin-bottom: 48px; }
 .club-home h2 { font-size: 48px; }
 .project-columns article { border-top: 1px solid #416182; }
@@ -139,7 +139,7 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline-color: var(
 @media (max-width: 760px) {
   .club-links { background: #0c182b; }
   .launch-scene.is-animated { height: 230svh; }
-  .launch-stage { min-height: 760px; }
+  .launch-scene { --launch-header-height: 86px; }
   .launch-visual { inset: 0; opacity: 1; mask-image: none; }
   .launch-visual img, .launch-visual video { object-position: 60% center; }
   .launch-visual::after { background: linear-gradient(90deg, #000b, #0003), linear-gradient(0deg, #0009, transparent 50%); }
@@ -153,6 +153,7 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline-color: var(
   .launch-scroll-cue { gap: 8px; }
   .launch-footage-caption { right: 20px; bottom: 88px; font-size: 10px; }
   .project-preview { padding-block: 56px; }
+  #home-projects { scroll-margin-top: 86px; }
   .club-home h2 { font-size: 40px; }
   .project-preview .section-intro { margin-bottom: 32px; }
   .project-columns { gap: 40px; }
@@ -160,4 +161,23 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline-color: var(
   .club-invitation { padding-block: 60px 85px; }
   .supporter-strip { padding-block: 45px; }
   .supporter-strip h2 { font-size: 27px; }
+}
+
+@media (max-height: 850px) {
+  .launch-stage .hero-copy { padding-block: 28px 16px; }
+  .launch-stage h1 { font-size: clamp(58px, 10svh, 88px); margin-bottom: 20px; }
+  .launch-stage .hero-intro { margin-bottom: 16px; }
+  .launch-stage .hero-actions { margin-top: 18px; }
+  .launch-stage .hero-footnote { padding-top: 22px; }
+}
+
+@media (max-height: 700px) {
+  .launch-stage .hero-copy { padding-block: 16px 8px; }
+  .launch-stage h1 { font-size: clamp(42px, 8svh, 56px); margin-bottom: 12px; }
+  .launch-stage .hero-description { font-size: 15px; line-height: 1.4; }
+  .launch-stage .hero-intro { margin-bottom: 12px; font-size: 13px; }
+  .launch-stage .hero-actions { margin-top: 12px; gap: 14px; }
+  .launch-stage .hero-footnote { padding-top: 16px; }
+  .launch-bottom { bottom: 16px; }
+  .launch-footage-caption { bottom: 68px; }
 }
