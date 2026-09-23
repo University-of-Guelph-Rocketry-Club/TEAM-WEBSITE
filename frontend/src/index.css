@@ -18,14 +18,11 @@ img {
 
 /* High quality for profile images */
 img[alt*="profile" i],
-img[src*="darren" i],
 img[src*="rachel" i],
 img[src*="marko" i],
 img[src*="nick" i],
 img[src*="julian" i],
-img[src*="juliet" i],
-img[src*="aban" i],
-img[src*="yassin" i] {
+img[src*="aban" i] {
   image-rendering: auto;
   image-rendering: high-quality;
   -ms-interpolation-mode: bicubic;
@@ -153,6 +150,7 @@ img[src*="yassin" i] {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  color: #1f2937; /* prevent inheriting the site-wide space theme's near-white text color */
 }
 
 /* typing indicator */

@@ -457,17 +457,14 @@ When the user asks for "analytics" or "stats", provide detailed chatbot usage st
             user_message_lower = message.content.lower()
             
             if any(word in user_message_lower for word in ['team', 'member', 'executive', 'lead']):
-                ai_response_content = f"""**{CLUB_INFO['name']}** 🚀
+                ai_response_content = f"""**{CLUB_INFO['name']}**
 
 **Our Executive Team:**
-• **Darren**: Club President
-• **Celina**: Vice President  
-• **Rahma**: Advisor
-• **Aban**: Finance
-• **Marko**: Rocketry Team Lead
+• **Julian**: Club President
+• **Marko**: Vice President
+• **Rachel**: Regulatory
 • **Nick**: Software Team Lead
-• **Tylen**: Avionics Team Lead
-• **Yassin**: Outreach Lead
+• **Aban**: Avionics Team Lead
 
 **Our Departments:**
 • Software
@@ -478,32 +475,28 @@ When the user asks for "analytics" or "stats", provide detailed chatbot usage st
 Visit our <a href='/team' class='text-primary-600 hover:text-primary-800 transition-colors'>Team page</a> to learn more!
 
 **Connect with us:**
-📱 [Discord]({CLUB_INFO['social_links']['discord']})
-💼 [LinkedIn]({CLUB_INFO['social_links']['linkedin']})
-📸 [Instagram]({CLUB_INFO['social_links']['instagram']})
-📧 Email: rocketry@uoguelph.ca"""
+[Discord]({CLUB_INFO['social_links']['discord']}) | [LinkedIn]({CLUB_INFO['social_links']['linkedin']}) | [Instagram]({CLUB_INFO['social_links']['instagram']})
+Email: rocketry@uoguelph.ca"""
             
             elif any(word in user_message_lower for word in ['project', 'rocket', 'competition', 'cubesat']):
-                ai_response_content = f"""🚀 **{CLUB_INFO['name']} Projects:**
+                ai_response_content = f"""**{CLUB_INFO['name']} Projects:**
 
 **Current Projects:**
-🛰️ **CubeSat Development** - Working on a CubeSat that surveys land
-🚀 **Rocket Launches** - Building and launching rockets for competitions and learning
-📚 **Educational Programs** - Teaching UofG students about rocketry and CubeSat technology
-🔬 **Research & Development** - Advancing aerospace technology for students
+• **CubeSat Development** - Working on a CubeSat that surveys land
+• **Rocket Launches** - Building and launching rockets for competitions and learning
+• **Educational Programs** - Teaching UofG students about rocketry and CubeSat technology
+• **Research & Development** - Advancing aerospace technology for students
 
 **Our Mission:** {CLUB_INFO['vision']}
 
 Check out our <a href='/projects' class='text-primary-600 hover:text-primary-800 transition-colors'>Projects page</a> for more details!
 
 **Join our community:**
-📱 [Discord]({CLUB_INFO['social_links']['discord']})
-💼 [LinkedIn]({CLUB_INFO['social_links']['linkedin']})
-📸 [Instagram]({CLUB_INFO['social_links']['instagram']})
-📧 Email: rocketry@uoguelph.ca"""
+[Discord]({CLUB_INFO['social_links']['discord']}) | [LinkedIn]({CLUB_INFO['social_links']['linkedin']}) | [Instagram]({CLUB_INFO['social_links']['instagram']})
+Email: rocketry@uoguelph.ca"""
             
             elif any(word in user_message_lower for word in ['join', 'member', 'how to']):
-                ai_response_content = f"""Welcome to **{CLUB_INFO['name']}**! 🚀
+                ai_response_content = f"""Welcome to **{CLUB_INFO['name']}**!
 
 **Our Mission:** {CLUB_INFO['vision']}
 
@@ -513,10 +506,10 @@ Check out our <a href='/projects' class='text-primary-600 hover:text-primary-800
 • No prior experience required - all UofG students welcome!
 
 **Our Departments:**
-🖥️ **Software** - Flight computers, data analysis, mission control
-⚡ **Avionics** - Navigation, telemetry, electronic systems  
-🚀 **Rocketry** - Rocket design, propulsion, recovery systems
-💰 **Finance** - Budget management and funding
+• **Software** - Flight computers, data analysis, mission control
+• **Avionics** - Navigation, telemetry, electronic systems  
+• **Rocketry** - Rocket design, propulsion, recovery systems
+• **Finance** - Budget management and funding
 
 **What You'll Get:**
 • Hands-on rocketry and CubeSat experience
@@ -525,13 +518,11 @@ Check out our <a href='/projects' class='text-primary-600 hover:text-primary-800
 • Community of passionate students
 
 **Connect with us:**
-📱 [Discord]({CLUB_INFO['social_links']['discord']})
-💼 [LinkedIn]({CLUB_INFO['social_links']['linkedin']})
-📸 [Instagram]({CLUB_INFO['social_links']['instagram']})
-📧 Email: rocketry@uoguelph.ca"""
+[Discord]({CLUB_INFO['social_links']['discord']}) | [LinkedIn]({CLUB_INFO['social_links']['linkedin']}) | [Instagram]({CLUB_INFO['social_links']['instagram']})
+Email: rocketry@uoguelph.ca"""
             
             elif any(word in user_message_lower for word in ['sponsor', 'partnership', 'support']):
-                ai_response_content = """Thank you for your interest in supporting the University of Guelph Rocketry Club! 🤝
+                ai_response_content = """Thank you for your interest in supporting the University of Guelph Rocketry Club!
 
 **Sponsorship Opportunities:**
 • Equipment and materials support
@@ -550,15 +541,15 @@ Learn more about our sponsorship packages on the <a href='/sponsors' class='text
 For partnership inquiries, please contact our team through our website!"""
             
             else:
-                ai_response_content = f"""Hi! Welcome to **{CLUB_INFO['name']}**! 🚀
+                ai_response_content = f"""Hi! Welcome to **{CLUB_INFO['name']}**!
 
 **Our Mission:** {CLUB_INFO['vision']}
 
 **What We Do:**
-🛰️ CubeSat development and land surveying
-🚀 Rocket launches and competitions  
-📚 Educational rocketry programs for UofG students
-🔬 Hands-on aerospace learning experiences
+• CubeSat development and land surveying
+• Rocket launches and competitions  
+• Educational rocketry programs for UofG students
+• Hands-on aerospace learning experiences
 
 **Our Departments:**
 • Software • Avionics • Rocketry • Finance
@@ -570,10 +561,8 @@ For partnership inquiries, please contact our team through our website!"""
 • <a href='/sponsors' class='text-primary-600 hover:text-primary-800 transition-colors'>Become a Sponsor</a>
 
 **Connect with us:**
-📱 [Discord]({CLUB_INFO['social_links']['discord']})
-💼 [LinkedIn]({CLUB_INFO['social_links']['linkedin']}) 
-📸 [Instagram]({CLUB_INFO['social_links']['instagram']})
-📧 Email: rocketry@uoguelph.ca
+[Discord]({CLUB_INFO['social_links']['discord']}) | [LinkedIn]({CLUB_INFO['social_links']['linkedin']}) | [Instagram]({CLUB_INFO['social_links']['instagram']})
+Email: rocketry@uoguelph.ca
 
 Ask me anything about our club, projects, or how to get involved!"""
 

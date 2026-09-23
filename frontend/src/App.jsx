@@ -4,6 +4,7 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import CookieConsent from './components/CookieConsent'
 import MaintenanceMode from './components/MaintenanceMode'
+import ChatbotWidget from './components/ChatbotWidget'
 import { initGA, trackPageView } from './utils/analytics'
 
 // Public pages
@@ -81,6 +82,7 @@ function App() {
         </main>
         <Footer />
         <CookieConsent />
+        <ChatbotWidget />
       </div>
     </Router>
   )

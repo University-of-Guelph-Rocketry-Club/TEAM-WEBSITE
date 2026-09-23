@@ -210,7 +210,7 @@ const ChatbotWidget = () => {
       // Add system message
       const systemMessage = {
         id: Date.now(),
-        content: '🔓 **Admin Mode Disabled**\n\nYou have logged out of executive mode. Standard message limits now apply. You can continue chatting normally.',
+        content: '**Admin Mode Disabled**\n\nYou have logged out of executive mode. Standard message limits now apply. You can continue chatting normally.',
         is_user: false,
         timestamp: new Date().toISOString()
       }
@@ -294,7 +294,7 @@ const ChatbotWidget = () => {
           ...cleaned,
           {
             id: Date.now(),
-            content: '❌ Connection error. Please check your internet connection and try again.',
+            content: 'Connection error. Please check your internet connection and try again.',
             is_user: false,
             timestamp: new Date().toISOString(),
             error: true
@@ -375,7 +375,7 @@ const ChatbotWidget = () => {
     // Show confirmation message
     const systemMessage = {
       id: Date.now(),
-      content: '✅ **Chatbot Reset**\n\nThe chatbot has been reset to default settings and is now enabled.',
+      content: '**Chatbot Reset**\n\nThe chatbot has been reset to default settings and is now enabled.',
       is_user: false,
       timestamp: new Date().toISOString()
     }
@@ -460,9 +460,11 @@ const ChatbotWidget = () => {
             <button
               onClick={() => setIsOpen(true)}
               className="bg-primary-600 hover:bg-primary-700 text-white rounded-full p-3 sm:p-4 shadow-lg transition-all duration-300 hover:scale-110"
-              title="Chat with AI Assistant"
+              title="Chat with the club assistant"
             >
-              <span className="text-lg sm:text-xl">🤖</span>
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
+              </svg>
             </button>
           </div>
         </div>
@@ -474,12 +476,14 @@ const ChatbotWidget = () => {
           <div className="w-full h-full flex flex-col" style={{ pointerEvents: 'auto' }}>
             <div className="w-full h-full rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl chat-backdrop flex flex-col">
               {/* Header (sticky) */}
-              <div className="bg-gradient-to-r from-primary-700 to-primary-600 text-white p-3 sm:p-4 flex justify-between items-center rounded-t-2xl sm:rounded-t-3xl sticky top-0 z-30 flex-shrink-0">
+              <div className="bg-primary-700 text-white p-3 sm:p-4 flex justify-between items-center rounded-t-2xl sm:rounded-t-3xl sticky top-0 z-30 flex-shrink-0">
                 <div className="flex items-center space-x-2 sm:space-x-3">
-                  <span className="text-xl sm:text-2xl">🤖</span>
+                  <svg className="w-6 h-6 sm:w-7 sm:h-7" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
+                  </svg>
                   <div>
                     <h3 className="font-semibold text-sm sm:text-base">
-                      Rocketry AI Assistant
+                      Rocketry Club Assistant
                       {adminMode && <span className="ml-2 text-xs bg-yellow-400 text-slate-900 px-2 py-0.5 rounded-full font-bold">ADMIN</span>}
                     </h3>
                     <p className="text-xs opacity-90">
@@ -492,25 +496,31 @@ const ChatbotWidget = () => {
                   {adminMode && (
                     <button 
                       onClick={fetchAnalytics} 
-                      className="p-1 hover:bg-white/10 rounded text-sm"
+                      className="p-1 hover:bg-white/10 rounded"
                       title="Analytics Dashboard"
                     >
-                      📊
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+                      </svg>
                     </button>
                   )}
                   <button 
                     onClick={() => setShowConversations(!showConversations)} 
-                    className="p-1 hover:bg-white/10 rounded text-sm"
+                    className="p-1 hover:bg-white/10 rounded"
                     title="Conversation history"
                   >
-                    📋
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                    </svg>
                   </button>
                   <button 
                     onClick={handleNewConversation} 
-                    className="p-1 hover:bg-white/10 rounded text-sm"
+                    className="p-1 hover:bg-white/10 rounded"
                     title="New conversation"
                   >
-                    ➕
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
                   </button>
                   <button onClick={() => setIsOpen(false)} className="p-1 hover:bg-white/10 rounded">✕</button>
                 </div>
@@ -536,10 +546,12 @@ const ChatbotWidget = () => {
                           </button>
                           <button
                             onClick={() => handleDeleteConversation(conv.id)}
-                            className="text-red-400 hover:text-red-600 p-1 text-xs"
+                            className="text-red-400 hover:text-red-600 p-1"
                             title="Delete"
                           >
-                            🗑️
+                            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                            </svg>
                           </button>
                         </li>
                       ))}
@@ -552,13 +564,13 @@ const ChatbotWidget = () => {
               {showAnalytics && analyticsData && !selectedConversationDetails && (
                 <div className="absolute inset-0 bg-white z-20 overflow-y-auto p-4">
                   <div className="flex justify-between items-center mb-4">
-                    <h3 className="font-bold text-lg">📊 Admin Dashboard</h3>
+                    <h3 className="font-bold text-lg">Admin Dashboard</h3>
                     <button onClick={() => setShowAnalytics(false)} className="text-gray-500 hover:text-gray-700 text-xl">✕</button>
                   </div>
                   
                   <div className="space-y-4">
                     {/* Chatbot Toggle */}
-                    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border-2 border-blue-200">
+                    <div className="bg-primary-50 p-4 rounded-lg border border-primary-200">
                       <div className="flex items-center justify-between">
                         <div>
                           <div className="font-semibold text-sm text-gray-800">Chatbot Status</div>
@@ -583,7 +595,7 @@ const ChatbotWidget = () => {
                         <span className={`text-sm font-bold ${
                           chatbotEnabled ? 'text-green-600' : 'text-red-600'
                         }`}>
-                          {chatbotEnabled ? '🟢 ENABLED' : '🔴 DISABLED'}
+                          {chatbotEnabled ? 'ENABLED' : 'DISABLED'}
                         </span>
                       </div>
                     </div>
@@ -679,7 +691,7 @@ const ChatbotWidget = () => {
                         >
                           <div className="flex justify-between items-start mb-1">
                             <span className="text-xs font-semibold text-gray-600">
-                              {msg.is_user ? '👤 User' : '🤖 AI Assistant'}
+                              {msg.is_user ? 'User' : 'Assistant'}
                             </span>
                             <span className="text-xs text-gray-400">
                               {formatMessageTime(msg.timestamp)}
@@ -707,14 +719,12 @@ const ChatbotWidget = () => {
               >
                 {!chatbotEnabled && !adminMode ? (
                   <div className="text-center text-gray-500 py-8">
-                    <div className="text-4xl mb-3">🔒</div>
                     <p className="text-sm font-semibold mb-2">Chatbot Temporarily Unavailable</p>
-                    <p className="text-xs">Our AI assistant is currently offline. Please check back later or contact us at:</p>
+                    <p className="text-xs">Our club assistant is currently offline. Please check back later or contact us at:</p>
                     <a href="mailto:rocketry@uoguelph.ca" className="text-primary-600 hover:underline text-xs">rocketry@uoguelph.ca</a>
                   </div>
                 ) : messages.length === 0 ? (
                   <div className="text-center text-gray-500 py-8">
-                    <div className="text-4xl mb-3">👋</div>
                     <p className="text-sm">Hi! Ask me about the UofG Rocketry Club, our projects, or how to join!</p>
                   </div>
                 ) : (
@@ -731,7 +741,7 @@ const ChatbotWidget = () => {
                         }`}
                       >
                         <div 
-                          className={`text-sm whitespace-pre-wrap ${msg.is_user ? '' : 'prose prose-sm max-w-none'}`}
+                          className={`text-sm whitespace-pre-wrap ${msg.is_user ? '' : 'prose prose-sm max-w-none text-gray-800'}`}
                           dangerouslySetInnerHTML={{ 
                             __html: msg.is_user ? msg.content : DOMPurify.sanitize(msg.content) 
                           }}
@@ -765,7 +775,6 @@ const ChatbotWidget = () => {
                   </div>
                 ) : (!adminMode && isLockedOut) ? (
                   <div className="text-center py-3">
-                    <div className="text-2xl mb-2">🔒</div>
                     <p className="text-sm text-gray-600 mb-1">
                       You've used all {MESSAGE_LIMIT} messages.
                     </p>
@@ -787,7 +796,7 @@ const ChatbotWidget = () => {
                         value={inputMessage}
                         onChange={(e) => setInputMessage(e.target.value)}
                         placeholder={adminMode ? "Admin access - unlimited messages..." : "Ask about the club..."}
-                        className="flex-1 px-4 py-2 border rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                        className="flex-1 px-4 py-2 border rounded-full text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500"
                         disabled={loading}
                       />
                       <button
@@ -800,7 +809,7 @@ const ChatbotWidget = () => {
                     </form>
                     <p className="text-xs text-center mt-1">
                       {adminMode ? (
-                        <span className="text-green-600 font-medium">✅ Executive Mode - Unlimited Messages</span>
+                        <span className="text-green-600 font-medium">Executive Mode - Unlimited Messages</span>
                       ) : (
                         <span className="text-gray-400">{totalMessageCount}/{MESSAGE_LIMIT} messages used</span>
                       )}
