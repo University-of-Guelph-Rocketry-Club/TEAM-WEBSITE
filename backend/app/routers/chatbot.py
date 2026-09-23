@@ -465,6 +465,7 @@ When the user asks for "analytics" or "stats", provide detailed chatbot usage st
 • **Rachel**: Regulatory
 • **Nick**: Software Team Lead
 • **Aban**: Avionics Team Lead
+• **Sohum**: Outreach Lead
 
 **Our Departments:**
 • Software

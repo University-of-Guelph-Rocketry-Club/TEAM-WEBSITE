@@ -5,6 +5,7 @@ import Footer from './components/Footer'
 import CookieConsent from './components/CookieConsent'
 import MaintenanceMode from './components/MaintenanceMode'
 import ChatbotWidget from './components/ChatbotWidget'
+import PageLoader from './components/PageLoader'
 import { initGA, trackPageView } from './utils/analytics'
 
 // Public pages
@@ -61,6 +62,7 @@ function App() {
   return (
     <Router>
       <ScrollToTop />
+      <PageLoader />
       <div className="min-h-screen bg-gray-50">
         <Navbar />
         <main id="main-content">

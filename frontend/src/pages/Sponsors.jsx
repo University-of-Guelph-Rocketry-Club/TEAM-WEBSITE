@@ -1,3 +1,34 @@
+import Reveal from '../components/Reveal'
+
 export default function Sponsors() {
-  return <div className="club-page"><section className="page-heading wrap"><h1>Help us get<br />to the launch pad!</h1><p>Your sponsorship helps us buy parts, get the tools we need, and take our rocket to competition</p></section><section className="wrap sponsor-feature"><div><p>Thanks to our sponsors!</p><h2>SOLIDWORKS</h2></div><div><h3>40 licenses for the club</h3><p>The SOLIDWORKS Sponsorship for Student Teams program provides 40 licenses, including Flow Simulation, for work on our liquid engine and competition rocket</p></div></section><section className="club-invitation"><div className="wrap invitation-layout"><h2>Want to sponsor us?</h2><div><p>We’d love to hear from you! We can use materials, equipment, software, or help with competition costs</p><p>Email us to talk about what the team needs and how you’d like to help</p><a className="club-button red" href="mailto:rocketry@uoguelph.ca">Let’s talk sponsorship</a></div></div></section></div>
+  return (
+    <div className="club-page">
+      <section className="page-heading wrap">
+        <h1>Help us get<br />to the launch pad!</h1>
+        <p>Your sponsorship helps us buy parts, get the tools we need, and take our rocket to competition</p>
+      </section>
+
+      <Reveal as="section" className="wrap sponsor-feature">
+        <div>
+          <p>Thanks to our sponsors!</p>
+          <h2>SOLIDWORKS</h2>
+        </div>
+        <div>
+          <h3>40 licenses for the club</h3>
+          <p>The SOLIDWORKS Sponsorship for Student Teams program provides 40 licenses, including Flow Simulation, for work on our liquid engine and competition rocket</p>
+        </div>
+      </Reveal>
+
+      <Reveal as="section" className="club-invitation">
+        <div className="wrap invitation-layout">
+          <h2>Want to sponsor us?</h2>
+          <div>
+            <p>We’d love to hear from you! We can use materials, equipment, software, or help with competition costs</p>
+            <p>Email us directly to talk about what the team needs and how you’d like to help</p>
+            <a className="club-button red" href="mailto:rocketry@uoguelph.ca">Email rocketry@uoguelph.ca</a>
+          </div>
+        </div>
+      </Reveal>
+    </div>
+  )
 }

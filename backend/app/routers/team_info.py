@@ -19,6 +19,10 @@ TEAM_MEMBERS_INFO = {
         {
             "name": "Aban",
             "role": "Avionics Team Lead"
+        },
+        {
+            "name": "Sohum",
+            "role": "Outreach Lead"
         }
     ]
 }

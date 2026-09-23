@@ -6,7 +6,8 @@ const Team = () => {
     { id: 2, name: 'Marko', position: 'VP Operations', image_url: '/Images/rocketrylogo.png' },
     { id: 3, name: 'Rachel', position: 'VP Regulatory', image_url: '/Images/Rachel.jpg' },
     { id: 4, name: 'Nick', position: 'Software Team Lead', image_url: '/Images/IMG_6239.jpeg' },
-    { id: 5, name: 'Aban', position: 'Avionics Team Lead', image_url: '/Images/aban.png' }
+    { id: 5, name: 'Aban', position: 'Avionics Team Lead', image_url: '/Images/aban.png' },
+    { id: 6, name: 'Sohum', position: 'Outreach Lead', image_url: '/Images/rocketrylogo.png' }
   ]
 
   return <div className="club-page team-page">
