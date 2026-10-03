@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers import chatbot, github_join
+from app.routers import chatbot
 from app.db import engine, Base
 import os
 from dotenv import load_dotenv
@@ -21,8 +21,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Include only the chatbot router
 app.include_router(chatbot.router, prefix="/api/chatbot", tags=["chatbot"])
-app.include_router(github_join.router, prefix="/api/github", tags=["github"])
 
 @app.get("/")
 def read_root():

@@ -1,7 +1,10 @@
 import { useState } from 'react'
-import { API_BASE_URL } from '../lib/api'
 
 const ORG = 'University-of-Guelph-Rocketry-Club'
+
+// The invite service is a separate Vercel project (github-join), so the club
+// backend doesn't need any GitHub secrets. Update this if its URL changes.
+const JOIN_SERVICE_URL = 'https://uofg-rocketry-join.vercel.app'
 
 const messages = {
   invited: (u) => ({ ok: true, text: `Invite sent to @${u}!`, accept: true }),
@@ -46,7 +49,7 @@ export default function GitHubJoin() {
         )}
 
         {!done && (
-          <form method="POST" action={`${API_BASE_URL}/github/join`} className="github-join-form">
+          <form method="POST" action={`${JOIN_SERVICE_URL}/api/login`} className="github-join-form">
             <label htmlFor="github-code">Join code</label>
             <input id="github-code" name="code" autoComplete="off" required />
             <button type="submit" className="club-button red">Continue with GitHub</button>
