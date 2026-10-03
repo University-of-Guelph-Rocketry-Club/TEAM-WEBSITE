@@ -608,13 +608,29 @@ button,a {
   font-weight:600;
 }
 
-.github-join-form input {
+/* Explicit colors so browser dark mode, autofill, or global input styles
+   can't turn the typed text white on the white field. */
+.github-join .github-join-form input {
   font:inherit;
   padding:12px 14px;
   border:1px solid var(--club-line);
   border-radius:3px;
   color:var(--club-ink);
+  -webkit-text-fill-color:var(--club-ink);
+  caret-color:var(--club-ink);
+  color-scheme:light;
+  opacity:1;
   background:white;
+}
+
+.github-join .github-join-form input::placeholder {
+  color:var(--club-muted);
+  -webkit-text-fill-color:var(--club-muted);
+}
+
+.github-join .github-join-form input:-webkit-autofill {
+  -webkit-text-fill-color:var(--club-ink);
+  box-shadow:0 0 0 1000px white inset;
 }
 
 .github-join-form input:focus {
