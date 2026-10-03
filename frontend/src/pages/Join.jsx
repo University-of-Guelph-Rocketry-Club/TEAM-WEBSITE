@@ -1,4 +1,5 @@
 import Reveal from '../components/Reveal'
+import GitHubJoin from '../components/GitHubJoin'
 
 const departments = [
   ['Software', 'Flight computers, ground stations, simulations, and data visualization'],
@@ -28,6 +29,8 @@ export default function Join() {
           <a href="mailto:rocketry@uoguelph.ca">Ask us a question</a>
         </div>
       </Reveal>
+
+      <GitHubJoin />
 
       <section className="wrap departments">
         <h2>Where will you start?</h2>
