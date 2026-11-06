@@ -159,9 +159,9 @@ const TeamDetail = () => {
               <p className="text-gray-600 mb-4">{team.description}</p>
               
               <div className="flex items-center space-x-6 text-sm text-gray-500">
-                <span>👥 {members.length} members</span>
-                <span>📅 Created {new Date(team.created_at).toLocaleDateString()}</span>
-                {team.projects && <span>🚀 {team.projects.length} projects</span>}
+                <span>{members.length} members</span>
+                <span>Created {new Date(team.created_at).toLocaleDateString()}</span>
+                {team.projects && <span>{team.projects.length} projects</span>}
               </div>
             </div>
 
@@ -242,7 +242,6 @@ const TeamDetail = () => {
                   </div>
                 ) : (
                   <div className="text-center py-8">
-                    <div className="text-gray-400 text-4xl mb-4">📊</div>
                     <p className="text-gray-500">No updates yet. Be the first to share progress!</p>
                   </div>
                 )}

@@ -1,7 +1,7 @@
 TEAM_MEMBERS_INFO = {
     "executives": [
         {
-            "name": "Darren",
+            "name": "Julian",
             "role": "Club President"
         },
         {
@@ -13,14 +13,6 @@ TEAM_MEMBERS_INFO = {
             "role": "Regulatory"
         },
         {
-            "name": "Julian",
-            "role": "Finance"
-        },
-        {
-            "name": "Juliet",
-            "role": "Rocketry Team Lead"
-        },
-        {
             "name": "Nick",
             "role": "Software Team Lead"
         },
@@ -29,7 +21,7 @@ TEAM_MEMBERS_INFO = {
             "role": "Avionics Team Lead"
         },
         {
-            "name": "Yassin",
+            "name": "Sohum",
             "role": "Outreach Lead"
         }
     ]

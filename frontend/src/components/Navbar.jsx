@@ -13,7 +13,7 @@ export default function Navbar() {
       </Link>
       <button className="menu-toggle" aria-expanded={open} aria-controls="club-links" onClick={() => setOpen(!open)}>{open ? 'Close' : 'Menu'}</button>
       <nav id="club-links" aria-label="Main navigation" className={`club-links ${open ? 'is-open' : ''}`}>
-        {[['/projects', 'Projects'], ['/team', 'Our team'], ['/sponsors', 'Sponsors'], ['/join', 'Join the club']].map(([to, label]) => <NavLink key={to} to={to} onClick={() => setOpen(false)}>{label}</NavLink>)}
+        {[['/', 'Home'], ['/projects', 'Projects'], ['/team', 'Our team'], ['/sponsors', 'Sponsors'], ['/join', 'Join the club']].map(([to, label]) => <NavLink key={to} to={to} end={to === '/'} onClick={() => setOpen(false)}>{label}</NavLink>)}
         <a className="nav-discord" href="https://discord.gg/asjHsm7DVj" target="_blank" rel="noopener noreferrer">Discord</a>
       </nav>
     </div>
