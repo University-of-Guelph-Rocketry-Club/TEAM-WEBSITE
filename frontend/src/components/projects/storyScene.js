@@ -5,7 +5,7 @@ import { createStoryRocket } from './storyRocket'
 import { createStoryCubeSat } from './storyCubeSat'
 import { createEarth, createStars } from './storySpace'
 
-const IDS = ['intro', 'competition', 'launch', 'cubesat', 'deploy', 'orbit', 'payload', 'systems']
+const IDS = ['intro', 'competition', 'launch', 'cubesat', 'deploy', 'orbit', 'systems']
 const HALF_FOV = THREE.MathUtils.degToRad(17.5)
 
 const clamp01 = value => (value < 0 ? 0 : value > 1 ? 1 : value)
@@ -16,6 +16,72 @@ const smooth = (a, b, value) => {
 const lerp = (a, b, t) => a + (b - a) * t
 const easeInOut = t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2)
 const easeIn = t => t * t * t
+
+// Exhaust smoke as soft puffs laid down along the (perfectly vertical) flight path. A puff's age is
+// how far the rocket has climbed since passing that height, so the trail is driven by scroll.
+function createSmoke(count = 280, spacing = 0.065) {
+  const positions = new Float32Array(count * 3)
+  const sizes = new Float32Array(count)
+  const alphas = new Float32Array(count)
+  const warmth = new Float32Array(count)
+  const seeds = Array.from({ length: count }, () => [Math.random() * 2 - 1, Math.random() * 2 - 1, Math.random(), Math.random()])
+  const geometry = new THREE.BufferGeometry()
+  geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
+  geometry.setAttribute('aSize', new THREE.BufferAttribute(sizes, 1))
+  geometry.setAttribute('aAlpha', new THREE.BufferAttribute(alphas, 1))
+  geometry.setAttribute('aWarm', new THREE.BufferAttribute(warmth, 1))
+  const material = new THREE.ShaderMaterial({
+    uniforms: { uScale: { value: 1000 } },
+    vertexShader: `
+      attribute float aSize; attribute float aAlpha; attribute float aWarm;
+      uniform float uScale;
+      varying float vAlpha; varying float vWarm; varying float vSeed;
+      void main() {
+        vec4 mv = modelViewMatrix * vec4(position, 1.0);
+        gl_Position = projectionMatrix * mv;
+        gl_PointSize = aSize * uScale / -mv.z;
+        vAlpha = aAlpha; vWarm = aWarm; vSeed = position.y * 7.31;
+      }`,
+    fragmentShader: `
+      varying float vAlpha; varying float vWarm; varying float vSeed;
+      void main() {
+        vec2 p = gl_PointCoord - 0.5;
+        float d = length(p);
+        if (d > 0.5) discard;
+        float lumps = 0.82 + 0.18 * sin(p.x * 11.0 + vSeed) * sin(p.y * 9.0 - vSeed);
+        float a = smoothstep(0.5, 0.05, d) * lumps * vAlpha;
+        vec3 smoke = mix(vec3(0.78, 0.8, 0.84), vec3(0.93, 0.94, 0.96), 0.5 - p.y);
+        gl_FragColor = vec4(mix(smoke, vec3(1.0, 0.72, 0.38), vWarm), a);
+      }`,
+    transparent: true,
+    depthWrite: false
+  })
+  const object = new THREE.Points(geometry, material)
+  object.frustumCulled = false
+  return {
+    object,
+    material,
+    update(nozzleX, nozzleY, groundY, strength) {
+      for (let i = 0; i < count; i++) {
+        const [sx, sz, sy, ss] = seeds[i]
+        const height = groundY + i * spacing + sy * spacing
+        const age = nozzleY - height
+        if (strength <= 0.001 || age < 0) {
+          alphas[i] = 0
+          continue
+        }
+        const spread = 0.012 + age * 0.018
+        positions[i * 3] = nozzleX + sx * spread
+        positions[i * 3 + 1] = height
+        positions[i * 3 + 2] = sz * spread
+        sizes[i] = (0.1 + Math.sqrt(age) * 0.17) * (0.8 + ss * 0.4)
+        alphas[i] = strength * 0.5 * Math.exp(-age / 16) * Math.min(1, 0.25 + age * 6)
+        warmth[i] = Math.exp(-age / 0.35) * 0.85
+      }
+      for (const name of ['position', 'aSize', 'aAlpha', 'aWarm']) geometry.attributes[name].needsUpdate = true
+    }
+  }
+}
 
 // One WebGL canvas pinned behind the whole projects story. Each frame reads the scroll
 // progress of the story sections and poses the rocket, Earth, CubeSat and camera from it.
@@ -49,9 +115,10 @@ export function mountStoryScene(host, labelLayer, onFailure) {
 
   const stars = createStars()
   const rocket = createStoryRocket()
+  const smoke = createSmoke()
   const earth = createEarth()
   const sat = createStoryCubeSat()
-  scene.add(stars.object, rocket.object, rocket.trail, earth.object, sat.object)
+  scene.add(stars.object, rocket.object, smoke.object, earth.object, sat.object)
   earth.setDotScale(9)
 
   const canvas = renderer.domElement
@@ -84,11 +151,14 @@ export function mountStoryScene(host, labelLayer, onFailure) {
 
   function poseRocket(wide, reduced, dt) {
     const { intro, competition: comp, launch } = damped
+    const aspect = width / height
     const rise = easeInOut(clamp01(intro.p * 1.1))
     const side = easeInOut(comp.e)
     const explode = smooth(0.2, 0.46, comp.p) * (1 - smooth(0.8, 0.95, comp.p))
     const flat = wide ? smooth(0.1, 0.36, comp.p) * (1 - smooth(0.82, 0.99, comp.p)) : 0
-    camPos.set(0, 0, wide ? lerp(9, 8, flat) : lerp(12.5, 13.5, explode))
+    // Frame the pulled-apart rocket (about 6.4 units end to end) at ~86% of the screen width.
+    const explodedDistance = THREE.MathUtils.clamp(7.45 / (2 * Math.tan(HALF_FOV) * aspect), 6.2, 11)
+    camPos.set(0, 0, wide ? lerp(9, explodedDistance, flat) : lerp(12.5, 13.5, explode))
     camLook.set(0, 0, 0)
     shiftX = 0
     shiftY = 0
@@ -98,32 +168,35 @@ export function mountStoryScene(host, labelLayer, onFailure) {
     x = lerp(x, 0, flat)
     y = lerp(y, wide ? 0.05 : 0.15, wide ? flat : explode)
 
-    // Launch: ignite, then accelerate out of the top of the frame.
+    // Launch: ignite, then accelerate straight up. The camera rises with it (no tilt), so the
+    // rocket and its smoke stay perfectly vertical on screen.
     const ignite = smooth(0.05, 0.12, launch.p)
     const climb = easeIn(clamp01((launch.p - 0.1) / 0.78))
     const burn = ignite * (1 - smooth(0.92, 1, launch.p))
     y += climb * 13
+    camPos.y += climb * 5.5
+    camLook.y += climb * 5.5
 
     rocket.object.visible = launch.p < 0.995
     rocket.object.position.set(x, y, 0)
     rocket.object.scale.setScalar(scale)
-    rocket.object.rotation.set(lerp(0.1, 0.32, flat), 0, (1 - flat) * (1 - ignite) * (wide ? -0.07 : 0))
+    rocket.object.rotation.set(lerp(0.1, 0.32, flat) * (1 - ignite), 0, (1 - flat) * (1 - ignite) * (wide ? -0.07 : 0))
     rocket.tilt.rotation.z = -flat * Math.PI / 2
 
-    // Roll slowly, settling on a fixed angle while the rocket is pulled apart.
-    if (!reduced) spinAngle += dt * 0.35 * (1 - explode)
-    const toDisplay = Math.atan2(Math.sin(0.6 - spinAngle), Math.cos(0.6 - spinAngle))
-    spinAngle += toDisplay * explode * Math.min(1, dt * 4 + (reduced ? 1 : 0))
+    // Roll slowly, settling with the decals facing us while the rocket is pulled apart.
+    if (!reduced) spinAngle += dt * 0.35 * (1 - explode) * (1 - ignite)
+    const toDisplay = Math.atan2(Math.sin(-spinAngle), Math.cos(-spinAngle))
+    spinAngle += toDisplay * Math.max(explode, ignite) * Math.min(1, dt * 4 + (reduced ? 1 : 0))
     rocket.spin.rotation.y = spinAngle
-    rocket.setExplode(explode, smooth(0.3, 1, explode), smooth(0.4, 1, explode))
+    // The av bay sled slides out sideways: up on wide screens, to the right on phones.
+    rocket.setExplode(explode, smooth(0.3, 1, explode) * (wide ? 1 : -1), smooth(0.4, 1, explode))
     rocket.setBurn(burn, time, reduced)
-    rocket.setTrail(y - 1.42 * scale, -9, x, burn * 0.5 * smooth(0.12, 0.24, launch.p))
+    smoke.update(x, y + rocket.nozzleY * scale, -7.5, smooth(0.1, 0.16, launch.p) * (1 - smooth(0.97, 1, launch.p)))
 
     if (!reduced && burn > 0) {
-      camPos.x += Math.sin(time * 63) * 0.018 * burn
-      camPos.y += Math.cos(time * 57) * 0.018 * burn
+      camPos.x += Math.sin(time * 63) * 0.016 * burn
+      camPos.y += Math.cos(time * 57) * 0.016 * burn
     }
-    camLook.y += climb * 1.1
     stars.object.rotation.x = -climb * 1.2
     fades.rocket = smooth(0.43, 0.52, comp.p) * (1 - smooth(0.77, 0.84, comp.p))
     fades.sat = 0
@@ -131,11 +204,11 @@ export function mountStoryScene(host, labelLayer, onFailure) {
   }
 
   function poseEarth(wide, reduced) {
-    const { cubesat: cube, deploy, orbit, payload, systems } = damped
+    const { cubesat: cube, deploy, orbit, systems } = damped
     const R = earth.radius
     const distance = wide ? 9 : 12
     rocket.object.visible = false
-    rocket.setTrail(0, 0, 0, 0)
+    smoke.update(0, 0, 0, 0)
     rocket.setBurn(0, time, true)
     camPos.set(0, 0, distance)
     camLook.set(0, 0, 0)
@@ -155,7 +228,6 @@ export function mountStoryScene(host, labelLayer, onFailure) {
     const compose = smooth(0.42, 0.7, cube.p)
     shiftX = wide ? 0.19 * compose : 0
     shiftY = wide ? 0 : -0.12 * compose
-    let satScale = 1
     const tumble = (1 - arrive) * 2.6
 
     // 3. Close-up: panels and antennas unfold.
@@ -167,29 +239,29 @@ export function mountStoryScene(host, labelLayer, onFailure) {
     const antennas = smooth(0.45, 0.64, deploy.p)
     const yaw = lerp(-0.75, 0.5, deploy.p) + (reduced ? 0 : Math.sin(time * 0.4) * 0.05)
 
-    // 4. Pull back to the whole planet; the CubeSat joins its orbit and passes over Guelph.
-    const pull = easeInOut(smooth(0, 0.38, orbit.p))
+    // 4. Pull back to the whole planet. The orbit is to scale (550 km, 97.6°); the satellite is
+    // drawn far bigger than life. It flies a pass over Guelph and the radio link only shows while
+    // it's inside Guelph's coverage circle.
+    const pull = easeInOut(smooth(0, 0.3, orbit.p))
     earth.object.position.lerp(origin, pull)
-    spin = lerp(spin, earth.displaySpin + (orbit.p - 0.5) * 0.1, pull)
+    spin = lerp(spin, earth.displaySpin, pull)
     scratch.set(0, 0.7, wide ? 10.5 : 15)
     camPos.lerp(scratch, pull)
     camLook.lerp(earth.object.position, pull)
     shiftX = lerp(shiftX, wide ? 0.17 : 0, pull)
     shiftY = lerp(shiftY, wide ? 0 : -0.14, pull)
-    const angle = lerp(-1.35, 1.25, smooth(0.08, 1, orbit.p))
+    const angle = lerp(-1.4, 0.45, smooth(0.08, 1, orbit.p))
 
-    // 5. During the payload chapter the planet sinks to a horizon glow, then sets.
-    const sink = easeInOut(payload.e)
+    // 5. After the orbit the planet sets below the frame.
     const setting = easeInOut(systems.e)
-    earth.object.position.y = lerp(earth.object.position.y, -R - 2.2, sink) - setting * 5
-    shiftX = lerp(shiftX, 0, sink)
-    shiftY = lerp(shiftY, 0, sink)
+    earth.object.position.y -= setting * 7
+    shiftX = lerp(shiftX, 0, setting)
 
     earth.spin.rotation.y = spin
     earth.object.updateMatrixWorld(true)
     earth.orbitWorld(angle, orbitPos)
     satPos.lerp(orbitPos, pull)
-    satScale = lerp(1, 0.2, pull) * (1 - smooth(0, 0.6, payload.e))
+    const satScale = lerp(1, 0.11, pull) * (1 - smooth(0, 0.5, systems.e))
 
     sat.object.visible = satScale > 0.002 && cube.p > 0.3
     sat.object.position.copy(satPos)
@@ -197,15 +269,17 @@ export function mountStoryScene(host, labelLayer, onFailure) {
     sat.object.rotation.set(0.18 + tumble * 0.3 + pull * 0.4, yaw + tumble + pull * angle, -0.1 + tumble * 0.5)
     sat.setDeploy(Math.max(wings, pull), Math.max(antennas, pull))
 
-    const orbitFade = pull * (1 - sink)
-    earth.setRing(smooth(0.12, 0.5, orbit.p), orbitFade)
-    earth.setBeam(satPos, (1 - smooth(0.12, 0.5, Math.abs(angle))) * orbitFade * 0.9)
-    earth.pulse(time, smooth(0.2, 0.35, orbit.p) * (1 - sink))
+    const orbitFade = pull * (1 - setting)
+    const inRange = 1 - smooth(earth.coverage * 0.9, earth.coverage, Math.abs(angle))
+    earth.setRing(smooth(0.1, 0.42, orbit.p), orbitFade)
+    earth.setCoverage(smooth(0.5, 0.6, orbit.p) * orbitFade)
+    earth.setBeam(satPos, inRange * orbitFade * smooth(0.5, 0.6, orbit.p), time)
+    earth.pulse(time, smooth(0.2, 0.35, orbit.p) * (1 - setting))
     stars.object.rotation.x = -1.2
 
     fades.rocket = 0
     fades.sat = smooth(0.62, 0.7, deploy.p) * (1 - smooth(0.9, 0.98, deploy.p)) * (1 - pull)
-    fades.orbit = smooth(0.32, 0.42, orbit.p) * (1 - smooth(0.85, 0.97, orbit.p))
+    fades.orbit = smooth(0.3, 0.4, orbit.p) * (1 - smooth(0.9, 0.99, orbit.p))
   }
 
   function projectLabels(wide) {
@@ -223,7 +297,7 @@ export function mountStoryScene(host, labelLayer, onFailure) {
       // Point the text back toward the middle when it would run off the right edge.
       if (!label.textWidth) label.textWidth = label.el.lastElementChild.offsetWidth + 16
       const sideways = !wide && label.name.startsWith('rocket-')
-      label.el.classList.toggle('is-flipped', !sideways && x + label.textWidth > width - 8)
+      label.el.classList.toggle('is-flipped', !sideways && x + label.textWidth > width - 8 && x > width / 2)
       label.el.style.opacity = opacity.toFixed(3)
       label.shown = opacity
     }
@@ -288,6 +362,7 @@ export function mountStoryScene(host, labelLayer, onFailure) {
     camera.aspect = width / height
     labels.forEach(label => { label.textWidth = 0 })
     stars.material.uniforms.uPixelRatio.value = ratio
+    smoke.material.uniforms.uScale.value = height * ratio / (2 * Math.tan(HALF_FOV))
     earth.setPixelRatio(ratio)
     if (visible) start()
   }
@@ -323,7 +398,7 @@ export function mountStoryScene(host, labelLayer, onFailure) {
     const materials = new Set()
     scene.traverse(object => {
       if (object.geometry) geometries.add(object.geometry)
-      if (object.material) materials.add(object.material)
+      if (object.material) [].concat(object.material).forEach(material => materials.add(material))
     })
     geometries.forEach(geometry => geometry.dispose())
     materials.forEach(material => {

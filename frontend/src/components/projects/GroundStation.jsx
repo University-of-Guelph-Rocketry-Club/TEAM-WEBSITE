@@ -1,35 +1,26 @@
 import { useEffect, useRef } from 'react'
+import { flight, sampleAt } from './flightSim'
 
-// A simulated flight replayed on a loop, drawn like our ground station's live view.
-const FLIGHT_SECONDS = 14
-const LOOP_SECONDS = 17
-const STATES = [[0.95, 'LANDED'], [0.7, 'MAIN'], [0.4, 'DROGUE'], [0.37, 'APOGEE'], [0.08, 'COAST'], [0.02, 'BOOST'], [0, 'ON PAD']]
+// Replays the simulated flight like our ground station would show it live: auto-scaling plots,
+// flight state, link stats and the packet log. Plays the climb at 3.5x and the descent at 40x.
+const T_SLOW = flight.events.apogee.t + 4
+const T_LAND = flight.events.landing.t
+const CLIMB_RATE = 3.5
+const FALL_RATE = 40
+const HOLD = 2.5
+const LOOP = T_SLOW / CLIMB_RATE + (T_LAND - T_SLOW) / FALL_RATE + HOLD
+const STATES = { boost: 'BOOST', coast: 'COAST', drogue: 'DROGUE', main: 'MAIN', landed: 'LANDED' }
 
 const noise = i => {
   const x = Math.sin(i * 12.9898) * 43758.5453
   return (x - Math.floor(x)) * 2 - 1
 }
-const altitude = u => {
-  if (u < 0.02) return 0
-  if (u < 0.08) return 0.14 * ((u - 0.02) / 0.06) ** 2
-  if (u < 0.38) return 1 - 0.86 * ((0.38 - u) / 0.3) ** 2
-  if (u < 0.7) return 1 - (u - 0.38) / 0.32 * 0.78
-  if (u < 0.95) return 0.22 * (1 - (u - 0.7) / 0.25)
-  return 0
+const flightTime = wall => {
+  if (wall < T_SLOW / CLIMB_RATE) return wall * CLIMB_RATE
+  return Math.min(T_LAND, T_SLOW + (wall - T_SLOW / CLIMB_RATE) * FALL_RATE)
 }
-const acceleration = (u, i) => {
-  const jitter = noise(i) * 0.03
-  if (u < 0.02) return jitter
-  if (u < 0.08) return 0.82 + jitter * 3
-  if (u < 0.375) return -0.2 + jitter
-  if (u < 0.4) return 0.5 + jitter * 4
-  if (u < 0.7) return jitter
-  if (u < 0.72) return 0.42 + jitter * 4
-  if (u < 0.95) return jitter * 0.6
-  if (u < 0.965) return 0.3 + jitter * 3
-  return jitter * 0.3
-}
-const stateAt = u => STATES.find(([start]) => u >= start)[1]
+// Accelerometer reading: specific force in g (reads +1 g sitting on the pad).
+const accelerometer = s => (s.phase === 'landed' ? 1 : s.acceleration + 1)
 
 export default function GroundStation() {
   const canvasRef = useRef(null)
@@ -44,131 +35,121 @@ export default function GroundStation() {
     let running = false
     let started = 0
 
-    const draw = now => {
+    const plot = (top, bottom, left, right, span, low, high, value, color, fill, label, unit) => {
+      ctx.strokeStyle = '#ffffff0f'
+      ctx.lineWidth = 1
+      for (let i = 0; i <= 4; i++) {
+        const y = top + (bottom - top) * i / 4
+        ctx.beginPath()
+        ctx.moveTo(left, y)
+        ctx.lineTo(right, y)
+        ctx.stroke()
+      }
+      ctx.fillStyle = '#6f84a3'
+      ctx.font = '600 10px Barlow, Arial, sans-serif'
+      ctx.fillText(`${label} (${unit})`, left, top - 10)
+      ctx.textAlign = 'right'
+      ctx.fillText(String(high), right, top - 10)
+      ctx.textAlign = 'left'
+      const mapX = t => left + (right - left) * t / span
+      const mapY = v => bottom - (bottom - top) * (Math.min(high, Math.max(low, v)) - low) / (high - low)
+      return (now, steps) => {
+        ctx.beginPath()
+        for (let i = 0; i <= steps; i++) {
+          const t = now * i / steps
+          const px = mapX(t)
+          const py = mapY(value(sampleAt(t)))
+          if (i) ctx.lineTo(px, py)
+          else ctx.moveTo(px, py)
+        }
+        if (fill) {
+          ctx.lineTo(mapX(now), bottom)
+          ctx.lineTo(left, bottom)
+          const gradient = ctx.createLinearGradient(0, top, 0, bottom)
+          gradient.addColorStop(0, fill)
+          gradient.addColorStop(1, '#8bbff000')
+          ctx.fillStyle = gradient
+          ctx.fill()
+          ctx.beginPath()
+          for (let i = 0; i <= steps; i++) {
+            const t = now * i / steps
+            if (i) ctx.lineTo(mapX(t), mapY(value(sampleAt(t))))
+            else ctx.moveTo(mapX(t), mapY(value(sampleAt(t))))
+          }
+        }
+        ctx.strokeStyle = color
+        ctx.lineWidth = 1.8
+        ctx.stroke()
+        ctx.lineWidth = 1
+      }
+    }
+
+    const draw = timestamp => {
       frame = 0
-      const elapsed = reduced ? FLIGHT_SECONDS * 0.56 : ((now - started) / 1000) % LOOP_SECONDS
-      const u = Math.min(1, elapsed / FLIGHT_SECONDS)
+      const wall = reduced ? T_SLOW / CLIMB_RATE * 0.9 : ((timestamp - started) / 1000) % LOOP
+      const now = flightTime(wall)
+      const s = sampleAt(now)
       const compact = width < 470
       const pad = compact ? 14 : 18
       ctx.clearRect(0, 0, width, height)
 
-      // Header
       ctx.fillStyle = '#c7d3e4'
       ctx.font = '600 11px Barlow, Arial, sans-serif'
       ctx.textBaseline = 'middle'
       ctx.fillText('GROUND STATION', pad, 22)
-      const blink = reduced || Math.floor(now / 500) % 2 === 0
-      ctx.fillStyle = blink ? '#ff5a4d' : '#5a2a2a'
+      const rate = now < T_SLOW ? CLIMB_RATE : FALL_RATE
+      ctx.textAlign = 'right'
+      ctx.fillText(`REPLAY ${rate}x`, width - pad, 22)
+      ctx.textAlign = 'left'
+      ctx.fillStyle = reduced || Math.floor(timestamp / 500) % 2 === 0 ? '#ff5a4d' : '#5a2a2a'
       ctx.beginPath()
-      ctx.arc(width - pad - 50, 22, 4, 0, Math.PI * 2)
+      ctx.arc(width - pad - (compact ? 76 : 80), 22, 4, 0, Math.PI * 2)
       ctx.fill()
-      ctx.fillStyle = '#c7d3e4'
-      ctx.fillText('REPLAY', width - pad - 40, 22)
       ctx.strokeStyle = '#ffffff14'
       ctx.beginPath()
       ctx.moveTo(0, 42)
       ctx.lineTo(width, 42)
       ctx.stroke()
 
-      const chartRight = compact ? width - pad : width * 0.66
-      const altTop = 62
-      const altBottom = compact ? height * 0.46 : height * 0.5
-      const accTop = altBottom + 30
-      const accBottom = compact ? height * 0.66 : height * 0.72
-      const chartWidth = chartRight - pad
-      const samples = Math.max(2, Math.round(220 * u))
+      // Plots auto-scale their time axis like a live view
+      const span = Math.max(20, now * 1.08)
+      const right = compact ? width - pad : width * 0.66
+      const altTop = 64
+      const altBottom = compact ? height * 0.44 : height * 0.48
+      const accTop = altBottom + 32
+      const accBottom = compact ? height * 0.64 : height * 0.7
+      const steps = Math.min(260, Math.max(8, Math.round(now * 4)))
+      plot(altTop, altBottom, pad, right, span, 0, 10000, v => v.altitude, '#8bbff0', '#8bbff055', 'ALTITUDE', 'm')(now, steps)
+      plot(accTop, accBottom, pad, right, span, -10, 30, accelerometer, '#ffcf28', null, 'ACCEL', 'g')(now, steps)
+      ctx.fillStyle = '#6f84a3'
+      ctx.font = '600 10px Barlow, Arial, sans-serif'
+      ctx.textAlign = 'right'
+      ctx.fillText(`${Math.round(span)} s`, right, accBottom + 14)
+      ctx.textAlign = 'left'
 
-      const grid = (top, bottom, label) => {
-        ctx.strokeStyle = '#ffffff0f'
-        for (let i = 0; i <= 3; i++) {
-          const y = top + (bottom - top) * i / 3
-          ctx.beginPath()
-          ctx.moveTo(pad, y)
-          ctx.lineTo(chartRight, y)
-          ctx.stroke()
-        }
-        ctx.fillStyle = '#6f84a3'
-        ctx.font = '600 10px Barlow, Arial, sans-serif'
-        ctx.fillText(label, pad, top - 10)
-      }
-      grid(altTop, altBottom, 'ALTITUDE')
-      grid(accTop, accBottom, 'ACCELERATION')
-
-      // Altitude area
-      const altGradient = ctx.createLinearGradient(0, altTop, 0, altBottom)
-      altGradient.addColorStop(0, '#8bbff066')
-      altGradient.addColorStop(1, '#8bbff000')
-      ctx.beginPath()
-      ctx.moveTo(pad, altBottom)
-      for (let i = 0; i <= samples; i++) {
-        const s = u * i / samples
-        ctx.lineTo(pad + chartWidth * s, altBottom - (altBottom - altTop) * altitude(s))
-      }
-      ctx.lineTo(pad + chartWidth * u, altBottom)
-      ctx.closePath()
-      ctx.fillStyle = altGradient
-      ctx.fill()
-      ctx.beginPath()
-      for (let i = 0; i <= samples; i++) {
-        const s = u * i / samples
-        const x = pad + chartWidth * s
-        const y = altBottom - (altBottom - altTop) * altitude(s)
-        if (i) ctx.lineTo(x, y)
-        else ctx.moveTo(x, y)
-      }
-      ctx.strokeStyle = '#8bbff0'
-      ctx.lineWidth = 2
-      ctx.stroke()
-
-      // Acceleration line
-      const accMid = accTop + (accBottom - accTop) * 0.7
-      ctx.beginPath()
-      for (let i = 0; i <= samples; i++) {
-        const s = u * i / samples
-        const x = pad + chartWidth * s
-        const y = accMid - (accBottom - accTop) * 0.62 * acceleration(s, i)
-        if (i) ctx.lineTo(x, y)
-        else ctx.moveTo(x, y)
-      }
-      ctx.strokeStyle = '#ffcf28'
-      ctx.lineWidth = 1.5
-      ctx.stroke()
-      ctx.lineWidth = 1
-
-      // Cursor
-      const cursor = pad + chartWidth * u
-      ctx.strokeStyle = '#ffffff40'
-      ctx.setLineDash([3, 4])
-      ctx.beginPath()
-      ctx.moveTo(cursor, altTop - 4)
-      ctx.lineTo(cursor, accBottom + 4)
-      ctx.stroke()
-      ctx.setLineDash([])
-      ctx.fillStyle = '#fff'
-      ctx.beginPath()
-      ctx.arc(cursor, altBottom - (altBottom - altTop) * altitude(u), 3.5, 0, Math.PI * 2)
-      ctx.fill()
-
-      // Status readouts
-      const packet = Math.floor(elapsed * 10)
-      const state = stateAt(u)
-      const rssi = Math.round(-71 - 24 * altitude(u) + noise(packet) * 2)
-      const status = [['STATE', state], ['PACKETS', String(packet).padStart(4, '0')], ['RSSI', `${rssi} dBm`], ['GPS', `${u > 0.37 && u < 0.42 ? 7 : 9} sats`], ['BATTERY', `${(8.1 - u * 0.25).toFixed(2)} V`]]
+      const packet = Math.floor(now * 10)
+      const rssi = Math.round(-70 - s.altitude / 380 + noise(packet) * 2)
+      const status = [
+        ['STATE', STATES[s.phase]],
+        ['ALTITUDE', `${Math.round(s.altitude).toLocaleString()} m`],
+        ['VELOCITY', `${Math.round(s.velocity)} m/s`],
+        ['PACKETS', String(packet).padStart(4, '0')],
+        ['RSSI', `${rssi} dBm`]
+      ]
       if (compact) {
-        const top = accBottom + 22
         status.slice(0, 3).forEach(([label, value], i) => {
           const x = pad + (width - pad * 2) * i / 3
           ctx.fillStyle = '#6f84a3'
           ctx.font = '600 10px Barlow, Arial, sans-serif'
-          ctx.fillText(label, x, top)
+          ctx.fillText(label, x, accBottom + 34)
           ctx.fillStyle = i ? '#eef3fb' : '#ffcf28'
-          ctx.font = '700 17px Barlow, Arial, sans-serif'
-          ctx.fillText(value, x, top + 20)
+          ctx.font = '700 16px Barlow, Arial, sans-serif'
+          ctx.fillText(value, x, accBottom + 54)
         })
       } else {
-        const x = width * 0.7
         status.forEach(([label, value], i) => {
-          const y = altTop + i * 44
+          const x = width * 0.7
+          const y = altTop + i * 46
           ctx.fillStyle = '#6f84a3'
           ctx.font = '600 10px Barlow, Arial, sans-serif'
           ctx.fillText(label, x, y)
@@ -178,8 +159,8 @@ export default function GroundStation() {
         })
       }
 
-      // Packet log
-      const logTop = compact ? accBottom + 66 : accBottom + 28
+      // Packet log, newest first
+      const logTop = compact ? accBottom + 84 : accBottom + 34
       ctx.strokeStyle = '#ffffff14'
       ctx.beginPath()
       ctx.moveTo(0, logTop - 14)
@@ -188,12 +169,12 @@ export default function GroundStation() {
       ctx.font = '11px ui-monospace, SFMono-Regular, Menlo, monospace'
       const lines = Math.max(1, Math.floor((height - logTop - 6) / 17))
       for (let i = 0; i < lines; i++) {
-        const n = packet - i
+        const n = packet - i * 3
         if (n < 0) break
-        const s = Math.min(1, Math.max(0, n / 10 / FLIGHT_SECONDS))
+        const p = sampleAt(n / 10)
         ctx.fillStyle = i ? '#6f84a3' : '#c7d3e4'
-        const text = `#${String(n).padStart(4, '0')}  ${stateAt(s).padEnd(7)} ALT ${(altitude(s) * 100).toFixed(1).padStart(5)}%  ACC ${acceleration(s, n).toFixed(2).padStart(5)}  CRC OK`
-        ctx.fillText(compact ? text.slice(0, 38) : text, pad, logTop + i * 17)
+        const text = `#${String(n).padStart(4, '0')} ${STATES[p.phase].padEnd(6)} ${String(Math.round(p.altitude)).padStart(5)} m ${String(Math.round(p.velocity)).padStart(4)} m/s ${accelerometer(p).toFixed(1).padStart(5)} g`
+        ctx.fillText(compact ? text.slice(0, 36) : text, pad, logTop + i * 17)
       }
 
       if (running && !reduced) frame = requestAnimationFrame(draw)
@@ -228,7 +209,7 @@ export default function GroundStation() {
   }, [])
 
   return <figure className="ground-station">
-    <canvas ref={canvasRef} role="img" aria-label="Animated ground station display replaying a simulated flight: altitude and acceleration charts, flight state and incoming radio packets" />
-    <figcaption>Simulated flight, not real data</figcaption>
+    <canvas ref={canvasRef} role="img" aria-label="Ground station display replaying the simulated flight: altitude and acceleration plots, flight state, link stats and incoming radio packets" />
+    <figcaption>Replaying the simulated flight from above (not real data)</figcaption>
   </figure>
 }

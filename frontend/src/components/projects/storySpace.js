@@ -183,29 +183,59 @@ export function createEarth(radius = 2.4) {
   const guelphAnchor = new THREE.Object3D()
   guelph.add(guelphAnchor)
 
-  // Orbit ring: a near-polar circle that passes over Guelph when the globe faces the camera.
+  // Orbit drawn to scale: 550 km up, sun-synchronous (97.6° inclination, so slightly retrograde),
+  // with its plane chosen so one pass goes right over Guelph when the globe faces the camera.
   const displaySpin = -THREE.MathUtils.degToRad(GUELPH.lon) + 0.55
+  const EARTH_KM = 6371
+  const ALTITUDE_KM = 550
+  const INCLINATION = THREE.MathUtils.degToRad(97.6)
+  const orbitRadius = radius * (EARTH_KM + ALTITUDE_KM) / EARTH_KM
   const station = latLonToVector(GUELPH.lat, GUELPH.lon).applyAxisAngle(new THREE.Vector3(0, 1, 0), displaySpin)
   const pole = new THREE.Vector3(0, 1, 0)
-  const normal = new THREE.Vector3().crossVectors(station, pole).normalize().applyAxisAngle(station, THREE.MathUtils.degToRad(8))
-  const north = new THREE.Vector3().crossVectors(normal, station).normalize()
-  const orbitRadius = radius * 1.26
-  const orbitStart = -1.6
-  const orbitPoint = (angle, target = new THREE.Vector3()) => target.copy(station).multiplyScalar(Math.cos(angle)).addScaledVector(north, Math.sin(angle)).multiplyScalar(orbitRadius)
-  const path = new THREE.CatmullRomCurve3(Array.from({ length: 160 }, (_, i) => orbitPoint(orbitStart + i / 160 * Math.PI * 2)), true)
-  const ringGeometry = new THREE.TubeGeometry(path, 320, 0.006, 6, true)
+  const towardPole = pole.clone().addScaledVector(station, -pole.dot(station))
+  const poleReach = towardPole.length()
+  towardPole.normalize()
+  const sideways = new THREE.Vector3().crossVectors(station, towardPole)
+  const tiltAngle = Math.acos(THREE.MathUtils.clamp(Math.cos(INCLINATION) / poleReach, -1, 1))
+  const normal = towardPole.clone().multiplyScalar(Math.cos(tiltAngle)).addScaledVector(sideways, Math.sin(tiltAngle))
+  const heading = new THREE.Vector3().crossVectors(normal, station).normalize()
+  const orbitStart = -Math.PI / 2
+  const orbitPoint = (angle, target = new THREE.Vector3()) => target.copy(station).multiplyScalar(Math.cos(angle)).addScaledVector(heading, Math.sin(angle)).multiplyScalar(orbitRadius)
+  const path = new THREE.CatmullRomCurve3(Array.from({ length: 200 }, (_, i) => orbitPoint(orbitStart + i / 200 * Math.PI * 2)), true)
+  const ringGeometry = new THREE.TubeGeometry(path, 400, 0.005, 6, true)
   const ringMaterial = new THREE.MeshBasicMaterial({ color: '#9cc8ff', transparent: true, opacity: 0.75, depthWrite: false, blending: THREE.AdditiveBlending })
   const ring = new THREE.Mesh(ringGeometry, ringMaterial)
   const ringIndexCount = ringGeometry.index.count
   ring.renderOrder = 3
   tilt.add(ring)
 
-  const beamGeometry = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()])
-  const beamMaterial = new THREE.LineBasicMaterial({ color: '#ffcf28', transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending })
-  const beam = new THREE.Line(beamGeometry, beamMaterial)
-  beam.frustumCulled = false
+  // Radio coverage from Guelph: where the satellite is at least 10° above the horizon (~15° of arc).
+  const minElevation = THREE.MathUtils.degToRad(10)
+  const coverage = Math.acos(Math.cos(minElevation) * radius / orbitRadius) - minElevation
+  const stationLocal = latLonToVector(GUELPH.lat, GUELPH.lon)
+  const footprint = new THREE.Group()
+  footprint.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), stationLocal)
+  spin.add(footprint)
+  const capMaterial = new THREE.MeshBasicMaterial({ color: '#ffcf28', transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending })
+  footprint.add(new THREE.Mesh(new THREE.SphereGeometry(radius * 1.002, 64, 8, 0, Math.PI * 2, 0, coverage), capMaterial))
+  const edgePoints = Array.from({ length: 97 }, (_, i) => {
+    const a = i / 96 * Math.PI * 2
+    return new THREE.Vector3(Math.sin(coverage) * Math.cos(a), Math.cos(coverage), Math.sin(coverage) * Math.sin(a)).multiplyScalar(radius * 1.004)
+  })
+  const edgeMaterial = new THREE.LineDashedMaterial({ color: '#ffcf28', dashSize: 0.03, gapSize: 0.02, transparent: true, opacity: 0, depthWrite: false })
+  const edgeLine = new THREE.Line(new THREE.BufferGeometry().setFromPoints(edgePoints), edgeMaterial)
+  edgeLine.computeLineDistances()
+  footprint.add(edgeLine)
+
+  // Radio link: a thin glowing cylinder stretched between the satellite and the station.
+  const beamMaterial = new THREE.MeshBasicMaterial({ color: '#ffd34d', transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending })
+  const beamGeometry = new THREE.CylinderGeometry(0.007, 0.007, 1, 10, 1, true)
+  beamGeometry.translate(0, 0.5, 0)
+  const beam = new THREE.Mesh(beamGeometry, beamMaterial)
   beam.renderOrder = 4
   object.add(beam)
+  const up = new THREE.Vector3(0, 1, 0)
+  const toSatellite = new THREE.Vector3()
 
   const scratch = new THREE.Vector3()
   return {
@@ -215,6 +245,7 @@ export function createEarth(radius = 2.4) {
     radius,
     displaySpin,
     orbitStart,
+    coverage,
     guelph,
     guelphAnchor,
     setPixelRatio(ratio) {
@@ -233,17 +264,21 @@ export function createEarth(radius = 2.4) {
       ring.geometry.setDrawRange(0, Math.floor(ringIndexCount * drawn / 3) * 3)
       ringMaterial.opacity = 0.75 * opacity
     },
-    setBeam(from, strength) {
+    setBeam(from, strength, time = 0) {
       beam.visible = strength > 0.01
       if (!beam.visible) return
-      const attribute = beamGeometry.attributes.position
-      object.worldToLocal(scratch.copy(from))
-      attribute.setXYZ(0, scratch.x, scratch.y, scratch.z)
       guelph.getWorldPosition(scratch)
       object.worldToLocal(scratch)
-      attribute.setXYZ(1, scratch.x, scratch.y, scratch.z)
-      attribute.needsUpdate = true
-      beamMaterial.opacity = strength
+      beam.position.copy(scratch)
+      const direction = object.worldToLocal(toSatellite.copy(from)).sub(scratch)
+      beam.scale.set(1, direction.length(), 1)
+      beam.quaternion.setFromUnitVectors(up, direction.normalize())
+      beamMaterial.opacity = strength * (0.75 + 0.25 * Math.sin(time * 9))
+    },
+    setCoverage(opacity) {
+      footprint.visible = opacity > 0.01
+      capMaterial.opacity = 0.12 * opacity
+      edgeMaterial.opacity = 0.8 * opacity
     },
     pulse(time, strength) {
       const cycle = (time * 0.6) % 1

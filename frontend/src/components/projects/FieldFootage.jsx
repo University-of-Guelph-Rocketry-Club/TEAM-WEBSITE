@@ -32,10 +32,9 @@ export default function FieldFootage({ section }) {
 
   return <div className="field-stage">
     <div className="field-copy">
-      <p className="eyebrow">From the field</p>
-      <h2 id="field-title" className="giant">Fly, learn,<br />repeat</h2>
-      <p>Every launch teaches us something we take back to the workshop. Scroll to send this one up</p>
-      <p className="field-caption">*Footage from one of our club launches</p>
+      <p className="eyebrow">Launch day</p>
+      <h2 id="field-title" className="giant">This one’s ours!</h2>
+      <p>Real footage from one of our club launches. Keep scrolling to send it up</p>
     </div>
     <div className="field-frame">
       <img src="/Images/projects-launch-poster.jpg" alt="" />
