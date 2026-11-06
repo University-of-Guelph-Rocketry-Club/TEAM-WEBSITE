@@ -72,7 +72,7 @@ function solarTexture() {
     ctx.fillStyle = '#05070a'
     ctx.fillRect(w * 0.5 - 0.008 * scale, 0.018 * scale, 0.016 * scale, 0.016 * scale)
     ctx.fillStyle = '#c8ccd0'
-    ctx.font = `${0.011 * scale}px Barlow, Arial, sans-serif`
+    ctx.font = `${0.011 * scale}px Saira, Arial, sans-serif`
     ctx.fillText('SP-3U', margin, 0.03 * scale)
   })
 }
@@ -89,7 +89,7 @@ function backTexture() {
       ctx.stroke()
     }
     ctx.fillStyle = 'rgba(255,255,255,0.55)'
-    ctx.font = '14px Barlow, Arial, sans-serif'
+    ctx.font = '14px Saira, Arial, sans-serif'
     ctx.fillText('DSA-3U  REV C', 16, 40)
   })
 }

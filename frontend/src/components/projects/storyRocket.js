@@ -56,15 +56,20 @@ function radialTexture(stops) {
   }).texture
 }
 
+// The decal on the real rocket is a wide sans; Saira at its expanded width (the site's own
+// heading face) matches it. Older canvases without fontStretch get a horizontal stretch instead.
 function wideText(ctx, text, length, size) {
-  ctx.font = `600 ${size}px Barlow, Arial, sans-serif`
-  const widths = [...text].map(ch => ctx.measureText(ch).width * 1.3)
+  ctx.font = `700 ${size}px Saira, Arial, sans-serif`
+  const native = 'fontStretch' in ctx
+  if (native) ctx.fontStretch = 'expanded'
+  const stretch = native ? 1 : 1.3
+  const widths = [...text].map(ch => ctx.measureText(ch).width * stretch)
   const gap = (length - widths.reduce((a, b) => a + b, 0)) / (text.length - 1)
   let x = -length / 2
   ;[...text].forEach((ch, i) => {
     ctx.save()
     ctx.translate(x + widths[i] / 2, 0)
-    ctx.scale(1.3, 1)
+    ctx.scale(stretch, 1)
     ctx.fillText(ch, 0, 0)
     ctx.restore()
     x += widths[i] + gap
@@ -142,7 +147,7 @@ function liveries() {
       ctx.restore()
     })
   })
-  document.fonts?.load('600 80px Barlow').then(booster.paint).catch(() => {})
+  document.fonts?.load('700 80px Saira').then(booster.paint).catch(() => {})
 
   // Red and white bands parallel to the leading edge; neighbouring fins make the chevrons.
   const fin = canvasTexture(Math.round(FIN.span * PX), Math.round(FIN.root * PX), (ctx, w) => {

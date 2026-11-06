@@ -76,8 +76,8 @@ export default function FlightProfile({ section }) {
           <text className="flight-tick" x={x(t)} y={BOX.bottom + 24} textAnchor="middle">{t}</text>
         </g>)}
         <line className="flight-axis-line" x1={BOX.left} x2={BOX.right} y1={BOX.bottom} y2={BOX.bottom} />
-        <text className="flight-axis-title" x={BOX.left - 12} y={BOX.top - 14} textAnchor="end">km</text>
-        <text className="flight-axis-title mach" x={BOX.right + 12} y={BOX.top - 14}>Mach</text>
+        <text className="flight-axis-title" x={BOX.left - 12} y={BOX.top - 14}>Altitude (km)</text>
+        <text className="flight-axis-title mach" x={BOX.right + 12} y={BOX.top - 14} textAnchor="end">Speed (Mach)</text>
         <text className="flight-axis-title" x={(BOX.left + BOX.right) / 2} y={BOX.bottom + 52} textAnchor="middle">Seconds after liftoff</text>
         <path d={`${altitudeLine} L${x(now).toFixed(1)} ${BOX.bottom} L${BOX.left} ${BOX.bottom} Z`} fill="url(#flight-fill)" />
         <path className="flight-altitude" d={altitudeLine} />

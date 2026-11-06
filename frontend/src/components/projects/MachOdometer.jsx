@@ -32,7 +32,7 @@ export default function MachOdometer({ section, from = 0.1, to = 0.82, goal = 2.
     </div>
     <div className="mach-track" aria-hidden="true">
       <span className="mach-fill" />
-      <span className="mach-one">Mach 1 · sound barrier</span>
+      <span className="mach-one">Mach 1</span>
       <span className="mach-badge">Supersonic!</span>
     </div>
   </div>

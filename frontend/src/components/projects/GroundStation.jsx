@@ -46,7 +46,7 @@ export default function GroundStation() {
         ctx.stroke()
       }
       ctx.fillStyle = '#6f84a3'
-      ctx.font = '600 10px Barlow, Arial, sans-serif'
+      ctx.font = '600 10px Saira, Arial, sans-serif'
       ctx.fillText(`${label} (${unit})`, left, top - 10)
       ctx.textAlign = 'right'
       ctx.fillText(String(high), right, top - 10)
@@ -94,7 +94,7 @@ export default function GroundStation() {
       ctx.clearRect(0, 0, width, height)
 
       ctx.fillStyle = '#c7d3e4'
-      ctx.font = '600 11px Barlow, Arial, sans-serif'
+      ctx.font = '600 11px Saira, Arial, sans-serif'
       ctx.textBaseline = 'middle'
       ctx.fillText('GROUND STATION', pad, 22)
       const rate = now < T_SLOW ? CLIMB_RATE : FALL_RATE
@@ -122,7 +122,7 @@ export default function GroundStation() {
       plot(altTop, altBottom, pad, right, span, 0, 10000, v => v.altitude, '#8bbff0', '#8bbff055', 'ALTITUDE', 'm')(now, steps)
       plot(accTop, accBottom, pad, right, span, -10, 30, accelerometer, '#ffcf28', null, 'ACCEL', 'g')(now, steps)
       ctx.fillStyle = '#6f84a3'
-      ctx.font = '600 10px Barlow, Arial, sans-serif'
+      ctx.font = '600 10px Saira, Arial, sans-serif'
       ctx.textAlign = 'right'
       ctx.fillText(`${Math.round(span)} s`, right, accBottom + 14)
       ctx.textAlign = 'left'
@@ -140,10 +140,10 @@ export default function GroundStation() {
         status.slice(0, 3).forEach(([label, value], i) => {
           const x = pad + (width - pad * 2) * i / 3
           ctx.fillStyle = '#6f84a3'
-          ctx.font = '600 10px Barlow, Arial, sans-serif'
+          ctx.font = '600 10px Saira, Arial, sans-serif'
           ctx.fillText(label, x, accBottom + 34)
           ctx.fillStyle = i ? '#eef3fb' : '#ffcf28'
-          ctx.font = '700 16px Barlow, Arial, sans-serif'
+          ctx.font = '700 16px Saira, Arial, sans-serif'
           ctx.fillText(value, x, accBottom + 54)
         })
       } else {
@@ -151,10 +151,10 @@ export default function GroundStation() {
           const x = width * 0.7
           const y = altTop + i * 46
           ctx.fillStyle = '#6f84a3'
-          ctx.font = '600 10px Barlow, Arial, sans-serif'
+          ctx.font = '600 10px Saira, Arial, sans-serif'
           ctx.fillText(label, x, y)
           ctx.fillStyle = i ? '#eef3fb' : '#ffcf28'
-          ctx.font = i ? '600 18px Barlow, Arial, sans-serif' : '700 22px Barlow, Arial, sans-serif'
+          ctx.font = i ? '600 18px Saira, Arial, sans-serif' : '700 22px Saira, Arial, sans-serif'
           ctx.fillText(value, x, y + 19)
         })
       }

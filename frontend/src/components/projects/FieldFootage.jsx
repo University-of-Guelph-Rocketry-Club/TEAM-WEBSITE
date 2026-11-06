@@ -32,7 +32,6 @@ export default function FieldFootage({ section }) {
 
   return <div className="field-stage">
     <div className="field-copy">
-      <p className="eyebrow">Launch day</p>
       <h2 id="field-title" className="giant">This one’s ours!</h2>
       <p>Real footage from one of our club launches. Keep scrolling to send it up</p>
     </div>
@@ -41,7 +40,6 @@ export default function FieldFootage({ section }) {
       {!failed && <video ref={videoRef} poster="/Images/projects-launch-poster.jpg" muted playsInline preload="auto" aria-hidden="true" onError={() => setFailed(true)}>
         <source src="/Videos/projects-launch.mp4" type="video/mp4" onError={() => setFailed(true)} />
       </video>}
-      <span className="field-rec" aria-hidden="true">Launch day</span>
     </div>
   </div>
 }
