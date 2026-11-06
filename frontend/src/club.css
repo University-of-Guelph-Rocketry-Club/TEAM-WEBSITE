@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap');
 :root {
+  --font:'Saira',Arial,sans-serif;
   --club-red:#b51228;
   --club-gold:#ffcf28;
   --club-ink:#20262b;
@@ -9,7 +9,7 @@
 }
 
 body {
-  font-family:'Barlow',Arial,sans-serif;
+  font-family:var(--font);
   color:var(--club-ink);
   background:white;
 }
@@ -74,15 +74,19 @@ button,a {
 }
 
 .club-brand>span {
-  font-family:'Barlow Condensed','Arial Narrow',sans-serif;
-  font-size:28px;
-  font-weight:700;
+  font-family:var(--font);
+  font-stretch:125%;
+  font-size:21px;
+  font-weight:750;
+  letter-spacing:-.01em;
   line-height:1.1;
 }
 
 .club-brand small {
   display:block;
-  font-family:'Barlow',Arial,sans-serif;
+  font-family:var(--font);
+  font-stretch:100%;
+  letter-spacing:0;
   font-size:13px;
   font-weight:400;
   margin-top:6px;
@@ -152,11 +156,12 @@ button,a {
 }
 
 .hero-copy h1 {
-  font-family:'Barlow Condensed','Arial Narrow',Impact,sans-serif;
-  font-size:clamp(64px,6.5vw,100px);
-  font-weight:700;
-  line-height:.98;
-  letter-spacing:-1px;
+  font-family:var(--font);
+  font-stretch:125%;
+  font-size:clamp(44px,4.6vw,72px);
+  font-weight:800;
+  line-height:1;
+  letter-spacing:-.02em;
   margin-bottom:27px;
 }
 
@@ -262,10 +267,12 @@ button,a {
 }
 
 .club-home h2,.club-page h2 {
-  font-family:'Barlow Condensed','Arial Narrow',sans-serif;
-  font-size:40px;
+  font-family:var(--font);
+  font-stretch:118%;
+  font-size:32px;
   line-height:1.1;
-  font-weight:600;
+  font-weight:750;
+  letter-spacing:-.01em;
 }
 
 .text-link {
@@ -285,15 +292,11 @@ button,a {
   padding-top:24px;
 }
 
-.project-category {
-  color:var(--club-muted);
-  font-size:14px;
-}
-
 .project-columns h3 {
-  font-family:'Barlow Condensed','Arial Narrow',sans-serif;
-  font-size:31px;
-  font-weight:600;
+  font-family:var(--font);
+  font-stretch:118%;
+  font-size:24px;
+  font-weight:750;
   margin:8px 0 12px;
 }
 
@@ -326,7 +329,7 @@ button,a {
 }
 
 .invitation-layout h2 {
-  font-size:54px;
+  font-size:40px;
 }
 
 .invitation-layout p {
@@ -379,9 +382,10 @@ button,a {
 }
 
 .footer-brand {
-  font-family:'Barlow Condensed','Arial Narrow',sans-serif;
-  font-size:32px;
-  font-weight:600;
+  font-family:var(--font);
+  font-stretch:125%;
+  font-size:24px;
+  font-weight:750;
 }
 
 .footer-top p {
@@ -424,9 +428,11 @@ button,a {
 }
 
 .page-heading h1 {
-  font-family:'Barlow Condensed','Arial Narrow',sans-serif;
-  font-size:clamp(54px,6vw,78px);
-  font-weight:600;
+  font-family:var(--font);
+  font-stretch:125%;
+  font-size:clamp(38px,4.6vw,64px);
+  font-weight:800;
+  letter-spacing:-.02em;
   line-height:1.02;
   margin-bottom:24px;
 }
@@ -829,7 +835,7 @@ button,a {
     gap:18px;
   }
   .club-brand>span {
-    font-size:24px;
+    font-size:19px;
   }
   .club-brand img {
     width:43px;
@@ -839,7 +845,7 @@ button,a {
     padding:48px 30px 28px 24px;
   }
   .hero-copy h1 {
-    font-size:76px;
+    font-size:48px;
   }
   .hero-actions {
     gap:20px;
@@ -903,7 +909,7 @@ button,a {
     padding:38px 24px 28px;
   }
   .hero-copy h1 {
-    font-size:76px;
+    font-size:48px;
   }
   .hero-intro {
     font-size:14px;
@@ -938,7 +944,7 @@ button,a {
     margin-bottom:28px;
   }
   .club-home h2,.club-page h2 {
-    font-size:36px;
+    font-size:28px;
   }
   .project-preview {
     padding-block:45px;
@@ -962,7 +968,7 @@ button,a {
     gap:25px;
   }
   .invitation-layout h2 {
-    font-size:44px;
+    font-size:32px;
   }
   .club-invitation {
     padding-block:45px;
@@ -994,7 +1000,7 @@ button,a {
     padding-block:42px 35px;
   }
   .page-heading h1 {
-    font-size:58px;
+    font-size:38px;
   }
   .page-heading>p {
     font-size:18px;
