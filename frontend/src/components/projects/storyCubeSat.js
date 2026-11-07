@@ -21,7 +21,7 @@ function canvasTexture(width, height, draw) {
 }
 
 // Triple-junction cells (2 x 4) on a dark PCB, with cropped corners, busbars, fingers and a sun sensor.
-function solarTexture() {
+export function solarTexture() {
   const scale = 1600
   return canvasTexture(Math.round(PANEL_W * scale), Math.round(PANEL_H * scale), (ctx, w, h) => {
     ctx.fillStyle = '#16191c'
@@ -77,7 +77,7 @@ function solarTexture() {
   })
 }
 
-function backTexture() {
+export function backTexture() {
   return canvasTexture(256, 820, (ctx, w, h) => {
     ctx.fillStyle = '#23272c'
     ctx.fillRect(0, 0, w, h)

@@ -4,6 +4,7 @@ import MachOdometer from '../components/projects/MachOdometer'
 import FlightProfile from '../components/projects/FlightProfile'
 import FieldFootage from '../components/projects/FieldFootage'
 import GroundStation from '../components/projects/GroundStation'
+import Subsystems from '../components/projects/Subsystems'
 import { useSectionProgress, useStorySection } from '../components/projects/scrollStory'
 import '../projects.css'
 
@@ -30,14 +31,15 @@ const rocketParts = [
 ]
 
 const subsystems = [
-  ['Power', 'Solar panels and a battery keep it running, even on the dark side of the planet'],
-  ['Attitude control', 'Sensors and little actuators that keep it pointed the right way'],
-  ['Flight computer', 'The brain. It runs the flight software and stores all the data'],
-  ['Radio', 'Our UHF link for sending commands up and getting data down'],
-  ['Structure', 'A 3U frame that has to survive getting shaken around on launch'],
-  ['Thermal', 'Keeps everything from getting too hot or too cold, in sunlight and in shadow'],
-  ['Ground station', 'Our antenna and software here in Guelph that track every pass'],
-  ['Deorbit', 'When the mission’s over it has to come back down and burn up within 5 years']
+  ['power', 'Power', 'Solar panels charge a battery pack, and the power board shares that energy out so everything keeps running, even on the night side of the planet'],
+  ['attitude', 'Attitude control', 'Sensors work out which way it’s facing, then little spinning wheels and magnetic coils turn it to point the right way'],
+  ['computer', 'Flight computer', 'The brain. It runs our flight software, checks in on every other part and stores data until we can download it'],
+  ['radio', 'Radio', 'A UHF radio and four tape antennas that unroll in orbit, for sending commands up and getting data down'],
+  ['payload', 'Experiment', 'Sealed seed chambers with their own sensors, wrapped in gold insulation. They’re the whole reason we’re going up!'],
+  ['structure', 'Structure', 'An aluminium 3U frame with rails that slide into the launcher, tough enough to survive getting shaken around on the way up'],
+  ['thermal', 'Thermal', 'Heaters and a radiator keep everything, especially the seeds, from getting too hot or too cold in sunlight and in shadow'],
+  ['ground', 'Ground station', 'Our antenna and software here in Guelph, which follow the satellite across the sky on every pass'],
+  ['deorbit', 'Deorbit', 'When the mission’s over it has to come back down and burn up within 5 years, so we’re looking at a small drag sail to help it along']
 ]
 
 const timeline = [
@@ -182,12 +184,7 @@ export default function Projects() {
           <h2 id="systems-title" className="giant-sm">What goes into a satellite</h2>
           <p>Each of these is a part of the build you could work on</p>
         </div>
-        <dl className="system-list">
-          {subsystems.map(([title, text]) => <div key={title}>
-            <dt>{title}</dt>
-            <dd>{text}</dd>
-          </div>)}
-        </dl>
+        <Subsystems items={subsystems} />
       </div>
     </section>
 
