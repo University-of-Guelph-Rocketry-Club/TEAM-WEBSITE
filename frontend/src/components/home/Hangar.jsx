@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useStorySection, useSectionProgress } from '../projects/scrollStory'
 import { STATIONS } from './hangarStations'
-import { hangarLabels, hangarProjects } from '../../content/home'
+import { hangarProjects } from '../../content/home'
 
 // Copy fades in while its station is in view: a little before it arrives, a little after it leaves.
 const windows = STATIONS.map(([arrive, leave], i) => [
@@ -14,7 +14,6 @@ const windows = STATIONS.map(([arrive, leave], i) => [
 export default function Hangar() {
   const sectionRef = useStorySection('hangar')
   const hostRef = useRef(null)
-  const labelRef = useRef(null)
   const [status, setStatus] = useState('loading')
   const [current, setCurrent] = useState(0)
 
@@ -34,9 +33,7 @@ export default function Hangar() {
     import('./hangarScene')
       .then(({ mountHangarScene }) => {
         if (cancelled) return
-        release = mountHangarScene(hostRef.current, labelRef.current, 'hangar', () =>
-          setStatus('failed')
-        )
+        release = mountHangarScene(hostRef.current, 'hangar', () => setStatus('failed'))
         setStatus(release ? 'ready' : 'failed')
       })
       .catch(() => {
@@ -70,22 +67,6 @@ export default function Hangar() {
     >
       <div className="hangar-pin">
         <div ref={hostRef} className="hangar-canvas" aria-hidden="true" />
-        <div ref={labelRef} className="hangar-labels" aria-hidden="true">
-          {hangarLabels.map(label => (
-            <div
-              key={label.anchor}
-              className={`hangar-label side-${label.side || 'right'}`}
-              data-anchor={label.anchor}
-              data-station="2"
-            >
-              <span className="hangar-label-dot" />
-              <span className="hangar-label-text">
-                <strong>{label.title}</strong>
-                <small>{label.text}</small>
-              </span>
-            </div>
-          ))}
-        </div>
         <div className="hangar-head wrap">
           <h2 id="hangar-title">What we’re building</h2>
           <ol className="hangar-stops">

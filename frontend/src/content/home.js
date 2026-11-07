@@ -25,14 +25,6 @@ export const hangarProjects = [
   }
 ]
 
-// Little labels that follow parts of the engine in the hangar. `anchor` is the name of a part in
-// the 3D model, so only change the title and text.
-export const hangarLabels = [
-  { anchor: 'engine-loadcell', title: 'Load cell', text: 'Measures the thrust' },
-  { anchor: 'engine-chamber', title: 'Copper chamber', text: 'Soaks up the heat on short burns' },
-  { anchor: 'engine-valve', title: 'Run valves', text: 'Open them and it lights', side: 'left' }
-]
-
 // The "I'm into ___" picker. `label` is the button, then it says "You'd fit right in on
 // {team}!" followed by `text`. Add or remove as many as you like.
 export const interests = [

@@ -124,7 +124,7 @@ function shadowBlob() {
   return new THREE.CanvasTexture(canvas)
 }
 
-export function mountHangarScene(host, labelLayer, sectionId, onFailure) {
+export function mountHangarScene(host, sectionId, onFailure) {
   let renderer
   try {
     renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' })
@@ -318,14 +318,6 @@ export function mountHangarScene(host, labelLayer, sectionId, onFailure) {
   ]
   const direction = new THREE.Vector3(0.32, 0.16, 1).normalize()
 
-  const labels = [...labelLayer.querySelectorAll('[data-anchor]')]
-    .map(element => ({
-      element,
-      station: Number(element.dataset.station),
-      anchor: engine.anchors[element.dataset.anchor]
-    }))
-    .filter(label => label.anchor)
-
   const canvas = renderer.domElement
   host.appendChild(canvas)
 
@@ -339,7 +331,6 @@ export function mountHangarScene(host, labelLayer, sectionId, onFailure) {
   let previous = 0
   const position = new THREE.Vector3()
   const target = new THREE.Vector3()
-  const projected = new THREE.Vector3()
 
   const resize = () => {
     const rect = host.getBoundingClientRect()
@@ -399,19 +390,6 @@ export function mountHangarScene(host, labelLayer, sectionId, onFailure) {
     engine.setFire(fire, still ? 0 : time)
     pools.forEach((spot, k) => {
       spot.intensity = 26 * clamp01(1.25 - Math.abs(s - k))
-    })
-
-    labels.forEach(label => {
-      const shown =
-        clamp01(1 - Math.abs(s - label.station) * 4) *
-        (label.station === 2 ? smooth(0.86, 0.9, progress) : 1)
-      label.element.style.opacity = shown.toFixed(3)
-      if (shown < 0.01) return
-      label.anchor.getWorldPosition(projected)
-      projected.project(camera)
-      const x = (projected.x * 0.5 + 0.5) * width
-      const y = (-projected.y * 0.5 + 0.5) * height
-      label.element.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`
     })
 
     renderer.render(scene, camera)
