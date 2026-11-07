@@ -140,6 +140,7 @@ export const events = [
     intro: 'Two days of satellites, talks and a lot of snow',
     text: 'The CubeSat team packed up a poster and headed to the Canadian CubeSat Conference to see what everyone else is flying, and to show off what we’re building',
     when: 'March 2026',
+    where: 'Montréal, Québec',
     hero: 'panels',
     chapters: [
       {

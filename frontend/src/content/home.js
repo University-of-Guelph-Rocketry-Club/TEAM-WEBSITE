@@ -55,7 +55,7 @@ export const interests = [
   },
   {
     label: 'money stuff',
-    photo: 'launch-canada-2026/arena',
+    photo: 'launch-canada-2026/sponsor-decal',
     team: 'Finance',
     text: 'Sponsors, budgets and getting the whole team to competition'
   },
