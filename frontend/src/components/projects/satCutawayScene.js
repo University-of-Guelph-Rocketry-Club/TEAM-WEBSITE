@@ -1313,23 +1313,55 @@ function buildCutaway(sectionPlane) {
   smallConnector(payloadBoard, 0.1, 0.09, 6)
   passives(payloadBoard, 90)
   payloadBoard.parts.finish()
-  const podGeometry = new THREE.CylinderGeometry(0.105, 0.105, 0.33, 120, 40)
+  // Gold MLI blanket: foil with sharp random creases. A handful of waves at random frequencies and
+  // phases (so nothing lines up into a weave), folded so the ridges are sharp, on a coarse mesh with
+  // flat shading so it breaks into facets like real crinkled foil.
+  const podAround = 96
+  const podRows = 44
+  const podGeometry = new THREE.CylinderGeometry(0.105, 0.105, 0.33, podAround, podRows)
   const podPosition = podGeometry.attributes.position
+  const foilRand = seeded(91)
+  const waves = Array.from({ length: 12 }, () => [
+    1 + Math.floor(foilRand() * 9),
+    (foilRand() - 0.5) * 160,
+    foilRand() * Math.PI * 2,
+    0.3 + foilRand() * 0.7
+  ])
+  // The side vertices come first, row by row, with the seam vertex repeated at the end of each
+  // row. Jitter them around the surface (same amount for both seam copies) so the facets aren't a
+  // neat grid. The end rows stay put because the clamp rings sit over them.
+  const sideCount = (podAround + 1) * (podRows + 1)
+  const jitter = Array.from({ length: sideCount }, () => [foilRand() - 0.5, foilRand() - 0.5])
   for (let i = 0; i < podPosition.count; i++) {
     const x = podPosition.getX(i)
-    const y = podPosition.getY(i)
+    let y = podPosition.getY(i)
     const z = podPosition.getZ(i)
     if (Math.hypot(x, z) < 0.104) continue
-    const a = Math.atan2(z, x)
-    const crinkle =
-      1 +
-      0.016 * Math.sin(a * 9 + y * 41) * Math.sin(a * 23 - y * 67) +
-      0.007 * Math.sin(a * 41 + y * 113) +
-      0.004 * Math.sin(a * 83 - y * 211)
-    podPosition.setXYZ(i, x * crinkle, y, z * crinkle)
+    let a = Math.atan2(z, x)
+    let bump = 0
+    if (i < sideCount) {
+      const row = Math.floor(i / (podAround + 1))
+      const col = i % (podAround + 1) === podAround ? 0 : i % (podAround + 1)
+      const [ja, jy] = jitter[row * (podAround + 1) + col]
+      if (row > 0 && row < podRows) {
+        a += (ja * 0.9 * Math.PI * 2) / podAround
+        y += (jy * 0.9 * 0.33) / podRows
+      }
+      bump = (ja + jy) * 0.0028
+    }
+    let d = 0
+    for (const [fa, fy, phase, amp] of waves) d += amp * Math.sin(fa * a + fy * y + phase)
+    d /= 6
+    const r = 0.105 * (1 + 0.03 * d - 0.02 * Math.abs(d)) + bump
+    podPosition.setXYZ(i, Math.cos(a) * r, y + 0.004 * d, Math.sin(a) * r)
   }
   podGeometry.computeVertexNormals()
-  mesh(podGeometry, standard('#d9ae4f', 1, 0.3), payload, [0, -0.24, 0])
+  mesh(
+    podGeometry,
+    standard('#e1a83e', 1, 0.22, { flatShading: true, envMapIntensity: 1.3 }),
+    payload,
+    [0, -0.24, 0]
+  )
   mesh(
     new THREE.CylinderGeometry(0.1078, 0.1078, 0.33, 48, 1, true, 2.2, 0.12),
     standard('#d7dbe0', 1, 0.35, { side: THREE.DoubleSide }),
