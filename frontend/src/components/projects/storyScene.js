@@ -172,7 +172,7 @@ export function mountStoryScene(host, labelLayer, onFailure) {
     const side = easeInOut(comp.e)
     const explode = smooth(0.2, 0.46, comp.p) * (1 - smooth(0.8, 0.95, comp.p))
     const flat = wide ? smooth(0.1, 0.36, comp.p) * (1 - smooth(0.82, 0.99, comp.p)) : 0
-    // Frame the pulled-apart rocket (about 6.4 units end to end) at ~86% of the screen width.
+    // Frame the pulled-apart rocket (about 6.7 units end to end) at ~90% of the screen width.
     const explodedDistance = THREE.MathUtils.clamp(
       7.45 / (2 * Math.tan(HALF_FOV) * aspect),
       6.2,

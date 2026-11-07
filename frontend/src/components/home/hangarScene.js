@@ -50,6 +50,68 @@ function floorTexture() {
   return texture
 }
 
+// Painted floor markings: a hazard border around the test stand and a pad ring under the rocket.
+function markingTexture(draw) {
+  const canvas = document.createElement('canvas')
+  canvas.width = canvas.height = 512
+  const ctx = canvas.getContext('2d')
+  draw(ctx, 512)
+  const texture = new THREE.CanvasTexture(canvas)
+  texture.colorSpace = THREE.SRGBColorSpace
+  texture.anisotropy = 8
+  return texture
+}
+const hazardTexture = () =>
+  markingTexture((ctx, size) => {
+    const band = 34
+    ctx.save()
+    ctx.beginPath()
+    ctx.rect(0, 0, size, size)
+    ctx.rect(band, band, size - band * 2, size - band * 2)
+    ctx.clip('evenodd')
+    for (let i = -size; i < size * 2; i += 48) {
+      ctx.fillStyle = '#e9b920'
+      ctx.beginPath()
+      ctx.moveTo(i, 0)
+      ctx.lineTo(i + 24, 0)
+      ctx.lineTo(i + 24 + size, size)
+      ctx.lineTo(i + size, size)
+      ctx.closePath()
+      ctx.fill()
+      ctx.fillStyle = '#1b1d21'
+      ctx.beginPath()
+      ctx.moveTo(i + 24, 0)
+      ctx.lineTo(i + 48, 0)
+      ctx.lineTo(i + 48 + size, size)
+      ctx.lineTo(i + 24 + size, size)
+      ctx.closePath()
+      ctx.fill()
+    }
+    ctx.restore()
+  })
+const padTexture = () =>
+  markingTexture((ctx, size) => {
+    ctx.strokeStyle = '#d9dde3'
+    ctx.lineWidth = 10
+    ctx.setLineDash([40, 22])
+    ctx.beginPath()
+    ctx.arc(size / 2, size / 2, size / 2 - 12, 0, Math.PI * 2)
+    ctx.stroke()
+    ctx.setLineDash([])
+    ctx.lineWidth = 6
+    for (const [x, y, dx, dy] of [
+      [size / 2, 30, 0, 50],
+      [size / 2, size - 30, 0, -50],
+      [30, size / 2, 50, 0],
+      [size - 30, size / 2, -50, 0]
+    ]) {
+      ctx.beginPath()
+      ctx.moveTo(x, y)
+      ctx.lineTo(x + dx, y + dy)
+      ctx.stroke()
+    }
+  })
+
 function shadowBlob() {
   const canvas = document.createElement('canvas')
   canvas.width = canvas.height = 128
@@ -116,6 +178,25 @@ export function mountHangarScene(host, labelLayer, sectionId, onFailure) {
   scene.add(floor)
   const blob = shadowBlob()
   const pools = []
+  const marking = (texture, size, x, y = 0.0015) => {
+    const decal = new THREE.Mesh(
+      new THREE.PlaneGeometry(size, size),
+      new THREE.MeshStandardMaterial({
+        map: texture,
+        transparent: true,
+        roughness: 0.9,
+        depthWrite: false,
+        polygonOffset: true,
+        polygonOffsetFactor: -1
+      })
+    )
+    decal.rotation.x = -Math.PI / 2
+    decal.position.set(x, y, 0)
+    decal.receiveShadow = true
+    scene.add(decal)
+  }
+  marking(padTexture(), 2.3, 0)
+  marking(hazardTexture(), 2.6, 5.6)
 
   const standard = (color, metalness, roughness) =>
     new THREE.MeshStandardMaterial({ color, metalness, roughness })
@@ -192,7 +273,7 @@ export function mountHangarScene(host, labelLayer, sectionId, onFailure) {
   )
   part(new THREE.CylinderGeometry(0.13, 0.13, 0.05, 48), anodised, pedestalHeight - 0.03)
   part(new THREE.CylinderGeometry(0.11, 0.11, 0.012, 48), aluminium, pedestalHeight + 0.002)
-  const cubesat = createStoryCubeSat()
+  const cubesat = createStoryCubeSat({ onStand: true })
   cubesat.setDeploy(1, 1)
   const satSpin = new THREE.Group()
   satSpin.position.y = pedestalHeight + 0.008
@@ -265,7 +346,7 @@ export function mountHangarScene(host, labelLayer, sectionId, onFailure) {
     width = Math.max(1, rect.width)
     height = Math.max(1, rect.height)
     compact = width < 760
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, compact ? 1.5 : 1.75))
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, compact ? 1.5 : 2))
     renderer.setSize(width, height, false)
     camera.aspect = width / height
     // Desktop: copy on the left, so centre the models in the right ~58%. Phones: copy along the
