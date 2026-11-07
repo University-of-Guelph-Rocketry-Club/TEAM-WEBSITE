@@ -72,14 +72,24 @@ export const chapters = [
     ]
   },
   {
-    id: 'motor',
-    title: 'Motor time',
-    text: 'Respirators on. Building the motor is the one bit of the day nobody rushes',
+    id: 'ground-test',
+    title: 'Ground test',
+    text: 'Respirators on. Before anything flies, the motor gets fired on the ground, and nobody rushes this bit',
     photos: [
-      { name: 'motor', ratio: 1.5, size: 'big', caption: 'Masks on, gloves on' },
-      { name: 'motor-casing', ratio: 0.6667, size: 'tall', caption: 'Loading the casing' },
+      {
+        name: 'motor',
+        ratio: 1.5,
+        size: 'big',
+        caption: 'Masks on, gloves on, motor going together'
+      },
+      {
+        name: 'motor-casing',
+        ratio: 0.6667,
+        size: 'tall',
+        caption: 'Loading the casing for the ground test'
+      },
       { name: 'aft-end', ratio: 1.5, size: 'wide', caption: 'Buttoning up the aft end' },
-      { name: 'gloves', ratio: 1.5, caption: 'Motor’s in' }
+      { name: 'gloves', ratio: 1.5, caption: 'Ready to fire' }
     ]
   },
   {
@@ -115,9 +125,9 @@ export const postcards = [
   { name: 'pad-2', caption: 'Pad 2, ready', tilt: -2 },
   { name: 'carrying', caption: 'The walk out', tilt: 1.5 },
   { name: 'arena', caption: 'Build week in the arena', tilt: -1 },
-  { name: 'motor', caption: 'Motor time', tilt: 2 },
+  { name: 'motor', caption: 'Ground test prep', tilt: 2 },
   { name: 'chute', caption: 'Chute check', tilt: -1.5 },
-  { name: 'gloves', caption: 'Motor’s in', tilt: 1 },
+  { name: 'gloves', caption: 'Ready to fire', tilt: 1 },
   { name: 'alaris', caption: 'Alaris', tilt: -2.5 },
   { name: 'sunrise', caption: '5:56 am', tilt: 1.5 }
 ]
