@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js'
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js'
-import { solarTexture, backTexture } from './storyCubeSat'
+import { solarTexture, backTexture, springGeometry } from './storyCubeSat'
 
 // A 3U CubeSat (100 x 100 x 340.5 mm at 0.003 units/mm) with its shell sliced in half lengthwise,
 // showing a typical internal layout. Illustrative: our real layout isn't final.
@@ -173,16 +173,89 @@ function heaterTexture() {
 }
 
 function perforatedTexture() {
-  return canvasTexture(256, 256, (ctx, w) => {
+  return canvasTexture(512, 512, (ctx, w) => {
     ctx.fillStyle = '#c8ced5'
     ctx.fillRect(0, 0, w, w)
-    ctx.fillStyle = '#6d747c'
-    for (let x = 12; x < w; x += 18) {
-      for (let y = 12; y < w; y += 18) {
+    ctx.fillStyle = '#5f666e'
+    for (let row = 0, y = 14; y < w - 8; row++, y += 20) {
+      for (let x = row % 2 ? 24 : 14; x < w - 8; x += 20) {
         ctx.beginPath()
-        ctx.arc(x, y, 4, 0, Math.PI * 2)
+        ctx.arc(x, y, 5, 0, Math.PI * 2)
         ctx.fill()
       }
+    }
+  })
+}
+
+// Diagonal hatching on the cut faces, like a section view on a drawing.
+function hatchTexture() {
+  const texture = canvasTexture(64, 64, (ctx, w) => {
+    ctx.fillStyle = SECTION_COLOR
+    ctx.fillRect(0, 0, w, w)
+    ctx.strokeStyle = '#a8401c'
+    ctx.lineWidth = 3
+    ctx.beginPath()
+    for (let i = -2; i < 4; i++) {
+      ctx.moveTo(i * 32, 0)
+      ctx.lineTo(i * 32 + w, w)
+    }
+    ctx.stroke()
+  })
+  texture.wrapS = texture.wrapT = THREE.RepeatWrapping
+  return texture
+}
+
+// Brushed anodised aluminium: fine streaks running along v.
+function brushedTexture(repeatY = 1) {
+  const rand = seeded(7)
+  const texture = canvasTexture(256, 1024, (ctx, w, h) => {
+    ctx.fillStyle = '#9ba2ab'
+    ctx.fillRect(0, 0, w, h)
+    for (let i = 0; i < 1600; i++) {
+      const alpha = 0.04 + rand() * 0.12
+      ctx.strokeStyle = rand() < 0.5 ? `rgba(255,255,255,${alpha})` : `rgba(0,0,0,${alpha})`
+      ctx.lineWidth = 0.6 + rand() * 1.2
+      const x = rand() * w
+      const y = rand() * h
+      ctx.beginPath()
+      ctx.moveTo(x, y)
+      ctx.lineTo(x, y + 80 + rand() * 500)
+      ctx.stroke()
+    }
+  })
+  texture.wrapS = texture.wrapT = THREE.RepeatWrapping
+  texture.repeat.set(1, repeatY)
+  return texture
+}
+
+// 18650 heat shrink: blue wrap, white ring at the positive end, the label printed along the cell.
+function cellTexture() {
+  return canvasTexture(1024, 1024, (ctx, w, h) => {
+    ctx.fillStyle = '#2f64c8'
+    ctx.fillRect(0, 0, w, h)
+    ctx.fillStyle = '#e9eef5'
+    ctx.fillRect(0, h * 0.06, w, h * 0.07)
+    ctx.fillStyle = '#1d4aa0'
+    ctx.fillRect(0, h * 0.135, w, 6)
+    ctx.textAlign = 'center'
+    for (const u of [0.25, 0.75]) {
+      ctx.save()
+      ctx.translate(w * u, h * 0.56)
+      // The cells lie on their side with the positive end to the left, so text that reads the
+      // right way up on the bench runs toward the negative end here
+      ctx.rotate(Math.PI / 2)
+      ctx.fillStyle = '#f4f6fa'
+      ctx.font = '700 78px Saira, Arial, sans-serif'
+      ctx.fillText('Li-ion 18650', 0, -34)
+      ctx.font = '500 46px Saira, Arial, sans-serif'
+      ctx.fillText('3.6 V   3500 mAh', 0, 26)
+      ctx.font = '500 30px Saira, Arial, sans-serif'
+      ctx.fillText('RECHARGEABLE  ·  DO NOT SHORT  ·  CELL 0' + (u < 0.5 ? '1' : '2'), 0, 74)
+      ctx.restore()
+      ctx.fillStyle = '#f4f6fa'
+      ctx.font = '700 70px Saira, Arial, sans-serif'
+      ctx.fillText('+', w * u, h * 0.2)
+      ctx.fillText('–', w * u, h * 0.97)
     }
   })
 }
@@ -243,7 +316,7 @@ function buildCutaway(sectionPlane) {
     })
   }
   // Flat ribbon, flex or braid swept along a path.
-  const ribbon = (parent, points, width, material, thickness = 0.0012) => {
+  const ribbon = (parent, points, width, material, thickness = 0.0012, steps = 80) => {
     const shape = new THREE.Shape()
     shape.moveTo(-thickness / 2, -width / 2)
     shape.lineTo(thickness / 2, -width / 2)
@@ -252,13 +325,51 @@ function buildCutaway(sectionPlane) {
     shape.closePath()
     return mesh(
       new THREE.ExtrudeGeometry(shape, {
-        steps: 80,
+        steps,
         bevelEnabled: false,
         extrudePath: curve(points)
       }),
       material,
       parent
     )
+  }
+  // A strip wound into a flat coil around the y axis (tape springs, the rolled drag sail). For a
+  // path lying flat the extrude's "normal" is vertical, so the strip's width goes on x here.
+  const coil = (parent, position, r0, r1, turns, width, thickness, material) => {
+    const points = []
+    const steps = Math.ceil(turns * 28)
+    for (let i = 0; i <= steps; i++) {
+      const t = i / steps
+      const a = t * turns * Math.PI * 2
+      const r = r0 + (r1 - r0) * t
+      points.push([Math.cos(a) * r, 0, Math.sin(a) * r])
+    }
+    const shape = new THREE.Shape()
+    shape.moveTo(-width / 2, -thickness / 2)
+    shape.lineTo(width / 2, -thickness / 2)
+    shape.lineTo(width / 2, thickness / 2)
+    shape.lineTo(-width / 2, thickness / 2)
+    shape.closePath()
+    return mesh(
+      new THREE.ExtrudeGeometry(shape, {
+        steps: steps * 2,
+        bevelEnabled: false,
+        extrudePath: curve(points)
+      }),
+      material,
+      parent,
+      position
+    )
+  }
+  // Cut faces: a hatched plane just in front of the section, with the UVs scaled so the hatching
+  // is the same size on every cap no matter its shape.
+  const hatch = standard('#ffffff', 0.1, 0.6, { map: hatchTexture() })
+  const cap = (parent, w, h, position) => {
+    const geometry = new THREE.PlaneGeometry(w, h)
+    const uv = geometry.attributes.uv
+    for (let i = 0; i < uv.count; i++)
+      uv.setXY(i, (uv.getX(i) * w) / 0.012, (uv.getY(i) * h) / 0.012)
+    return mesh(geometry, hatch, parent, position)
   }
 
   // Instanced batches for the hundreds of pins, passives and screws.
@@ -625,8 +736,8 @@ function buildCutaway(sectionPlane) {
 
   // ── Structure: rails, frame and side panels, all cut by the section plane ──
   const structure = part('structure')
-  const railMaterial = clip(standard('#858c95', 0.85, 0.38))
-  const frameMaterial = clip(standard('#cdd3da', 1, 0.3))
+  const railMaterial = clip(standard('#dfe4ea', 0.85, 0.4, { map: brushedTexture(6) }))
+  const frameMaterial = clip(standard('#ffffff', 1, 0.32, { map: brushedTexture(1) }))
   for (const x of [-1, 1]) {
     for (const z of [-1, 1])
       mesh(new RoundedBoxGeometry(RAIL, H, RAIL, 2, 0.0035), railMaterial, structure, [
@@ -635,7 +746,18 @@ function buildCutaway(sectionPlane) {
         (z * (W - RAIL)) / 2
       ])
   }
-  const sectionMaterial = standard(SECTION_COLOR, 0.1, 0.6)
+  // Rail feet at the back: a deployment switch plunger in one, a separation spring in the other
+  const steel = standard('#c8ced5', 1, 0.25)
+  mesh(new THREE.CylinderGeometry(0.0022, 0.0022, 0.016, 12), steel, structure, [
+    -(W - RAIL) / 2,
+    -H / 2 - 0.004,
+    -(W - RAIL) / 2
+  ])
+  mesh(springGeometry(5, 0.014, 0.0045, 0.0007), steel, structure, [
+    (W - RAIL) / 2,
+    -H / 2 - 0.007,
+    -(W - RAIL) / 2
+  ])
   for (const y of [-H / 2 + 0.012, -H / 6, H / 6, H / 2 - 0.012]) {
     for (const z of [-1, 1])
       mesh(new THREE.BoxGeometry(W - RAIL * 2, 0.012, 0.012), frameMaterial, structure, [
@@ -649,11 +771,7 @@ function buildCutaway(sectionPlane) {
         y,
         0
       ])
-      mesh(new THREE.BoxGeometry(0.013, 0.013, 0.0025), sectionMaterial, structure, [
-        (x * (W - RAIL)) / 2,
-        y,
-        0.001
-      ])
+      cap(structure, 0.013, 0.013, [(x * (W - RAIL)) / 2, y, 0.001])
     }
   }
   const solar = clip(
@@ -683,21 +801,12 @@ function buildCutaway(sectionPlane) {
   panel(PANEL_H * 0.62, [0, PANEL_H * 0.19, -offset], [0, Math.PI, 0])
   mesh(
     new THREE.BoxGeometry(W - 0.035, 0.006, W - 0.035),
-    clip(standard('#1f2329', 0.7, 0.45)),
+    clip(standard('#3a4049', 0.8, 0.42, { map: brushedTexture(1) })),
     structure,
     [0, -H / 2 + 0.003, 0]
   )
-  for (const x of [-1, 1])
-    mesh(new THREE.BoxGeometry(0.008, PANEL_H, 0.0025), sectionMaterial, structure, [
-      x * offset,
-      0,
-      0.001
-    ])
-  mesh(new THREE.BoxGeometry(W - 0.035, 0.008, 0.0025), sectionMaterial, structure, [
-    0,
-    -H / 2 + 0.003,
-    0.001
-  ])
+  for (const x of [-1, 1]) cap(structure, 0.008, PANEL_H, [x * offset, 0, 0.001])
+  cap(structure, W - 0.035, 0.008, [0, -H / 2 + 0.003, 0.001])
   // Countersunk screws holding the panels to the rails
   const screws = batches(structure, true)
   for (const y of [-0.42, -0.14, 0.14, 0.42]) {
@@ -716,41 +825,32 @@ function buildCutaway(sectionPlane) {
   // ── Power: battery pack and power board, with harnesses from the solar panels ──
   const power = part('power')
   const battery = createBoard(power, 0.245, '#16181b', 41, 'BAT 2S2P')
-  const cellWrap = new THREE.MeshStandardMaterial({
-    map: stripeTexture(
-      8,
-      256,
-      [
-        '#2f64c8',
-        '#2f64c8',
-        '#2f64c8',
-        '#2f64c8',
-        '#2f64c8',
-        '#2f64c8',
-        '#2f64c8',
-        '#2f64c8',
-        '#2f64c8',
-        '#e9eef5',
-        '#2f64c8',
-        '#2f64c8'
-      ],
-      12
-    ),
-    metalness: 0.25,
-    roughness: 0.38
+  const cellWrap = new THREE.MeshPhysicalMaterial({
+    map: cellTexture(),
+    metalness: 0.1,
+    roughness: 0.42,
+    clearcoat: 0.6,
+    clearcoatRoughness: 0.3
   })
   const nickel = standard('#d8dce0', 1, 0.32)
   const shift = 0.015
   for (const y of [0.027, 0.082]) {
     for (const z of [-0.048, 0.048]) {
       const cell = mesh(
-        new THREE.CylinderGeometry(0.027, 0.027, 0.195, 40),
+        new THREE.CylinderGeometry(0.027, 0.027, 0.195, 48),
         cellWrap,
         battery.group,
         [shift, y, z],
         [0, 0, Math.PI / 2]
       )
       mesh(new THREE.CylinderGeometry(0.009, 0.009, 0.004, 20), nickel, cell, [0, 0.0995, 0])
+      mesh(
+        new THREE.RingGeometry(0.0105, 0.025, 32),
+        standard('#f3f1ea', 0, 0.7, { side: THREE.DoubleSide }),
+        cell,
+        [0, 0.0977, 0],
+        [-Math.PI / 2, 0, 0]
+      )
     }
   }
   // Spot-welded nickel strips: across each layer at one end, up each column at the other
@@ -985,24 +1085,38 @@ function buildCutaway(sectionPlane) {
   )
   standoffs(radio, 0.455, 0.497)
   const deployer = createBoard(radio, 0.497, '#121518', 59, 'ANT DEPLOY')
+  // Four tape antennas, each coiled around a spool in an open frame, with a straight run out to
+  // the edge where it leaves the satellite. A burn wire across the top holds the coil.
+  const delrin = standard('#ecece6', 0, 0.55)
+  const tapeSteel = standard('#cfd4da', 1, 0.3)
   for (const [x, z] of [
     [1, 0],
     [-1, 0],
     [0, 1],
     [0, -1]
   ]) {
-    const housing = mesh(
-      new THREE.BoxGeometry(x ? 0.03 : 0.08, 0.016, z ? 0.03 : 0.08),
-      standard('#ecece6', 0, 0.55),
-      deployer.group,
-      [x * 0.1, PCB / 2 + 0.008, z * 0.1]
-    )
+    const housing = new THREE.Group()
+    housing.position.set(x * 0.1, PCB / 2, z * 0.1)
+    housing.rotation.y = x ? Math.PI / 2 : 0
+    deployer.group.add(housing)
+    mesh(new THREE.BoxGeometry(0.08, 0.002, 0.03), delrin, housing, [0, 0.001, 0])
+    for (const sx of [-1, 1])
+      for (const sz of [-1, 1])
+        mesh(new THREE.BoxGeometry(0.004, 0.016, 0.004), delrin, housing, [
+          sx * 0.038,
+          0.008,
+          sz * 0.013
+        ])
+    for (const sz of [-1, 1])
+      mesh(new THREE.BoxGeometry(0.08, 0.0015, 0.004), delrin, housing, [0, 0.0158, sz * 0.013])
     mesh(
-      new THREE.CylinderGeometry(0.011, 0.011, 0.012, 24),
-      standard('#cdbd8f', 0.8, 0.35),
+      new THREE.CylinderGeometry(0.0035, 0.0035, 0.014, 16),
+      standard('#2a2d33', 0.4, 0.5),
       housing,
-      [0, 0.003, 0]
+      [-0.012, 0.009, 0]
     )
+    coil(housing, [-0.012, 0.009, 0], 0.0045, 0.0118, 4.5, 0.01, 0.0006, tapeSteel)
+    mesh(new THREE.BoxGeometry(0.052, 0.0005, 0.01), tapeSteel, housing, [0.014, 0.009, 0.0118])
     mesh(
       new THREE.BoxGeometry(0.006, 0.003, 0.012),
       standard('#26282b', 0.2, 0.4),
@@ -1487,29 +1601,88 @@ function buildCutaway(sectionPlane) {
     thermal,
     [-0.02, -0.22, -0.143]
   )
+  // Radiator plate on the back wall: machined aluminium inside, with two embedded heat pipes
+  // under saddle clamps and the screws holding it to the frame
   const radiator = mesh(
     new THREE.BoxGeometry(PANEL_W, PANEL_H * 0.36, 0.006),
-    standard('#f1f3f5', 0.05, 0.5),
+    standard('#e8ebef', 0.9, 0.3, { map: brushedTexture(1) }),
     thermal,
     [0, -PANEL_H * 0.31, -offset]
   )
-  for (let i = 0; i < 7; i++)
+  const copper = standard('#c27a43', 1, 0.35)
+  for (const y of [-0.06, 0.06]) {
     mesh(
-      new THREE.BoxGeometry(PANEL_W - 0.02, 0.004, 0.003),
-      standard('#c9ced4', 0.6, 0.4),
+      new THREE.CylinderGeometry(0.0035, 0.0035, PANEL_W - 0.03, 16),
+      copper,
       radiator,
-      [0, (i - 3) * 0.045, -0.004]
+      [0, y, 0.0055],
+      [0, 0, Math.PI / 2]
     )
+    for (const x of [-0.08, 0, 0.08]) {
+      mesh(new THREE.BoxGeometry(0.014, 0.012, 0.005), standard('#aeb6bf', 1, 0.32), radiator, [
+        x,
+        y,
+        0.0065
+      ])
+      for (const s of [-1, 1])
+        mesh(
+          new THREE.CylinderGeometry(0.0018, 0.0018, 0.0015, 10),
+          steel,
+          radiator,
+          [x + s * 0.0045, y, 0.0097],
+          [Math.PI / 2, 0, 0]
+        )
+    }
+  }
+  for (const x of [-1, 1])
+    for (const y of [-1, 1])
+      mesh(
+        new THREE.CylinderGeometry(0.0034, 0.0034, 0.0015, 12),
+        steel,
+        radiator,
+        [x * (PANEL_W / 2 - 0.012), y * (PANEL_H * 0.18 - 0.012), 0.0037],
+        [Math.PI / 2, 0, 0]
+      )
   anchor('thermal', thermal, [-0.098, -0.15, 0.06])
 
   // ── Deorbit: a drag sail cassette at the bottom end ──
   const deorbit = part('deorbit')
+  // The cassette is cut with the shell, so you can see the sail rolled around its hub and the
+  // four coiled tape spring booms in the corners that pull it out
   const cassette = mesh(
     new RoundedBoxGeometry(0.255, 0.035, 0.255, 2, 0.003),
-    standard('#aeb6bf', 1, 0.32),
+    clip(standard('#dfe4ea', 1, 0.34, { map: brushedTexture(1) })),
     deorbit,
     [0, -0.487, 0]
   )
+  for (const y of [-1, 1]) cap(deorbit, 0.255, 0.004, [0, -0.487 + y * 0.0155, 0.001])
+  for (const x of [-1, 1]) cap(deorbit, 0.004, 0.035, [x * 0.1255, -0.487, 0.001])
+  coil(
+    deorbit,
+    [0, -0.487, 0],
+    0.013,
+    0.064,
+    9,
+    0.024,
+    0.0048,
+    standard('#f0f2f5', 0.6, 0.3, { envMapIntensity: 1.3 })
+  )
+  mesh(
+    new THREE.CylinderGeometry(0.012, 0.012, 0.028, 24),
+    standard('#2a2d33', 0.4, 0.5),
+    deorbit,
+    [0, -0.487, 0]
+  )
+  for (const x of [-1, 1])
+    for (const z of [-1, 1]) {
+      coil(deorbit, [x * 0.095, -0.487, z * 0.095], 0.005, 0.02, 6, 0.016, 0.0012, tapeSteel)
+      mesh(
+        new THREE.CylinderGeometry(0.004, 0.004, 0.022, 16),
+        standard('#2a2d33', 0.4, 0.5),
+        deorbit,
+        [x * 0.095, -0.487, z * 0.095]
+      )
+    }
   mesh(
     new THREE.BoxGeometry(0.2, 0.0015, 0.2),
     standard('#5b636c', 0.8, 0.4),

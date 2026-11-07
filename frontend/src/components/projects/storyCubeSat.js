@@ -177,7 +177,7 @@ function tapeGeometry() {
 }
 
 // Torsion spring around a hinge pin.
-function springGeometry(turns, length, radius, wire) {
+export function springGeometry(turns, length, radius, wire) {
   const points = []
   const steps = turns * 16
   for (let i = 0; i <= steps; i++) {
