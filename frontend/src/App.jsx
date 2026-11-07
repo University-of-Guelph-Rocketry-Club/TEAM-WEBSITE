@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import CookieConsent from './components/CookieConsent'
@@ -15,6 +15,7 @@ import Team from './pages/Team'
 import Sponsors from './pages/Sponsors'
 import Join from './pages/Join'
 import Privacy from './pages/Privacy'
+import NotFound from './pages/NotFound'
 
 // Previously protected pages - now public
 import Dashboard from './pages/Dashboard'
@@ -79,7 +80,7 @@ function App() {
             <Route path="/teams/:id" element={<TeamDetail />} />
             
             {/* Fallback route */}
-            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
         <Footer />

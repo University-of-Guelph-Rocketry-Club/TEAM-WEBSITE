@@ -98,24 +98,7 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline-color: var(
 .launch-progress { position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: #ffffff16; }
 .launch-progress span { display: block; height: 100%; background: var(--club-gold); transform-origin: left; transform: scaleX(var(--travel)); }
 
-.project-preview { position: relative; padding-block: 100px 110px; }
-#home-projects { scroll-margin-top: 104px; }
-.project-preview .section-intro { margin-bottom: 48px; }
 .club-home h2 { font-size: 36px; }
-.project-columns article { border-top: 1px solid #416182; }
-.project-columns a { color: var(--space-blue); }
-.project-heading { display: grid; grid-template-columns: minmax(0, 1fr) minmax(130px, 55%); align-items: center; min-height: 230px; margin: -15px 0 14px; }
-.project-heading h3 { font-size: clamp(21px, 1.8vw, 26px); }
-.project-columns article { display: flex; flex-direction: column; }
-.project-columns article > a { align-self: flex-start; margin-top: auto; padding-top: 21px; }
-.project-columns article > p { min-height: 0; }
-.project-model { position: relative; width: 100%; height: 230px; }
-.project-model::after { content: ''; position: absolute; width: 70%; height: 14px; bottom: 14px; left: 15%; border-radius: 50%; background: #0005; filter: blur(7px); pointer-events: none; }
-.project-model-canvas { position: absolute; inset: 0; }
-.project-model-canvas canvas { display: block; width: 100%; height: 100%; }
-.project-model-fallback { position: absolute; inset: 12% 8%; width: 84%; height: 76%; opacity: .65; }
-.project-model.is-ready .project-model-fallback { display: none; }
-.project-model:not(.is-ready) .project-model-canvas { visibility: hidden; }
 .club-home .text-link { color: #c3ddf9; }
 .club-invitation {
   position: relative;
@@ -178,14 +161,7 @@ a:focus-visible, button:focus-visible, video:focus-visible { outline-color: var(
   .launch-bottom { left: 20px; right: 20px; bottom: 26px; gap: 12px; font-size: 12px; }
   .launch-scroll-cue { gap: 8px; }
   .launch-footage-caption { right: 20px; bottom: 88px; font-size: 10px; }
-  .project-preview { padding-block: 56px; }
-  #home-projects { scroll-margin-top: 86px; }
   .club-home h2 { font-size: 30px; }
-  .project-preview .section-intro { margin-bottom: 32px; }
-  .project-columns { gap: 40px; }
-  .project-heading { grid-template-columns: minmax(0, 1fr) minmax(170px, 55%); min-height: 230px; margin-bottom: 0; }
-  .project-heading h3 { font-size: 24px; }
-  .project-columns article > a { padding-top: 12px; }
   .club-invitation { padding-block: 60px 85px; }
   .supporter-strip { padding-block: 45px; }
   .supporter-strip h2 { font-size: 27px; }

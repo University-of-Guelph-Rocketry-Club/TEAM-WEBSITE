@@ -76,7 +76,39 @@ function wideText(ctx, text, length, size) {
   })
 }
 
-function liveries() {
+// A sponsor decal down each side of the parachute bay (u = 0.25 and 0.75), reading tail to nose.
+// With no text it shows a dashed "your name here" box.
+function drawDecal(ctx, cx, text) {
+  const length = 0.56 * PX
+  ctx.save()
+  ctx.translate(cx, 0.42 * PX)
+  ctx.rotate(-Math.PI / 2)
+  ctx.textAlign = 'center'
+  ctx.textBaseline = 'middle'
+  const setFont = size => {
+    ctx.font = `700 ${size}px Saira, Arial, sans-serif`
+    if ('fontStretch' in ctx) ctx.fontStretch = 'expanded'
+  }
+  if (text) {
+    let size = 0.064 * PX
+    setFont(size)
+    const width = ctx.measureText(text).width
+    if (width > length) setFont((size *= length / width))
+    ctx.fillStyle = '#1c1c1e'
+    ctx.fillText(text, 0, 0)
+  } else {
+    ctx.setLineDash([12, 8])
+    ctx.lineWidth = 4
+    ctx.strokeStyle = '#7b8189'
+    ctx.strokeRect(-length / 2, -0.045 * PX, length, 0.09 * PX)
+    setFont(0.04 * PX)
+    ctx.fillStyle = '#7b8189'
+    ctx.fillText('YOUR NAME HERE', 0, 0)
+  }
+  ctx.restore()
+}
+
+function liveries(options) {
   const white = '#f3f3ef'
   const logo = new Image()
   const upper = canvasTexture(TEXTURE_WIDTH, Math.round((UPPER_TOP - AV_TOP) * PX), (ctx, w, h) => {
@@ -106,6 +138,7 @@ function liveries() {
         ctx.restore()
       }
     })
+    if (options.decal) [0.25, 0.75].forEach(u => drawDecal(ctx, u * w, options.decalText))
   })
   logo.onload = upper.paint
   logo.src = '/Images/rocketrylogo.png'
@@ -158,17 +191,27 @@ function liveries() {
     const band = 0.034 * PX
     for (let k = 0; k < 14; k += 2) ctx.fillRect(-w * 2, k * band, w * 6, band)
   })
-  return { upper: upper.texture, avBay: avBay.texture, booster: booster.texture, fin: fin.texture }
+  if (options.decal) document.fonts?.load('700 80px Saira').then(upper.paint).catch(() => {})
+  return {
+    upper: upper.texture,
+    avBay: avBay.texture,
+    booster: booster.texture,
+    fin: fin.texture,
+    setDecal(text) {
+      options.decalText = text
+      upper.paint()
+    }
+  }
 }
 
-export function createStoryRocket() {
+export function createStoryRocket(options = {}) {
   const object = new THREE.Group()
   const tilt = new THREE.Group()
   const spin = new THREE.Group()
   object.add(tilt)
   tilt.add(spin)
 
-  const textures = liveries()
+  const textures = liveries({ ...options })
   const paint = map => new THREE.MeshPhysicalMaterial({ map, color: map ? '#ffffff' : '#f1f1ed', roughness: 0.42, clearcoat: 1, clearcoatRoughness: 0.08, envMapIntensity: 0.9 })
   const standard = (color, metalness, roughness, extra = {}) => new THREE.MeshStandardMaterial({ color, metalness, roughness, ...extra })
   const noseRed = new THREE.MeshPhysicalMaterial({ color: '#cf0f2a', roughness: 0.36, clearcoat: 1, clearcoatRoughness: 0.06 })
@@ -361,6 +404,7 @@ export function createStoryRocket() {
     spin,
     anchors,
     nozzleY: BOTTOM - 0.09,
+    setDecal: textures.setDecal,
     // explode 0 → assembled, 1 → pulled apart along the axis (top to bottom: nose, parachute, bay, av bay, booster, motor)
     setExplode(explode, sledOut, chuteOpen) {
       // Gaps are just big enough for the parachute and for the motor to clear the booster.
