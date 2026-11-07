@@ -87,3 +87,5 @@ htmlcov/
 
 # Frontend specific
 .eslintcache
+# Competition photo originals (export the web sizes into frontend/public/Images instead)
+Launch Canada 2026/
