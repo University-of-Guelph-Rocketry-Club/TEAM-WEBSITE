@@ -16,7 +16,7 @@ const labels = [
   { anchor: 'rocket-motor', title: 'Solid motor', text: 'Does all the pushing', side: 'up', vside: 'left' },
   { anchor: 'sat-wing', title: 'Solar panels', text: 'Power from the sun', side: 'down', vside: 'right' },
   { anchor: 'sat-antenna', title: 'UHF antennas', text: 'How we talk to it', side: 'up', vside: 'left' },
-  { anchor: 'sat-payload', title: 'Experiment', text: 'Our plant experiment', side: 'down', vside: 'left' },
+  { anchor: 'sat-payload', title: 'Seed chambers', text: 'Where the seeds ride', side: 'down', vside: 'left' },
   { anchor: 'guelph', title: 'Guelph ground station', text: 'The circle is our radio range', side: 'down', vside: 'right' },
   { anchor: 'orbit-sat', title: 'Our CubeSat', text: 'Way bigger than real life', side: 'up', vside: 'left' }
 ]
@@ -152,7 +152,7 @@ export default function Projects() {
         <Beat className="beat-side">
           <h3 id="deploy-title" className="giant-sm">Then it unfolds</h3>
           <p>Once it’s out in space, it swings its solar panels out to soak up sunlight and unrolls its radio antennas</p>
-          <ul className="sr-only"><li>Solar panels: power from the sun</li><li>UHF antennas: how we talk to it</li><li>Experiment: our plant experiment rides inside</li></ul>
+          <ul className="sr-only"><li>Solar panels: power from the sun</li><li>UHF antennas: how we talk to it</li><li>Seed chambers: where the seeds ride</li></ul>
         </Beat>
       </div>
     </section>
@@ -164,8 +164,9 @@ export default function Projects() {
           <p>The CSA plans to launch the CubeSats it picks into orbits that go over the poles (most likely sun-synchronous), around 500 to 620 km up. The orbit here is drawn to scale at 550 km</p>
         </Beat>
         <Beat at={[0.42, 0.6]} className="beat-side">
-          <h3 className="giant-sm">A little plant experiment</h3>
-          <p>It’ll carry a small plant biology experiment. We’re still working out the details with our profs, so stay tuned!</p>
+          <h3 className="giant-sm">We’re sending seeds to space!</h3>
+          <p>They’ll launch dry and sealed up in tiny chambers. Once we’re in orbit, we add water and sensors keep an eye on the seeds as they sprout, with no gravity to tell them which way is up</p>
+          <p>We’re still working out the details with our profs, so stay tuned!</p>
         </Beat>
         <Beat at={[0.64, 2]} className="beat-side">
           <h3 className="giant-sm">Talking to it from Guelph</h3>
