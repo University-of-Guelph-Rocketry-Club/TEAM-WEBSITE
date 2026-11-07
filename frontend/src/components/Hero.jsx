@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { site } from '../content/site'
 
 export default function Hero() {
   const sceneRef = useRef(null)
@@ -29,13 +30,16 @@ export default function Hero() {
         if (Math.abs(video.currentTime - time) > 1 / 60) video.currentTime = time
       }
     }
-    const update = (now) => {
+    const update = now => {
       frame = 0
       if (scrollChanged) {
         const rect = scene.getBoundingClientRect()
         const distance = scene.offsetHeight - scene.firstElementChild.offsetHeight
         // The stage is pinned below the header from the first scroll pixel.
-        target = Math.min(1, Math.max(0, ((header?.offsetHeight || 0) - rect.top) / Math.max(1, distance)))
+        target = Math.min(
+          1,
+          Math.max(0, ((header?.offsetHeight || 0) - rect.top) / Math.max(1, distance))
+        )
         scrollChanged = false
       }
       const elapsed = previousTime ? Math.min(now - previousTime, 64) : 16
@@ -75,30 +79,77 @@ export default function Hero() {
 
   const animated = !failed
 
-  return <section ref={sceneRef} className={`launch-scene ${animated ? 'is-animated' : ''}`} aria-label="Guelph Rocketry launch">
-    <div className="launch-stage">
-      <div className="launch-stars" aria-hidden="true" />
-      <div className="launch-visual" aria-hidden="true">
-        <img src="/Images/launch-scroll.jpg" alt="" fetchpriority="high" />
-        {animated && <video ref={videoRef} poster="/Images/launch-scroll.jpg" muted playsInline preload="auto" onError={event => {
-          if (event.target === event.currentTarget) setFailed(true)
-        }}>
-          <source src="/Videos/launch-scrub-mobile.mp4" type="video/mp4" media="(max-width: 760px)" />
-          <source src="/Videos/launch-scrub.mp4" type="video/mp4" onError={() => setFailed(true)} />
-        </video>}
+  return (
+    <section
+      ref={sceneRef}
+      className={`launch-scene ${animated ? 'is-animated' : ''}`}
+      aria-label="Guelph Rocketry launch"
+    >
+      <div className="launch-stage">
+        <div className="launch-stars" aria-hidden="true" />
+        <div className="launch-visual" aria-hidden="true">
+          <img src="/Images/launch-scroll.jpg" alt="" fetchpriority="high" />
+          {animated && (
+            <video
+              ref={videoRef}
+              poster="/Images/launch-scroll.jpg"
+              muted
+              playsInline
+              preload="auto"
+              onError={event => {
+                if (event.target === event.currentTarget) setFailed(true)
+              }}
+            >
+              <source
+                src="/Videos/launch-scrub-mobile.mp4"
+                type="video/mp4"
+                media="(max-width: 760px)"
+              />
+              <source
+                src="/Videos/launch-scrub.mp4"
+                type="video/mp4"
+                onError={() => setFailed(true)}
+              />
+            </video>
+          )}
+        </div>
+        <div className="hero-copy">
+          <p className="hero-intro">University of Guelph Rocketry Club</p>
+          <h1>
+            Built here
+            <br />
+            Bound for
+            <br />
+            the beyond!
+          </h1>
+          <p className="hero-description">
+            Come build rockets and satellites with us at Guelph! We’re getting ready for{' '}
+            {site.competition}
+          </p>
+          <div className="hero-actions">
+            <Link className="club-button gold" to="/join">
+              Join the club
+            </Link>
+            <Link className="hero-project-link" to="/projects">
+              Explore our projects
+            </Link>
+          </div>
+          <div className="hero-footnote">
+            <span className="brand-stripe" aria-hidden="true" />
+            Run by students, open to every major
+          </div>
+        </div>
+        <div className="launch-bottom">
+          <a href="#home-projects" className="launch-scroll-cue">
+            <span aria-hidden="true">↓</span>
+            {animated ? 'Scroll for more' : 'Discover the projects'}
+          </a>
+        </div>
+        <p className="launch-footage-caption">*actual footage from one of our launches</p>
+        <div className="launch-progress" aria-hidden="true">
+          <span />
+        </div>
       </div>
-      <div className="hero-copy">
-        <p className="hero-intro">University of Guelph Rocketry Club</p>
-        <h1>Built here<br />Bound for<br />the beyond!</h1>
-        <p className="hero-description">Come build rockets and satellites with us at Guelph! We’re getting ready for Launch Canada 2027</p>
-        <div className="hero-actions"><Link className="club-button gold" to="/join">Join the club</Link><Link className="hero-project-link" to="/projects">Explore our projects</Link></div>
-        <div className="hero-footnote"><span className="brand-stripe" aria-hidden="true" />Run by students, open to every major</div>
-      </div>
-      <div className="launch-bottom">
-        <a href="#home-projects" className="launch-scroll-cue"><span aria-hidden="true">↓</span>{animated ? 'Scroll for more' : 'Discover the projects'}</a>
-      </div>
-      <p className="launch-footage-caption">*actual footage from one of our launches</p>
-      <div className="launch-progress" aria-hidden="true"><span /></div>
-    </div>
-  </section>
+    </section>
+  )
 }

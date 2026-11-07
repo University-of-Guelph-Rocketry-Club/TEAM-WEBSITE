@@ -30,16 +30,34 @@ export default function FieldFootage({ section }) {
     }
   }, [failed, section])
 
-  return <div className="field-stage">
-    <div className="field-copy">
-      <h2 id="field-title" className="giant">This one’s ours!</h2>
-      <p>Real footage from one of our club launches. Keep scrolling to send it up</p>
+  return (
+    <div className="field-stage">
+      <div className="field-copy">
+        <h2 id="field-title" className="giant">
+          This one’s ours!
+        </h2>
+        <p>Real footage from one of our club launches. Keep scrolling to send it up</p>
+      </div>
+      <div className="field-frame">
+        <img src="/Images/projects-launch-poster.jpg" alt="" />
+        {!failed && (
+          <video
+            ref={videoRef}
+            poster="/Images/projects-launch-poster.jpg"
+            muted
+            playsInline
+            preload="auto"
+            aria-hidden="true"
+            onError={() => setFailed(true)}
+          >
+            <source
+              src="/Videos/projects-launch.mp4"
+              type="video/mp4"
+              onError={() => setFailed(true)}
+            />
+          </video>
+        )}
+      </div>
     </div>
-    <div className="field-frame">
-      <img src="/Images/projects-launch-poster.jpg" alt="" />
-      {!failed && <video ref={videoRef} poster="/Images/projects-launch-poster.jpg" muted playsInline preload="auto" aria-hidden="true" onError={() => setFailed(true)}>
-        <source src="/Videos/projects-launch.mp4" type="video/mp4" onError={() => setFailed(true)} />
-      </video>}
-    </div>
-  </div>
+  )
 }

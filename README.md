@@ -2,6 +2,8 @@
 
 A full-stack web application for the University of Guelph Rocketry Club featuring team management, project tracking, and an AI-powered chatbot assistant.
 
+**Just want to change team members, sponsors or some text?** See [UPDATING-THE-SITE.md](UPDATING-THE-SITE.md).
+
 ## 🚀 Features
 
 ### Public Features

@@ -24,7 +24,12 @@ function createSmoke(count = 280, spacing = 0.065) {
   const sizes = new Float32Array(count)
   const alphas = new Float32Array(count)
   const warmth = new Float32Array(count)
-  const seeds = Array.from({ length: count }, () => [Math.random() * 2 - 1, Math.random() * 2 - 1, Math.random(), Math.random()])
+  const seeds = Array.from({ length: count }, () => [
+    Math.random() * 2 - 1,
+    Math.random() * 2 - 1,
+    Math.random(),
+    Math.random()
+  ])
   const geometry = new THREE.BufferGeometry()
   geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
   geometry.setAttribute('aSize', new THREE.BufferAttribute(sizes, 1))
@@ -78,7 +83,8 @@ function createSmoke(count = 280, spacing = 0.065) {
         alphas[i] = strength * 0.5 * Math.exp(-age / 16) * Math.min(1, 0.25 + age * 6)
         warmth[i] = Math.exp(-age / 0.35) * 0.85
       }
-      for (const name of ['position', 'aSize', 'aAlpha', 'aWarm']) geometry.attributes[name].needsUpdate = true
+      for (const name of ['position', 'aSize', 'aAlpha', 'aWarm'])
+        geometry.attributes[name].needsUpdate = true
     }
   }
 }
@@ -125,12 +131,22 @@ export function mountStoryScene(host, labelLayer, onFailure) {
   canvas.setAttribute('aria-hidden', 'true')
   host.appendChild(canvas)
 
-  const anchorFor = name => rocket.anchors[name] || sat.anchors[name] || (name === 'guelph' ? earth.guelphAnchor : name === 'orbit-sat' ? sat.object : null)
+  const anchorFor = name =>
+    rocket.anchors[name] ||
+    sat.anchors[name] ||
+    (name === 'guelph' ? earth.guelphAnchor : name === 'orbit-sat' ? sat.object : null)
   const labels = [...labelLayer.querySelectorAll('[data-anchor]')]
-    .map(el => ({ el, name: el.dataset.anchor, anchor: anchorFor(el.dataset.anchor), shown: -1, textWidth: 0 }))
+    .map(el => ({
+      el,
+      name: el.dataset.anchor,
+      anchor: anchorFor(el.dataset.anchor),
+      shown: -1,
+      textWidth: 0
+    }))
     .filter(label => label.anchor)
   const fades = { rocket: 0, sat: 0, orbit: 0 }
-  const fadeFor = name => (name.startsWith('rocket-') ? fades.rocket : name.startsWith('sat-') ? fades.sat : fades.orbit)
+  const fadeFor = name =>
+    name.startsWith('rocket-') ? fades.rocket : name.startsWith('sat-') ? fades.sat : fades.orbit
 
   const damped = Object.fromEntries(IDS.map(id => [id, { p: 0, e: 0 }]))
   const camPos = new THREE.Vector3()
@@ -156,8 +172,12 @@ export function mountStoryScene(host, labelLayer, onFailure) {
     const side = easeInOut(comp.e)
     const explode = smooth(0.2, 0.46, comp.p) * (1 - smooth(0.8, 0.95, comp.p))
     const flat = wide ? smooth(0.1, 0.36, comp.p) * (1 - smooth(0.82, 0.99, comp.p)) : 0
-    // Frame the pulled-apart rocket (about 6.4 units end to end) at ~86% of the screen width.
-    const explodedDistance = THREE.MathUtils.clamp(7.45 / (2 * Math.tan(HALF_FOV) * aspect), 6.2, 11)
+    // Frame the pulled-apart rocket (about 6.7 units end to end) at ~90% of the screen width.
+    const explodedDistance = THREE.MathUtils.clamp(
+      7.45 / (2 * Math.tan(HALF_FOV) * aspect),
+      6.2,
+      11
+    )
     camPos.set(0, 0, wide ? lerp(9, explodedDistance, flat) : lerp(12.5, 13.5, explode))
     camLook.set(0, 0, 0)
     shiftX = 0
@@ -180,8 +200,12 @@ export function mountStoryScene(host, labelLayer, onFailure) {
     rocket.object.visible = launch.p < 0.995
     rocket.object.position.set(x, y, 0)
     rocket.object.scale.setScalar(scale)
-    rocket.object.rotation.set(lerp(0.1, 0.32, flat) * (1 - ignite), 0, (1 - flat) * (1 - ignite) * (wide ? -0.07 : 0))
-    rocket.tilt.rotation.z = -flat * Math.PI / 2
+    rocket.object.rotation.set(
+      lerp(0.1, 0.32, flat) * (1 - ignite),
+      0,
+      (1 - flat) * (1 - ignite) * (wide ? -0.07 : 0)
+    )
+    rocket.tilt.rotation.z = (-flat * Math.PI) / 2
 
     // Roll slowly, settling with the decals facing us while the rocket is pulled apart.
     if (!reduced) spinAngle += dt * 0.35 * (1 - explode) * (1 - ignite)
@@ -191,7 +215,12 @@ export function mountStoryScene(host, labelLayer, onFailure) {
     // The av bay sled slides out sideways: up on wide screens, to the right on phones.
     rocket.setExplode(explode, smooth(0.3, 1, explode) * (wide ? 1 : -1), smooth(0.4, 1, explode))
     rocket.setBurn(burn, time, reduced)
-    smoke.update(x, y + rocket.nozzleY * scale, -7.5, smooth(0.1, 0.16, launch.p) * (1 - smooth(0.97, 1, launch.p)))
+    smoke.update(
+      x,
+      y + rocket.nozzleY * scale,
+      -7.5,
+      smooth(0.1, 0.16, launch.p) * (1 - smooth(0.97, 1, launch.p))
+    )
 
     if (!reduced && burn > 0) {
       camPos.x += Math.sin(time * 63) * 0.016 * burn
@@ -266,7 +295,11 @@ export function mountStoryScene(host, labelLayer, onFailure) {
     sat.object.visible = satScale > 0.002 && cube.p > 0.3
     sat.object.position.copy(satPos)
     sat.object.scale.setScalar(Math.max(satScale, 0.0001))
-    sat.object.rotation.set(0.18 + tumble * 0.3 + pull * 0.4, yaw + tumble + pull * angle, -0.1 + tumble * 0.5)
+    sat.object.rotation.set(
+      0.18 + tumble * 0.3 + pull * 0.4,
+      yaw + tumble + pull * angle,
+      -0.1 + tumble * 0.5
+    )
     sat.setDeploy(Math.max(wings, pull), Math.max(antennas, pull))
 
     const orbitFade = pull * (1 - setting)
@@ -297,7 +330,10 @@ export function mountStoryScene(host, labelLayer, onFailure) {
       // Point the text back toward the middle when it would run off the right edge.
       if (!label.textWidth) label.textWidth = label.el.lastElementChild.offsetWidth + 16
       const sideways = !wide && label.name.startsWith('rocket-')
-      label.el.classList.toggle('is-flipped', !sideways && x + label.textWidth > width - 8 && x > width / 2)
+      label.el.classList.toggle(
+        'is-flipped',
+        !sideways && x + label.textWidth > width - 8 && x > width / 2
+      )
       label.el.style.opacity = opacity.toFixed(3)
       label.shown = opacity
     }
@@ -360,9 +396,11 @@ export function mountStoryScene(host, labelLayer, onFailure) {
     renderer.setPixelRatio(ratio)
     renderer.setSize(width, height, false)
     camera.aspect = width / height
-    labels.forEach(label => { label.textWidth = 0 })
+    labels.forEach(label => {
+      label.textWidth = 0
+    })
     stars.material.uniforms.uPixelRatio.value = ratio
-    smoke.material.uniforms.uScale.value = height * ratio / (2 * Math.tan(HALF_FOV))
+    smoke.material.uniforms.uScale.value = (height * ratio) / (2 * Math.tan(HALF_FOV))
     earth.setPixelRatio(ratio)
     if (visible) start()
   }

@@ -39,7 +39,7 @@ export default function GroundStation() {
       ctx.strokeStyle = '#ffffff0f'
       ctx.lineWidth = 1
       for (let i = 0; i <= 4; i++) {
-        const y = top + (bottom - top) * i / 4
+        const y = top + ((bottom - top) * i) / 4
         ctx.beginPath()
         ctx.moveTo(left, y)
         ctx.lineTo(right, y)
@@ -51,12 +51,13 @@ export default function GroundStation() {
       ctx.textAlign = 'right'
       ctx.fillText(String(high), right, top - 10)
       ctx.textAlign = 'left'
-      const mapX = t => left + (right - left) * t / span
-      const mapY = v => bottom - (bottom - top) * (Math.min(high, Math.max(low, v)) - low) / (high - low)
+      const mapX = t => left + ((right - left) * t) / span
+      const mapY = v =>
+        bottom - ((bottom - top) * (Math.min(high, Math.max(low, v)) - low)) / (high - low)
       return (now, steps) => {
         ctx.beginPath()
         for (let i = 0; i <= steps; i++) {
-          const t = now * i / steps
+          const t = (now * i) / steps
           const px = mapX(t)
           const py = mapY(value(sampleAt(t)))
           if (i) ctx.lineTo(px, py)
@@ -72,7 +73,7 @@ export default function GroundStation() {
           ctx.fill()
           ctx.beginPath()
           for (let i = 0; i <= steps; i++) {
-            const t = now * i / steps
+            const t = (now * i) / steps
             if (i) ctx.lineTo(mapX(t), mapY(value(sampleAt(t))))
             else ctx.moveTo(mapX(t), mapY(value(sampleAt(t))))
           }
@@ -86,7 +87,7 @@ export default function GroundStation() {
 
     const draw = timestamp => {
       frame = 0
-      const wall = reduced ? T_SLOW / CLIMB_RATE * 0.9 : ((timestamp - started) / 1000) % LOOP
+      const wall = reduced ? (T_SLOW / CLIMB_RATE) * 0.9 : ((timestamp - started) / 1000) % LOOP
       const now = flightTime(wall)
       const s = sampleAt(now)
       const compact = width < 470
@@ -119,8 +120,34 @@ export default function GroundStation() {
       const accTop = altBottom + 32
       const accBottom = compact ? height * 0.64 : height * 0.7
       const steps = Math.min(260, Math.max(8, Math.round(now * 4)))
-      plot(altTop, altBottom, pad, right, span, 0, 10000, v => v.altitude, '#8bbff0', '#8bbff055', 'ALTITUDE', 'm')(now, steps)
-      plot(accTop, accBottom, pad, right, span, -10, 30, accelerometer, '#ffcf28', null, 'ACCEL', 'g')(now, steps)
+      plot(
+        altTop,
+        altBottom,
+        pad,
+        right,
+        span,
+        0,
+        10000,
+        v => v.altitude,
+        '#8bbff0',
+        '#8bbff055',
+        'ALTITUDE',
+        'm'
+      )(now, steps)
+      plot(
+        accTop,
+        accBottom,
+        pad,
+        right,
+        span,
+        -10,
+        30,
+        accelerometer,
+        '#ffcf28',
+        null,
+        'ACCEL',
+        'g'
+      )(now, steps)
       ctx.fillStyle = '#6f84a3'
       ctx.font = '600 10px Saira, Arial, sans-serif'
       ctx.textAlign = 'right'
@@ -138,7 +165,7 @@ export default function GroundStation() {
       ]
       if (compact) {
         status.slice(0, 3).forEach(([label, value], i) => {
-          const x = pad + (width - pad * 2) * i / 3
+          const x = pad + ((width - pad * 2) * i) / 3
           ctx.fillStyle = '#6f84a3'
           ctx.font = '600 10px Saira, Arial, sans-serif'
           ctx.fillText(label, x, accBottom + 34)
@@ -208,8 +235,14 @@ export default function GroundStation() {
     }
   }, [])
 
-  return <figure className="ground-station">
-    <canvas ref={canvasRef} role="img" aria-label="Ground station display replaying the simulated flight: altitude and acceleration plots, flight state, link stats and incoming radio packets" />
-    <figcaption>Replaying the simulated flight from above (not real data)</figcaption>
-  </figure>
+  return (
+    <figure className="ground-station">
+      <canvas
+        ref={canvasRef}
+        role="img"
+        aria-label="Ground station display replaying the simulated flight: altitude and acceleration plots, flight state, link stats and incoming radio packets"
+      />
+      <figcaption>Replaying the simulated flight from above (not real data)</figcaption>
+    </figure>
+  )
 }

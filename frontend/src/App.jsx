@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import CookieConsent from './components/CookieConsent'
@@ -15,6 +15,7 @@ import Team from './pages/Team'
 import Sponsors from './pages/Sponsors'
 import Join from './pages/Join'
 import Privacy from './pages/Privacy'
+import NotFound from './pages/NotFound'
 
 // Previously protected pages - now public
 import Dashboard from './pages/Dashboard'
@@ -24,7 +25,7 @@ import TeamDetail from './pages/TeamDetail'
 // Scroll to top on route change
 const ScrollToTop = () => {
   const { pathname, hash } = useLocation()
-  
+
   useEffect(() => {
     const section = hash ? document.getElementById(hash.slice(1)) : null
     if (section) section.scrollIntoView()
@@ -32,7 +33,7 @@ const ScrollToTop = () => {
     // Track page views
     trackPageView(pathname)
   }, [pathname, hash])
-  
+
   return null
 }
 
@@ -50,7 +51,7 @@ function App() {
       }
     }
   }, [])
-  
+
   // Check if maintenance mode is enabled
   const isMaintenanceMode = import.meta.env.VITE_MAINTENANCE_MODE === 'true'
 
@@ -77,9 +78,9 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/teams" element={<Teams />} />
             <Route path="/teams/:id" element={<TeamDetail />} />
-            
+
             {/* Fallback route */}
-            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
         <Footer />

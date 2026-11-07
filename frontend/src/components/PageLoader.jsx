@@ -1,25 +1,39 @@
 import { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
+import RocketGlyph from './RocketGlyph'
 
-// Brief rocket loading screen shown on first load and between page transitions.
+// Quick launch between pages: our rocket lifts off through a dark curtain, which then clears.
+// It accelerates the whole way (constant thrust, falling mass), so it eases in, never out.
 export default function PageLoader() {
   const { pathname } = useLocation()
-  const [visible, setVisible] = useState(true)
+  const [run, setRun] = useState({ key: 0, first: true, visible: true })
   const firstRun = useRef(true)
 
   useEffect(() => {
-    const duration = firstRun.current ? 650 : 320
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setRun(previous => ({ ...previous, visible: false }))
+      return
+    }
+    const first = firstRun.current
     firstRun.current = false
-    setVisible(true)
-    const t = setTimeout(() => setVisible(false), duration)
+    setRun(previous => ({ key: previous.key + 1, first, visible: true }))
+    const t = setTimeout(
+      () => setRun(previous => ({ ...previous, visible: false })),
+      first ? 1050 : 560
+    )
     return () => clearTimeout(t)
   }, [pathname])
 
   return (
-    <div className={`page-loader${visible ? ' is-visible' : ''}`} aria-hidden={!visible}>
-      <svg className="page-loader-rocket" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-        <path d="M12 2L4 12h5v8h6v-8h5L12 2zm0 3.84L16.27 11H14v7h-4v-7H7.73L12 5.84z" />
-      </svg>
+    <div
+      key={run.key}
+      className={`page-loader${run.visible ? ' is-visible' : ''}${run.first ? ' is-first' : ''}`}
+      aria-hidden="true"
+    >
+      <div className="page-loader-pad">
+        <span className="page-loader-smoke" />
+        <RocketGlyph className="page-loader-rocket" flame />
+      </div>
     </div>
   )
 }

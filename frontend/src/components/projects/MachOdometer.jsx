@@ -23,17 +23,31 @@ export default function MachOdometer({ section, from = 0.1, to = 0.82, goal = 2.
     rootRef.current.style.setProperty('--mach', (value / goal).toFixed(4))
   })
 
-  return <div ref={rootRef} className="mach">
-    <div className="mach-readout" aria-hidden="true">
-      <span className="mach-unit">Mach</span>
-      <span className="odo"><span ref={onesRef} className="odo-col">{[0, 1, 2, 3].map(n => <span key={n}>{n}</span>)}</span></span>
-      <span className="odo-dot">.</span>
-      <span className="odo"><span ref={tenthsRef} className="odo-col">{[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((n, i) => <span key={i}>{n}</span>)}</span></span>
+  return (
+    <div ref={rootRef} className="mach">
+      <div className="mach-readout" aria-hidden="true">
+        <span className="mach-unit">Mach</span>
+        <span className="odo">
+          <span ref={onesRef} className="odo-col">
+            {[0, 1, 2, 3].map(n => (
+              <span key={n}>{n}</span>
+            ))}
+          </span>
+        </span>
+        <span className="odo-dot">.</span>
+        <span className="odo">
+          <span ref={tenthsRef} className="odo-col">
+            {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((n, i) => (
+              <span key={i}>{n}</span>
+            ))}
+          </span>
+        </span>
+      </div>
+      <div className="mach-track" aria-hidden="true">
+        <span className="mach-fill" />
+        <span className="mach-one">Mach 1</span>
+        <span className="mach-badge">Supersonic!</span>
+      </div>
     </div>
-    <div className="mach-track" aria-hidden="true">
-      <span className="mach-fill" />
-      <span className="mach-one">Mach 1</span>
-      <span className="mach-badge">Supersonic!</span>
-    </div>
-  </div>
+  )
 }
