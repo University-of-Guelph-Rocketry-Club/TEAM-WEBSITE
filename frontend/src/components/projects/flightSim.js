@@ -12,25 +12,39 @@ const BURN_TIME = 3.4 // s
 const TOTAL_IMPULSE = 13550 // N·s, an N-class motor
 const GROUND_DENSITY = 1.19 // kg/m³ at the launch site
 // Parachutes sized for ~25 m/s under the drogue and ~6 m/s under the main, near the ground.
-const DROGUE_CDA = 2 * DRY_MASS * G / (GROUND_DENSITY * 25 ** 2)
-const MAIN_CDA = 2 * DRY_MASS * G / (GROUND_DENSITY * 6 ** 2)
+const DROGUE_CDA = (2 * DRY_MASS * G) / (GROUND_DENSITY * 25 ** 2)
+const MAIN_CDA = (2 * DRY_MASS * G) / (GROUND_DENSITY * 6 ** 2)
 const MAIN_ALTITUDE = 457 // m above ground
 
 export function atmosphere(height) {
   const h = Math.max(0, height)
   const troposphere = h < 11000
   const temperature = troposphere ? 288.15 - 0.0065 * h : 216.65
-  const pressure = troposphere ? 101325 * (temperature / 288.15) ** 5.25588 : 22632.1 * Math.exp(-0.000157688 * (h - 11000))
-  return { density: pressure / (287.053 * temperature), sound: Math.sqrt(1.4 * 287.053 * temperature) }
+  const pressure = troposphere
+    ? 101325 * (temperature / 288.15) ** 5.25588
+    : 22632.1 * Math.exp(-0.000157688 * (h - 11000))
+  return {
+    density: pressure / (287.053 * temperature),
+    sound: Math.sqrt(1.4 * 287.053 * temperature)
+  }
 }
 
 // Body drag coefficient against Mach number: flat subsonic, a transonic bump, falling off supersonic.
 export function dragCoefficient(mach) {
-  const points = [[0, 0.42], [0.8, 0.44], [1.0, 0.62], [1.15, 0.66], [1.5, 0.56], [2.0, 0.47], [2.5, 0.42], [3, 0.4]]
+  const points = [
+    [0, 0.42],
+    [0.8, 0.44],
+    [1.0, 0.62],
+    [1.15, 0.66],
+    [1.5, 0.56],
+    [2.0, 0.47],
+    [2.5, 0.42],
+    [3, 0.4]
+  ]
   for (let i = 1; i < points.length; i++) {
     const [m1, c1] = points[i]
     const [m0, c0] = points[i - 1]
-    if (mach <= m1) return c0 + (c1 - c0) * (mach - m0) / (m1 - m0)
+    if (mach <= m1) return c0 + ((c1 - c0) * (mach - m0)) / (m1 - m0)
   }
   return points[points.length - 1][1]
 }
@@ -40,7 +54,7 @@ function thrust(t) {
   if (t < 0 || t > BURN_TIME) return 0
   const x = t / BURN_TIME
   const shape = Math.min(1, t / 0.08) * (1.12 - 0.24 * x) * Math.min(1, (BURN_TIME - t) / 0.15)
-  return shape * TOTAL_IMPULSE / BURN_TIME / 0.985
+  return (shape * TOTAL_IMPULSE) / BURN_TIME / 0.985
 }
 
 function simulate() {
@@ -59,7 +73,7 @@ function simulate() {
     const dt = phase === 'boost' || phase === 'coast' ? 0.002 : 0.02
     const air = atmosphere(SITE_ALTITUDE + altitude)
     const F = thrust(t)
-    const flow = F / TOTAL_IMPULSE * PROPELLANT
+    const flow = (F / TOTAL_IMPULSE) * PROPELLANT
     const mass = DRY_MASS + PROPELLANT - burned
     const mach = Math.abs(velocity) / air.sound
     let cda = dragCoefficient(mach) * AREA
@@ -79,7 +93,12 @@ function simulate() {
     if (!events.mach1 && mach >= 1 && velocity > 0) events.mach1 = { t, altitude, mach }
     if (phase === 'boost' && t >= BURN_TIME) {
       phase = 'coast'
-      events.burnout = { t, altitude, velocity, mach: velocity / atmosphere(SITE_ALTITUDE + altitude).sound }
+      events.burnout = {
+        t,
+        altitude,
+        velocity,
+        mach: velocity / atmosphere(SITE_ALTITUDE + altitude).sound
+      }
     }
     if (phase === 'coast' && velocity <= 0) {
       phase = 'drogue'
@@ -92,7 +111,14 @@ function simulate() {
     sampleClock += dt
     if (sampleClock >= (phase === 'boost' || phase === 'coast' ? 0.05 : 0.5)) {
       sampleClock = 0
-      samples.push({ t, altitude, velocity, mach: Math.abs(velocity) / atmosphere(SITE_ALTITUDE + altitude).sound, acceleration: lastAcceleration / G, phase })
+      samples.push({
+        t,
+        altitude,
+        velocity,
+        mach: Math.abs(velocity) / atmosphere(SITE_ALTITUDE + altitude).sound,
+        acceleration: lastAcceleration / G,
+        phase
+      })
     }
     if (altitude <= 0 && phase !== 'boost') {
       events.landing = { t, velocity }

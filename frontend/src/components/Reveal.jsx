@@ -12,12 +12,15 @@ export default function Reveal({ as: Tag = 'div', className = '', delay = 0, chi
       setVisible(true)
       return
     }
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        setVisible(true)
-        observer.disconnect()
-      }
-    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' })
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+    )
     observer.observe(node)
     return () => observer.disconnect()
   }, [])

@@ -24,13 +24,26 @@ export default function StoryStage({ labels }) {
     }
   }, [])
 
-  return <div className="story-stage-track" aria-hidden="true"><div className={`story-stage is-${status}`}>
-    <div ref={hostRef} className="story-canvas" />
-    <div ref={labelRef} className="story-labels">
-      {labels.map(label => <div key={label.anchor} className={`story-label side-${label.side || 'up'} vside-${label.vside || 'right'}${label.anchor.startsWith('rocket-') ? ' rocket-label' : ''}`} data-anchor={label.anchor}>
-        <span className="story-label-dot" />
-        <span className="story-label-text"><strong>{label.title}</strong>{label.text && <small>{label.text}</small>}</span>
-      </div>)}
+  return (
+    <div className="story-stage-track" aria-hidden="true">
+      <div className={`story-stage is-${status}`}>
+        <div ref={hostRef} className="story-canvas" />
+        <div ref={labelRef} className="story-labels">
+          {labels.map(label => (
+            <div
+              key={label.anchor}
+              className={`story-label side-${label.side || 'up'} vside-${label.vside || 'right'}${label.anchor.startsWith('rocket-') ? ' rocket-label' : ''}`}
+              data-anchor={label.anchor}
+            >
+              <span className="story-label-dot" />
+              <span className="story-label-text">
+                <strong>{label.title}</strong>
+                {label.text && <small>{label.text}</small>}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
-  </div></div>
+  )
 }

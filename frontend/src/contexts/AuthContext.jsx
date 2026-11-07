@@ -1,8 +1,9 @@
-import React, { createContext, useContext, useState, useEffect } from 'react'
+import { createContext, useContext, useState, useEffect } from 'react'
 import { login, register, getCurrentUser } from '../lib/api'
 
 const AuthContext = createContext()
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => {
   const context = useContext(AuthContext)
   if (!context) {
@@ -18,6 +19,8 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     checkAuth()
+    // Only check once, when the site first loads.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const checkAuth = async () => {
@@ -36,43 +39,43 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
-  const loginUser = async (credentials) => {
+  const loginUser = async credentials => {
     try {
       const response = await login(credentials)
       const { access_token, user: userData } = response.data
-      
+
       localStorage.setItem('token', access_token)
       localStorage.setItem('user', JSON.stringify(userData))
-      
+
       setUser(userData)
       setIsAuthenticated(true)
-      
+
       return { success: true, user: userData }
     } catch (error) {
       console.error('Login failed:', error)
-      return { 
-        success: false, 
-        error: error.response?.data?.detail || 'Login failed' 
+      return {
+        success: false,
+        error: error.response?.data?.detail || 'Login failed'
       }
     }
   }
 
-  const registerUser = async (userData) => {
+  const registerUser = async userData => {
     try {
-      const response = await register(userData)
-      
+      await register(userData)
+
       // Auto-login after registration
       const loginResult = await loginUser({
         email: userData.email,
         password: userData.password
       })
-      
+
       return loginResult
     } catch (error) {
       console.error('Registration failed:', error)
-      return { 
-        success: false, 
-        error: error.response?.data?.detail || 'Registration failed' 
+      return {
+        success: false,
+        error: error.response?.data?.detail || 'Registration failed'
       }
     }
   }
@@ -84,7 +87,7 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(false)
   }
 
-  const updateUser = (updatedUser) => {
+  const updateUser = updatedUser => {
     setUser(updatedUser)
     localStorage.setItem('user', JSON.stringify(updatedUser))
   }
@@ -100,9 +103,5 @@ export const AuthProvider = ({ children }) => {
     checkAuth
   }
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  )
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

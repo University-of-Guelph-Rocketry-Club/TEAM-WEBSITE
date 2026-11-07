@@ -21,7 +21,6 @@ const smooth = (a, b, value) => {
 const lerp = (a, b, t) => a + (b - a) * t
 const easeInOut = t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2)
 
-
 function floorTexture() {
   const canvas = document.createElement('canvas')
   canvas.width = canvas.height = 512
@@ -32,7 +31,12 @@ function floorTexture() {
   for (let i = 0; i < 9000; i++) {
     const tone = 110 + Math.random() * 40
     ctx.fillStyle = `rgba(${tone},${tone + 4},${tone + 10},${0.25 + Math.random() * 0.3})`
-    ctx.fillRect(Math.random() * 512, Math.random() * 512, 1 + Math.random() * 2, 1 + Math.random() * 2)
+    ctx.fillRect(
+      Math.random() * 512,
+      Math.random() * 512,
+      1 + Math.random() * 2,
+      1 + Math.random() * 2
+    )
   }
   // Saw-cut expansion joints every slab
   ctx.fillStyle = '#4d525b'
@@ -99,7 +103,12 @@ export function mountHangarScene(host, labelLayer, sectionId, onFailure) {
   scene.add(rim)
 
   // Floor and a pool of light under each station
-  const floorMaterial = new THREE.MeshStandardMaterial({ color: '#2a3140', map: floorTexture(), roughness: 0.82, metalness: 0.05 })
+  const floorMaterial = new THREE.MeshStandardMaterial({
+    color: '#2a3140',
+    map: floorTexture(),
+    roughness: 0.82,
+    metalness: 0.05
+  })
   const floor = new THREE.Mesh(new THREE.PlaneGeometry(64, 32), floorMaterial)
   floor.rotation.x = -Math.PI / 2
   floor.position.x = 3
@@ -108,7 +117,8 @@ export function mountHangarScene(host, labelLayer, sectionId, onFailure) {
   const blob = shadowBlob()
   const pools = []
 
-  const standard = (color, metalness, roughness) => new THREE.MeshStandardMaterial({ color, metalness, roughness })
+  const standard = (color, metalness, roughness) =>
+    new THREE.MeshStandardMaterial({ color, metalness, roughness })
   const darkSteel = standard('#2f3338', 0.75, 0.5)
   const steel = standard('#7b828b', 0.85, 0.4)
   const aluminium = standard('#c9ced4', 1, 0.3)
@@ -139,7 +149,7 @@ export function mountHangarScene(host, labelLayer, sectionId, onFailure) {
   // 1515 rail (38 mm square) behind the rail buttons, 10 ft tall, on a steel base with legs.
   const railGeometry = tSlotGeometry()
   const rail = new THREE.Mesh(railGeometry, aluminium)
-  rail.scale.set(38 / 40 * MM, 38 / 40 * MM, 5.4)
+  rail.scale.set((38 / 40) * MM, (38 / 40) * MM, 5.4)
   rail.rotation.x = -Math.PI / 2
   rail.position.set(0, 0.12, -0.09 - 0.028 - 0.034)
   rocketTurn.add(rail)
@@ -147,7 +157,7 @@ export function mountHangarScene(host, labelLayer, sectionId, onFailure) {
   base.position.set(0, 0.03, -0.1)
   rocketTurn.add(base)
   for (let i = 0; i < 3; i++) {
-    const angle = i / 3 * Math.PI * 2 + Math.PI / 2
+    const angle = (i / 3) * Math.PI * 2 + Math.PI / 2
     const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, 1.5, 12), steel)
     const foot = new THREE.Vector3(Math.cos(angle) * 0.95, 0.02, Math.sin(angle) * 0.95 - 0.1)
     const top = new THREE.Vector3(0, 1.3, -0.17)
@@ -175,7 +185,11 @@ export function mountHangarScene(host, labelLayer, sectionId, onFailure) {
     pedestal.add(piece)
   }
   part(new THREE.CylinderGeometry(0.34, 0.38, 0.05, 48), anodised, 0.025)
-  part(new THREE.CylinderGeometry(0.045, 0.045, pedestalHeight - 0.1, 24), aluminium, pedestalHeight / 2)
+  part(
+    new THREE.CylinderGeometry(0.045, 0.045, pedestalHeight - 0.1, 24),
+    aluminium,
+    pedestalHeight / 2
+  )
   part(new THREE.CylinderGeometry(0.13, 0.13, 0.05, 48), anodised, pedestalHeight - 0.03)
   part(new THREE.CylinderGeometry(0.11, 0.11, 0.012, 48), aluminium, pedestalHeight + 0.002)
   const cubesat = createStoryCubeSat()
@@ -195,7 +209,10 @@ export function mountHangarScene(host, labelLayer, sectionId, onFailure) {
   engineTurn.add(engine.object)
 
   for (const group of [rocketStation, cubesatStation, engineStation]) {
-    const shadow = new THREE.Mesh(new THREE.PlaneGeometry(1.6, 1.6), new THREE.MeshBasicMaterial({ map: blob, transparent: true, depthWrite: false }))
+    const shadow = new THREE.Mesh(
+      new THREE.PlaneGeometry(1.6, 1.6),
+      new THREE.MeshBasicMaterial({ map: blob, transparent: true, depthWrite: false })
+    )
     shadow.rotation.x = -Math.PI / 2
     shadow.position.y = 0.003
     group.add(shadow)
@@ -204,7 +221,9 @@ export function mountHangarScene(host, labelLayer, sectionId, onFailure) {
   scene.traverse(object => {
     if (!object.isMesh) return
     const material = object.material
-    const transparent = Array.isArray(material) ? material.some(m => m.transparent) : material.transparent
+    const transparent = Array.isArray(material)
+      ? material.some(m => m.transparent)
+      : material.transparent
     if (transparent || object === floor) return
     object.castShadow = true
     object.receiveShadow = true
@@ -218,11 +237,13 @@ export function mountHangarScene(host, labelLayer, sectionId, onFailure) {
   ]
   const direction = new THREE.Vector3(0.32, 0.16, 1).normalize()
 
-  const labels = [...labelLayer.querySelectorAll('[data-anchor]')].map(element => ({
-    element,
-    station: Number(element.dataset.station),
-    anchor: engine.anchors[element.dataset.anchor]
-  })).filter(label => label.anchor)
+  const labels = [...labelLayer.querySelectorAll('[data-anchor]')]
+    .map(element => ({
+      element,
+      station: Number(element.dataset.station),
+      anchor: engine.anchors[element.dataset.anchor]
+    }))
+    .filter(label => label.anchor)
 
   const canvas = renderer.domElement
   host.appendChild(canvas)
@@ -275,7 +296,9 @@ export function mountHangarScene(host, labelLayer, sectionId, onFailure) {
     if (Math.abs(goal - progress) < 0.0005) progress = goal
 
     // Station index as a smooth number: 0 → rocket, 1 → CubeSat, 2 → engine
-    const s = easeInOut(smooth(STATIONS[0][1], STATIONS[1][0], progress)) + easeInOut(smooth(STATIONS[1][1], STATIONS[2][0], progress))
+    const s =
+      easeInOut(smooth(STATIONS[0][1], STATIONS[1][0], progress)) +
+      easeInOut(smooth(STATIONS[1][1], STATIONS[2][0], progress))
     const i = Math.min(1, Math.floor(s))
     const t = s - i
     const a = framing[i]
@@ -298,7 +321,9 @@ export function mountHangarScene(host, labelLayer, sectionId, onFailure) {
     })
 
     labels.forEach(label => {
-      const shown = clamp01(1 - Math.abs(s - label.station) * 4) * (label.station === 2 ? smooth(0.86, 0.9, progress) : 1)
+      const shown =
+        clamp01(1 - Math.abs(s - label.station) * 4) *
+        (label.station === 2 ? smooth(0.86, 0.9, progress) : 1)
       label.element.style.opacity = shown.toFixed(3)
       if (shown < 0.01) return
       label.anchor.getWorldPosition(projected)
@@ -318,14 +343,17 @@ export function mountHangarScene(host, labelLayer, sectionId, onFailure) {
       frame = requestAnimationFrame(render)
     }
   }
-  const observer = new IntersectionObserver(([entry]) => {
-    visible = entry.isIntersecting
-    if (visible) start()
-    else {
-      cancelAnimationFrame(frame)
-      frame = 0
-    }
-  }, { rootMargin: '120px' })
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      visible = entry.isIntersecting
+      if (visible) start()
+      else {
+        cancelAnimationFrame(frame)
+        frame = 0
+      }
+    },
+    { rootMargin: '120px' }
+  )
   observer.observe(host)
   const resizeObserver = new ResizeObserver(() => {
     resize()

@@ -3,13 +3,28 @@ import Hero from '../components/Hero'
 import Hangar from '../components/home/Hangar'
 import InterestPicker from '../components/home/InterestPicker'
 import ProjectsSignpost from '../components/ProjectsSignpost'
+import { sponsors } from '../content/sponsors'
 
 export default function Home() {
-  return <div className="club-home">
-    <Hero />
-    <Hangar />
-    <InterestPicker />
-    <section className="wrap supporter-strip"><div><p>Supporting the build</p><h2>SOLIDWORKS</h2></div><p>Design and simulation tools provided through the SOLIDWORKS Sponsorship for Student Teams program</p><Link className="text-link" to="/sponsors">Support the club</Link></section>
-    <ProjectsSignpost />
-  </div>
+  const [sponsor] = sponsors
+  return (
+    <div className="club-home">
+      <Hero />
+      <Hangar />
+      <InterestPicker />
+      {sponsor && (
+        <section className="wrap supporter-strip">
+          <div>
+            <p>Supporting the build</p>
+            <h2>{sponsor.name}</h2>
+          </div>
+          <p>{sponsor.homeText}</p>
+          <Link className="text-link" to="/sponsors">
+            Support the club
+          </Link>
+        </section>
+      )}
+      <ProjectsSignpost />
+    </div>
+  )
 }

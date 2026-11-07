@@ -7,7 +7,11 @@ import { createStoryRocket } from '../projects/storyRocket'
 export function mountSponsorScene(host, onFailure) {
   let renderer
   try {
-    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' })
+    renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      alpha: true,
+      powerPreference: 'high-performance'
+    })
   } catch {
     return null
   }
@@ -121,10 +125,13 @@ export function mountSponsorScene(host, onFailure) {
       const textures = new Set()
       scene.traverse(object => {
         object.geometry?.dispose()
-        ;[object.material].flat().filter(Boolean).forEach(material => {
-          for (const value of Object.values(material)) if (value?.isTexture) textures.add(value)
-          material.dispose()
-        })
+        ;[object.material]
+          .flat()
+          .filter(Boolean)
+          .forEach(material => {
+            for (const value of Object.values(material)) if (value?.isTexture) textures.add(value)
+            material.dispose()
+          })
       })
       textures.forEach(texture => texture.dispose())
       environment.dispose()

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
@@ -25,7 +25,7 @@ import TeamDetail from './pages/TeamDetail'
 // Scroll to top on route change
 const ScrollToTop = () => {
   const { pathname, hash } = useLocation()
-  
+
   useEffect(() => {
     const section = hash ? document.getElementById(hash.slice(1)) : null
     if (section) section.scrollIntoView()
@@ -33,7 +33,7 @@ const ScrollToTop = () => {
     // Track page views
     trackPageView(pathname)
   }, [pathname, hash])
-  
+
   return null
 }
 
@@ -51,7 +51,7 @@ function App() {
       }
     }
   }, [])
-  
+
   // Check if maintenance mode is enabled
   const isMaintenanceMode = import.meta.env.VITE_MAINTENANCE_MODE === 'true'
 
@@ -78,7 +78,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/teams" element={<Teams />} />
             <Route path="/teams/:id" element={<TeamDetail />} />
-            
+
             {/* Fallback route */}
             <Route path="*" element={<NotFound />} />
           </Routes>

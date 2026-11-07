@@ -1,3 +1,5 @@
+import { site } from '../content/site'
+
 const Privacy = () => {
   return (
     <div className="page-transition privacy-page">
@@ -5,9 +7,7 @@ const Privacy = () => {
       <section className="pt-24 pb-16 bg-slate-50">
         <div className="max-w-4xl mx-auto px-6">
           <h1 className="text-4xl font-bold text-slate-900 mb-4">Privacy Policy</h1>
-          <p className="text-lg text-slate-600">
-            Last updated: January 24, 2026
-          </p>
+          <p className="text-lg text-slate-600">Last updated: January 24, 2026</p>
         </div>
       </section>
 
@@ -15,14 +15,13 @@ const Privacy = () => {
       <section className="py-16 bg-white">
         <div className="max-w-4xl mx-auto px-6">
           <div className="prose prose-slate max-w-none">
-            
             {/* Introduction */}
             <div className="mb-12">
               <h2 className="text-2xl font-bold text-slate-900 mb-4">Introduction</h2>
               <p className="text-slate-700 leading-relaxed mb-4">
-                The University of Guelph Rocketry Club ("we," "our," or "us") respects your privacy. 
-                This Privacy Policy explains how we collect, use, and protect information when you use 
-                our AI chatbot assistant on our website.
+                The University of Guelph Rocketry Club ("we," "our," or "us") respects your privacy.
+                This Privacy Policy explains how we collect, use, and protect information when you
+                use our AI chatbot assistant on our website.
               </p>
             </div>
 
@@ -33,35 +32,57 @@ const Privacy = () => {
                 When you interact with our AI chatbot assistant, we may or may not collect:
               </p>
               <ul className="list-disc pl-6 text-slate-700 space-y-2 mb-4">
-                <li><strong>Chat messages:</strong> Your questions and messages to the chatbot may be logged, but collection is not guaranteed and depends on various factors</li>
-                <li><strong>Conversation data:</strong> AI responses and conversation history might be recorded, but this is not automatic for all interactions</li>
-                <li><strong>Timestamps:</strong> Date and time information could be captured depending on circumstances</li>
-                <li><strong>Technical data:</strong> Browser type, device information, and IP address might be collected through standard web logs, but not actively monitored</li>
-                <li><strong>Website analytics:</strong> We may track the number of visitors, page views, and general usage patterns</li>
-                <li><strong>User behavior:</strong> Pages visited, time spent on site, and navigation patterns could be logged</li>
+                <li>
+                  <strong>Chat messages:</strong> Your questions and messages to the chatbot may be
+                  logged, but collection is not guaranteed and depends on various factors
+                </li>
+                <li>
+                  <strong>Conversation data:</strong> AI responses and conversation history might be
+                  recorded, but this is not automatic for all interactions
+                </li>
+                <li>
+                  <strong>Timestamps:</strong> Date and time information could be captured depending
+                  on circumstances
+                </li>
+                <li>
+                  <strong>Technical data:</strong> Browser type, device information, and IP address
+                  might be collected through standard web logs, but not actively monitored
+                </li>
+                <li>
+                  <strong>Website analytics:</strong> We may track the number of visitors, page
+                  views, and general usage patterns
+                </li>
+                <li>
+                  <strong>User behavior:</strong> Pages visited, time spent on site, and navigation
+                  patterns could be logged
+                </li>
               </ul>
               <p className="text-slate-700 leading-relaxed mb-4">
-                <strong>Important:</strong> Even if data is technically collected by our systems, it doesn't mean we 
-                actively review, use, or see it. Most data collection happens automatically through standard web 
-                infrastructure and may not be accessed at all.
+                <strong>Important:</strong> Even if data is technically collected by our systems, it
+                doesn't mean we actively review, use, or see it. Most data collection happens
+                automatically through standard web infrastructure and may not be accessed at all.
               </p>
               <p className="text-slate-700 leading-relaxed mb-4">
-                <strong>We do NOT collect:</strong> Personal identification information, names, email addresses, 
-                or any data that directly identifies you unless you voluntarily provide it in your messages.
+                <strong>We do NOT collect:</strong> Personal identification information, names,
+                email addresses, or any data that directly identifies you unless you voluntarily
+                provide it in your messages.
               </p>
               <div className="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded mt-4">
                 <p className="text-sm text-slate-700">
-                  <strong>Transparency:</strong> While our systems may have the capability to log chat conversations, 
-                  this doesn't mean we're actively collecting, reviewing, or using your data. Data collection may or 
-                  may not occur depending on system configuration and operational circumstances. Still, to be safe, 
-                  don't share sensitive personal information, passwords, or confidential data in the chatbot.
+                  <strong>Transparency:</strong> While our systems may have the capability to log
+                  chat conversations, this doesn't mean we're actively collecting, reviewing, or
+                  using your data. Data collection may or may not occur depending on system
+                  configuration and operational circumstances. Still, to be safe, don't share
+                  sensitive personal information, passwords, or confidential data in the chatbot.
                 </p>
               </div>
             </div>
 
             {/* How We Use Information */}
             <div className="mb-12">
-              <h2 className="text-2xl font-bold text-slate-900 mb-4">How We Use Your Information</h2>
+              <h2 className="text-2xl font-bold text-slate-900 mb-4">
+                How We Use Your Information
+              </h2>
               <p className="text-slate-700 leading-relaxed mb-4">
                 We use the collected information to:
               </p>
@@ -78,15 +99,15 @@ const Privacy = () => {
             <div className="mb-12">
               <h2 className="text-2xl font-bold text-slate-900 mb-4">Data Storage and Security</h2>
               <p className="text-slate-700 leading-relaxed mb-4">
-                When chat data is collected, it may be stored securely in our database. We implement appropriate 
-                technical and organizational measures to protect any collected data against unauthorized access, 
-                alteration, disclosure, or destruction.
+                When chat data is collected, it may be stored securely in our database. We implement
+                appropriate technical and organizational measures to protect any collected data
+                against unauthorized access, alteration, disclosure, or destruction.
               </p>
               <p className="text-slate-700 leading-relaxed">
-                <strong>Data Retention:</strong> If collected, chat logs may be retained for operational purposes 
-                and service improvement. Depending on system needs, conversations may occasionally be reviewed by 
-                club administrators for quality assurance and improvement purposes, but this is not guaranteed 
-                for all interactions.
+                <strong>Data Retention:</strong> If collected, chat logs may be retained for
+                operational purposes and service improvement. Depending on system needs,
+                conversations may occasionally be reviewed by club administrators for quality
+                assurance and improvement purposes, but this is not guaranteed for all interactions.
               </p>
             </div>
 
@@ -94,8 +115,8 @@ const Privacy = () => {
             <div className="mb-12">
               <h2 className="text-2xl font-bold text-slate-900 mb-4">AI Processing</h2>
               <p className="text-slate-700 leading-relaxed mb-4">
-                Our chatbot uses OpenAI's GPT technology to process and respond to your messages. When you 
-                interact with the chatbot:
+                Our chatbot uses OpenAI's GPT technology to process and respond to your messages.
+                When you interact with the chatbot:
               </p>
               <ul className="list-disc pl-6 text-slate-700 space-y-2">
                 <li>Your messages are sent to OpenAI's servers for processing</li>
@@ -117,13 +138,14 @@ const Privacy = () => {
               </ul>
               <div className="bg-slate-50 border border-slate-300 rounded-lg p-6">
                 <p className="text-slate-700 leading-relaxed mb-2">
-                  <strong>Usage Limits:</strong> To ensure fair access for all users and prevent abuse or overuse 
-                  of our resources, we limit chatbot usage to 12 messages per user every 12 hours.
+                  <strong>Usage Limits:</strong> To ensure fair access for all users and prevent
+                  abuse or overuse of our resources, we limit chatbot usage to 12 messages per user
+                  every 12 hours.
                 </p>
                 <p className="text-slate-700 leading-relaxed">
-                  This helps us maintain service quality, manage costs, and ensure the AI assistant remains 
-                  available to everyone in our community. As a student-run organization with limited resources, 
-                  these limits allow us to provide this service sustainably.
+                  This helps us maintain service quality, manage costs, and ensure the AI assistant
+                  remains available to everyone in our community. As a student-run organization with
+                  limited resources, these limits allow us to provide this service sustainably.
                 </p>
               </div>
             </div>
@@ -131,72 +153,117 @@ const Privacy = () => {
             {/* Third-Party Services */}
             <div className="mb-12">
               <h2 className="text-2xl font-bold text-slate-900 mb-4">Third-Party Services</h2>
-              <p className="text-slate-700 leading-relaxed mb-4">
-                Our website uses:
-              </p>
+              <p className="text-slate-700 leading-relaxed mb-4">Our website uses:</p>
               <ul className="list-disc pl-6 text-slate-700 space-y-2">
-                <li><strong>OpenAI:</strong> For AI chatbot responses - <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">OpenAI Privacy Policy</a></li>
-                <li><strong>Vercel:</strong> For website hosting - <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Vercel Privacy Policy</a></li>
-                <li><strong>Google Analytics:</strong> For website analytics (if you consent) - <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Google Privacy Policy</a></li>
+                <li>
+                  <strong>OpenAI:</strong> For AI chatbot responses -{' '}
+                  <a
+                    href="https://openai.com/policies/privacy-policy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    OpenAI Privacy Policy
+                  </a>
+                </li>
+                <li>
+                  <strong>Vercel:</strong> For website hosting -{' '}
+                  <a
+                    href="https://vercel.com/legal/privacy-policy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    Vercel Privacy Policy
+                  </a>
+                </li>
+                <li>
+                  <strong>Google Analytics:</strong> For website analytics (if you consent) -{' '}
+                  <a
+                    href="https://policies.google.com/privacy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    Google Privacy Policy
+                  </a>
+                </li>
               </ul>
             </div>
 
             {/* Cookies */}
             <div className="mb-12">
-              <h2 className="text-2xl font-bold text-slate-900 mb-4">Cookies and Tracking Technologies</h2>
+              <h2 className="text-2xl font-bold text-slate-900 mb-4">
+                Cookies and Tracking Technologies
+              </h2>
               <p className="text-slate-700 leading-relaxed mb-4">
-                We use cookies and similar tracking technologies to improve your experience on our website.
+                We use cookies and similar tracking technologies to improve your experience on our
+                website.
               </p>
-              
+
               <h3 className="text-lg font-bold text-slate-900 mb-3">What Are Cookies?</h3>
               <p className="text-slate-700 leading-relaxed mb-4">
-                Cookies are small text files stored on your device when you visit our website. They help us recognize 
-                you, remember your preferences, and provide a better user experience.
+                Cookies are small text files stored on your device when you visit our website. They
+                help us recognize you, remember your preferences, and provide a better user
+                experience.
               </p>
 
               <h3 className="text-lg font-bold text-slate-900 mb-3">Types of Cookies We Use:</h3>
               <div className="space-y-4 mb-4">
                 <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
                   <h4 className="font-semibold text-slate-900 mb-2 flex items-center gap-2">
-                    <span className="px-2 py-0.5 bg-slate-700 text-white text-xs rounded-full">Required</span>
+                    <span className="px-2 py-0.5 bg-slate-700 text-white text-xs rounded-full">
+                      Required
+                    </span>
                     Necessary Cookies
                   </h4>
                   <p className="text-sm text-slate-700 mb-2">
-                    Essential for the website to function. These cookies enable basic features like page navigation, 
-                    chatbot functionality, and access to secure areas.
+                    Essential for the website to function. These cookies enable basic features like
+                    page navigation, chatbot functionality, and access to secure areas.
                   </p>
-                  <p className="text-xs text-slate-600"><strong>Examples:</strong> Session management, cookie consent preferences</p>
+                  <p className="text-xs text-slate-600">
+                    <strong>Examples:</strong> Session management, cookie consent preferences
+                  </p>
                 </div>
 
                 <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
                   <h4 className="font-semibold text-slate-900 mb-2 flex items-center gap-2">
-                    <span className="px-2 py-0.5 bg-blue-600 text-white text-xs rounded-full">Optional</span>
+                    <span className="px-2 py-0.5 bg-blue-600 text-white text-xs rounded-full">
+                      Optional
+                    </span>
                     Analytics Cookies
                   </h4>
                   <p className="text-sm text-slate-700 mb-2">
-                    Help us understand how visitors use our website. We use Google Analytics to collect anonymous data 
-                    about page views, visitor numbers, popular content, and user behavior patterns.
+                    Help us understand how visitors use our website. We use Google Analytics to
+                    collect anonymous data about page views, visitor numbers, popular content, and
+                    user behavior patterns.
                   </p>
-                  <p className="text-xs text-slate-600"><strong>Examples:</strong> Google Analytics (_ga, _gid), page view tracking</p>
+                  <p className="text-xs text-slate-600">
+                    <strong>Examples:</strong> Google Analytics (_ga, _gid), page view tracking
+                  </p>
                 </div>
 
                 <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
                   <h4 className="font-semibold text-slate-900 mb-2 flex items-center gap-2">
-                    <span className="px-2 py-0.5 bg-blue-600 text-white text-xs rounded-full">Optional</span>
+                    <span className="px-2 py-0.5 bg-blue-600 text-white text-xs rounded-full">
+                      Optional
+                    </span>
                     Functional Cookies
                   </h4>
                   <p className="text-sm text-slate-700 mb-2">
-                    Enhance your experience by remembering your preferences and settings, such as chat history 
-                    and language preferences.
+                    Enhance your experience by remembering your preferences and settings, such as
+                    chat history and language preferences.
                   </p>
-                  <p className="text-xs text-slate-600"><strong>Examples:</strong> Chat preferences, UI customizations</p>
+                  <p className="text-xs text-slate-600">
+                    <strong>Examples:</strong> Chat preferences, UI customizations
+                  </p>
                 </div>
               </div>
 
               <h3 className="text-lg font-bold text-slate-900 mb-3">Managing Cookies</h3>
               <p className="text-slate-700 leading-relaxed mb-4">
-                You can control and manage cookies through our cookie consent banner (appears on your first visit) 
-                or through your browser settings. You can:
+                You can control and manage cookies through our cookie consent banner (appears on
+                your first visit) or through your browser settings. You can:
               </p>
               <ul className="list-disc pl-6 text-slate-700 space-y-2 mb-4">
                 <li>Accept or reject optional cookies (analytics and functional)</li>
@@ -205,8 +272,9 @@ const Privacy = () => {
                 <li>Block cookies entirely (may affect website functionality)</li>
               </ul>
               <p className="text-slate-700 leading-relaxed">
-                <strong>Note:</strong> Blocking necessary cookies will prevent the website from functioning properly. 
-                Analytics cookies are anonymized and do not contain personally identifiable information.
+                <strong>Note:</strong> Blocking necessary cookies will prevent the website from
+                functioning properly. Analytics cookies are anonymized and do not contain personally
+                identifiable information.
               </p>
             </div>
 
@@ -214,9 +282,9 @@ const Privacy = () => {
             <div className="mb-12">
               <h2 className="text-2xl font-bold text-slate-900 mb-4">Children's Privacy</h2>
               <p className="text-slate-700 leading-relaxed">
-                Our services are intended for use by students and individuals interested in aerospace 
-                engineering. We do not knowingly collect information from children under 13. If you are 
-                under 13, please do not use the chatbot without parental supervision.
+                Our services are intended for use by students and individuals interested in
+                aerospace engineering. We do not knowingly collect information from children under
+                13. If you are under 13, please do not use the chatbot without parental supervision.
               </p>
             </div>
 
@@ -224,9 +292,9 @@ const Privacy = () => {
             <div className="mb-12">
               <h2 className="text-2xl font-bold text-slate-900 mb-4">Changes to This Policy</h2>
               <p className="text-slate-700 leading-relaxed">
-                We may update this Privacy Policy from time to time. Changes will be posted on this page 
-                with an updated "Last updated" date. Continued use of the chatbot after changes constitutes 
-                acceptance of the updated policy.
+                We may update this Privacy Policy from time to time. Changes will be posted on this
+                page with an updated "Last updated" date. Continued use of the chatbot after changes
+                constitutes acceptance of the updated policy.
               </p>
             </div>
 
@@ -234,38 +302,59 @@ const Privacy = () => {
             <div className="mb-12">
               <h2 className="text-2xl font-bold text-slate-900 mb-4">Contact Us</h2>
               <p className="text-slate-700 leading-relaxed mb-4">
-                If you have questions about this Privacy Policy or our data practices, please contact us:
+                If you have questions about this Privacy Policy or our data practices, please
+                contact us:
               </p>
               <div className="bg-slate-50 rounded-lg p-6 border border-slate-200 mb-4">
-                <p className="text-slate-700"><strong>University of Guelph Rocketry Club</strong></p>
-                <p className="text-slate-700">Email: <a href="mailto:rocketry@uoguelph.ca" className="text-blue-600 hover:underline">rocketry@uoguelph.ca</a></p>
+                <p className="text-slate-700">
+                  <strong>University of Guelph Rocketry Club</strong>
+                </p>
+                <p className="text-slate-700">
+                  Email:{' '}
+                  <a href={`mailto:${site.email}`} className="text-blue-600 hover:underline">
+                    {site.email}
+                  </a>
+                </p>
                 <p className="text-slate-700">Location: University of Guelph, Ontario, Canada</p>
               </div>
               <div className="bg-red-50 rounded-lg p-6 border border-red-200">
-                <p className="text-slate-700 font-semibold mb-2">For Serious Privacy Concerns or Data Requests:</p>
-                <p className="text-slate-700">Technical Lead: <a href="mailto:nick.buzali@gmail.com" className="text-blue-600 hover:underline">nick.buzali@gmail.com</a></p>
-                <p className="text-slate-600 text-sm mt-2">Please use this email only for urgent privacy matters, data deletion requests, or security concerns.</p>
+                <p className="text-slate-700 font-semibold mb-2">
+                  For Serious Privacy Concerns or Data Requests:
+                </p>
+                <p className="text-slate-700">
+                  Technical Lead:{' '}
+                  <a href="mailto:nick.buzali@gmail.com" className="text-blue-600 hover:underline">
+                    nick.buzali@gmail.com
+                  </a>
+                </p>
+                <p className="text-slate-600 text-sm mt-2">
+                  Please use this email only for urgent privacy matters, data deletion requests, or
+                  security concerns.
+                </p>
               </div>
             </div>
 
             {/* Student Organization Notice */}
             <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded mb-12">
               <p className="text-slate-700 text-sm">
-                <strong>Note:</strong> The University of Guelph Rocketry Club is a student-run organization. 
-                This privacy policy applies specifically to our chatbot assistant and website. For questions 
-                about University of Guelph's general privacy practices, please visit the university's official 
-                privacy policy.
+                <strong>Note:</strong> The University of Guelph Rocketry Club is a student-run
+                organization. This privacy policy applies specifically to our chatbot assistant and
+                website. For questions about University of Guelph's general privacy practices,
+                please visit the university's official privacy policy.
               </p>
             </div>
 
             {/* Disclaimer and Liability */}
             <div className="mb-12">
-              <h2 className="text-2xl font-bold text-slate-900 mb-4">Disclaimer and Limitation of Liability</h2>
+              <h2 className="text-2xl font-bold text-slate-900 mb-4">
+                Disclaimer and Limitation of Liability
+              </h2>
               <div className="bg-slate-50 border border-slate-300 rounded-lg p-6">
                 <p className="text-slate-700 leading-relaxed mb-4">
-                  <strong>No Warranty:</strong> Our website and AI chatbot are provided "as is" without any warranties, 
-                  express or implied. The University of Guelph Rocketry Club makes no guarantees about the accuracy, 
-                  completeness, or reliability of information provided by the chatbot.
+                  <strong>No Warranty:</strong> Our website and AI chatbot are provided "as is"
+                  without any warranties, express or implied. The University of Guelph Rocketry Club
+                  makes no guarantees about the accuracy, completeness, or reliability of
+                  information provided by the chatbot.
                 </p>
                 <p className="text-slate-700 leading-relaxed mb-4">
                   <strong>Not Liable For:</strong>
@@ -279,23 +368,25 @@ const Privacy = () => {
                   <li>Loss of data, chat history, or conversation content</li>
                 </ul>
                 <p className="text-slate-700 leading-relaxed mb-4">
-                  <strong>Third-Party Services:</strong> We are not responsible for the privacy practices or content 
-                  of third-party services (OpenAI, Vercel) that process your data. Use of our services indicates 
-                  acceptance of their respective terms and policies.
+                  <strong>Third-Party Services:</strong> We are not responsible for the privacy
+                  practices or content of third-party services (OpenAI, Vercel) that process your
+                  data. Use of our services indicates acceptance of their respective terms and
+                  policies.
                 </p>
                 <p className="text-slate-700 leading-relaxed mb-4">
-                  <strong>Student Organization:</strong> As a student-run club, we operate with limited resources. 
-                  While we strive to protect your privacy and maintain secure systems, we cannot guarantee absolute 
-                  security. Use our services at your own discretion.
+                  <strong>Student Organization:</strong> As a student-run club, we operate with
+                  limited resources. While we strive to protect your privacy and maintain secure
+                  systems, we cannot guarantee absolute security. Use our services at your own
+                  discretion.
                 </p>
                 <p className="text-slate-700 leading-relaxed">
-                  <strong>Indemnification:</strong> By using our website and chatbot, you agree to indemnify and hold 
-                  harmless the University of Guelph Rocketry Club, its members, and affiliates from any claims, losses, 
-                  or damages arising from your use of our services or violation of this policy.
+                  <strong>Indemnification:</strong> By using our website and chatbot, you agree to
+                  indemnify and hold harmless the University of Guelph Rocketry Club, its members,
+                  and affiliates from any claims, losses, or damages arising from your use of our
+                  services or violation of this policy.
                 </p>
               </div>
             </div>
-
           </div>
         </div>
       </section>

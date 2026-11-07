@@ -17,14 +17,23 @@ export default function PageLoader() {
     const first = firstRun.current
     firstRun.current = false
     setRun(previous => ({ key: previous.key + 1, first, visible: true }))
-    const t = setTimeout(() => setRun(previous => ({ ...previous, visible: false })), first ? 1050 : 560)
+    const t = setTimeout(
+      () => setRun(previous => ({ ...previous, visible: false })),
+      first ? 1050 : 560
+    )
     return () => clearTimeout(t)
   }, [pathname])
 
-  return <div key={run.key} className={`page-loader${run.visible ? ' is-visible' : ''}${run.first ? ' is-first' : ''}`} aria-hidden="true">
-    <div className="page-loader-pad">
-      <span className="page-loader-smoke" />
-      <RocketGlyph className="page-loader-rocket" flame />
+  return (
+    <div
+      key={run.key}
+      className={`page-loader${run.visible ? ' is-visible' : ''}${run.first ? ' is-first' : ''}`}
+      aria-hidden="true"
+    >
+      <div className="page-loader-pad">
+        <span className="page-loader-smoke" />
+        <RocketGlyph className="page-loader-rocket" flame />
+      </div>
     </div>
-  </div>
+  )
 }

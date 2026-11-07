@@ -1,17 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-
-// Callouts around the cutaway. `part` is the 3D anchor, `key` links it to a subsystem in the list.
-const CALLOUTS = [
-  { part: 'radio', key: 'radio', side: 'right', title: 'Radio', text: 'UHF radio and antenna deployer' },
-  { part: 'power', key: 'power', side: 'right', title: 'Power', text: 'Power board and battery pack' },
-  { part: 'solar', key: 'power', side: 'right', title: 'Solar panels', text: 'On every side' },
-  { part: 'payload', key: 'payload', side: 'right', title: 'Seed chambers', text: 'The experiment' },
-  { part: 'deorbit', key: 'deorbit', side: 'right', title: 'Drag sail', text: 'Folded up until the end' },
-  { part: 'computer', key: 'computer', side: 'left', title: 'Flight computer' },
-  { part: 'attitude', key: 'attitude', side: 'left', title: 'Attitude control', text: 'Reaction wheels and torque rods' },
-  { part: 'thermal', key: 'thermal', side: 'left', title: 'Thermal', text: 'Heaters and a radiator' },
-  { part: 'structure', key: 'structure', side: 'left', title: 'Structure', text: 'Rails and frame' }
-]
+import { cutawayLabels } from '../../content/projects'
 
 // 3D cross-section of the CubeSat next to the list of subsystems. Hovering (or tapping) a
 // subsystem lights up its parts in the model.
@@ -38,23 +26,48 @@ export default function Subsystems({ items }) {
     }
   }, [])
 
-  return <div className="systems-layout">
-    <figure className={`cutaway is-${status}`}>
-      <div ref={stageRef} className={`cutaway-stage${active ? ' has-active' : ''}`} data-active={active || undefined} aria-hidden="true">
-        <div className="cutaway-canvas" />
-        <svg className="cutaway-lines" />
-        {CALLOUTS.map(callout => <div key={callout.part} className={`cutaway-label side-${callout.side}${active === callout.key ? ' is-active' : ''}`} data-part={callout.part} data-key={callout.key} data-side={callout.side}>
-          <strong>{callout.title}</strong>
-          {callout.text && <small>{callout.text}</small>}
-        </div>)}
-      </div>
-      <figcaption>A 3U CubeSat cut in half so you can see inside (drag it to turn it). This is an example layout, ours will change as the design comes together</figcaption>
-    </figure>
-    <dl className="system-list" onMouseLeave={() => setActive(null)}>
-      {items.map(([key, title, text]) => <div key={key} className={active === key ? 'is-active' : ''} onMouseEnter={() => setActive(key)} onClick={() => setActive(active === key ? null : key)}>
-        <dt>{title}</dt>
-        <dd>{text}</dd>
-      </div>)}
-    </dl>
-  </div>
+  return (
+    <div className="systems-layout">
+      <figure className={`cutaway is-${status}`}>
+        <div
+          ref={stageRef}
+          className={`cutaway-stage${active ? ' has-active' : ''}`}
+          data-active={active || undefined}
+          aria-hidden="true"
+        >
+          <div className="cutaway-canvas" />
+          <svg className="cutaway-lines" />
+          {cutawayLabels.map(callout => (
+            <div
+              key={callout.part}
+              className={`cutaway-label side-${callout.side}${active === callout.key ? ' is-active' : ''}`}
+              data-part={callout.part}
+              data-key={callout.key}
+              data-side={callout.side}
+            >
+              <strong>{callout.title}</strong>
+              {callout.text && <small>{callout.text}</small>}
+            </div>
+          ))}
+        </div>
+        <figcaption>
+          A 3U CubeSat cut in half so you can see inside (drag it to turn it). This is an example
+          layout, ours will change as the design comes together
+        </figcaption>
+      </figure>
+      <dl className="system-list" onMouseLeave={() => setActive(null)}>
+        {items.map(({ key, title, text }) => (
+          <div
+            key={key}
+            className={active === key ? 'is-active' : ''}
+            onMouseEnter={() => setActive(key)}
+            onClick={() => setActive(active === key ? null : key)}
+          >
+            <dt>{title}</dt>
+            <dd>{text}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  )
 }

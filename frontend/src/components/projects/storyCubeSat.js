@@ -99,12 +99,20 @@ export function createStoryCubeSat() {
   const body = new THREE.Group()
   object.add(body)
 
-  const standard = (color, metalness, roughness, extra = {}) => new THREE.MeshStandardMaterial({ color, metalness, roughness, ...extra })
+  const standard = (color, metalness, roughness, extra = {}) =>
+    new THREE.MeshStandardMaterial({ color, metalness, roughness, ...extra })
   const anodised = standard('#858c95', 0.85, 0.38)
   const bareAluminium = standard('#cfd4da', 1, 0.28)
   const blackAnodised = standard('#1f2329', 0.7, 0.45)
   const pcb = standard('#121518', 0.2, 0.5)
-  const solar = new THREE.MeshPhysicalMaterial({ map: solarTexture(), metalness: 0.3, roughness: 0.22, clearcoat: 1, clearcoatRoughness: 0.04, envMapIntensity: 1.4 })
+  const solar = new THREE.MeshPhysicalMaterial({
+    map: solarTexture(),
+    metalness: 0.3,
+    roughness: 0.22,
+    clearcoat: 1,
+    clearcoatRoughness: 0.04,
+    envMapIntensity: 1.4
+  })
   const back = standard('#ffffff', 0.4, 0.55, { map: backTexture() })
   const edge = standard('#3a3a2e', 0.1, 0.7)
   const tape = standard('#d4c79c', 0.75, 0.32, { side: THREE.DoubleSide })
@@ -127,21 +135,42 @@ export function createStoryCubeSat() {
   }
   // A solar panel facing local +Z: cells on the front, plain substrate on the back and edges.
   const panelGeometry = new THREE.BoxGeometry(PANEL_W, PANEL_H, 0.006)
-  const panel = (parent, position, rotation) => mesh(panelGeometry, [edge, edge, edge, edge, solar, back], parent, position, rotation)
+  const panel = (parent, position, rotation) =>
+    mesh(panelGeometry, [edge, edge, edge, edge, solar, back], parent, position, rotation)
 
   // Structure: four rails, end frames and the frame bars at each 1U boundary.
   const railGeometry = new RoundedBoxGeometry(RAIL, H, RAIL, 2, 0.0035)
   for (const x of [-1, 1]) {
     for (const z of [-1, 1]) {
-      const rail = mesh(railGeometry, anodised, body, [x * (W - RAIL) / 2, 0, z * (W - RAIL) / 2])
+      const rail = mesh(railGeometry, anodised, body, [
+        (x * (W - RAIL)) / 2,
+        0,
+        (z * (W - RAIL)) / 2
+      ])
       // Separation spring plungers and kill switch at the rail feet
-      if (x === z) mesh(new THREE.CylinderGeometry(0.006, 0.006, 0.012, 12), steel, rail, [0, -H / 2 - 0.004, 0])
-      if (x === -z) mesh(new THREE.BoxGeometry(0.01, 0.01, 0.006), steel, rail, [0, -H / 2 - 0.003, 0])
+      if (x === z)
+        mesh(new THREE.CylinderGeometry(0.006, 0.006, 0.012, 12), steel, rail, [
+          0,
+          -H / 2 - 0.004,
+          0
+        ])
+      if (x === -z)
+        mesh(new THREE.BoxGeometry(0.01, 0.01, 0.006), steel, rail, [0, -H / 2 - 0.003, 0])
     }
   }
   for (const y of [-H / 2 + 0.012, -H / 6, H / 6, H / 2 - 0.012]) {
-    for (const [x, z, rx] of [[0, (W - RAIL) / 2, 0], [0, -(W - RAIL) / 2, 0], [(W - RAIL) / 2, 0, 1], [-(W - RAIL) / 2, 0, 1]]) {
-      mesh(new THREE.BoxGeometry(rx ? 0.012 : W - RAIL * 2, 0.012, rx ? W - RAIL * 2 : 0.012), bareAluminium, body, [x, y, z])
+    for (const [x, z, rx] of [
+      [0, (W - RAIL) / 2, 0],
+      [0, -(W - RAIL) / 2, 0],
+      [(W - RAIL) / 2, 0, 1],
+      [-(W - RAIL) / 2, 0, 1]
+    ]) {
+      mesh(
+        new THREE.BoxGeometry(rx ? 0.012 : W - RAIL * 2, 0.012, rx ? W - RAIL * 2 : 0.012),
+        bareAluminium,
+        body,
+        [x, y, z]
+      )
     }
   }
   mesh(new THREE.BoxGeometry(W - 0.03, H - 0.03, W - 0.03), blackAnodised, body)
@@ -154,15 +183,46 @@ export function createStoryCubeSat() {
   panel(body, [-offset, 0, 0], [0, -Math.PI / 2, 0])
 
   // Top: antenna deployment board with the GPS patch; bottom: end plate with screws.
-  const top = mesh(new THREE.BoxGeometry(W - 0.035, 0.008, W - 0.035), pcb, body, [0, H / 2 - 0.004, 0])
+  const top = mesh(new THREE.BoxGeometry(W - 0.035, 0.008, W - 0.035), pcb, body, [
+    0,
+    H / 2 - 0.004,
+    0
+  ])
   const patch = mesh(new THREE.BoxGeometry(0.08, 0.012, 0.08), ceramic, top, [0, 0.009, 0])
   mesh(new THREE.BoxGeometry(0.05, 0.002, 0.05), bareAluminium, patch, [0, 0.0065, 0])
-  for (const [x, z] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
-    mesh(new THREE.BoxGeometry(x ? 0.03 : 0.07, 0.014, z ? 0.03 : 0.07), delrin, top, [x * 0.1, 0.009, z * 0.1])
-    mesh(new THREE.BoxGeometry(0.006, 0.004, 0.012), standard('#2b2b2b', 0.2, 0.4), top, [x * 0.07 + z * 0.03, 0.006, z * 0.07 + x * 0.03])
+  for (const [x, z] of [
+    [1, 0],
+    [-1, 0],
+    [0, 1],
+    [0, -1]
+  ]) {
+    mesh(new THREE.BoxGeometry(x ? 0.03 : 0.07, 0.014, z ? 0.03 : 0.07), delrin, top, [
+      x * 0.1,
+      0.009,
+      z * 0.1
+    ])
+    mesh(new THREE.BoxGeometry(0.006, 0.004, 0.012), standard('#2b2b2b', 0.2, 0.4), top, [
+      x * 0.07 + z * 0.03,
+      0.006,
+      z * 0.07 + x * 0.03
+    ])
   }
-  const base = mesh(new THREE.BoxGeometry(W - 0.035, 0.006, W - 0.035), blackAnodised, body, [0, -H / 2 + 0.003, 0])
-  for (const [x, z] of [[1, 1], [1, -1], [-1, 1], [-1, -1]]) mesh(new THREE.CylinderGeometry(0.006, 0.006, 0.004, 12), steel, base, [x * 0.09, -0.004, z * 0.09])
+  const base = mesh(new THREE.BoxGeometry(W - 0.035, 0.006, W - 0.035), blackAnodised, body, [
+    0,
+    -H / 2 + 0.003,
+    0
+  ])
+  for (const [x, z] of [
+    [1, 1],
+    [1, -1],
+    [-1, 1],
+    [-1, -1]
+  ])
+    mesh(new THREE.CylinderGeometry(0.006, 0.006, 0.004, 12), steel, base, [
+      x * 0.09,
+      -0.004,
+      z * 0.09
+    ])
 
   // Deployable wings, hinged on the front edges. Folded, they lie flat over the side panels.
   const wings = [-1, 1].map(side => {
@@ -177,19 +237,35 @@ export function createStoryCubeSat() {
     panel(leaf, [0, 0, 0])
     for (const y of [-0.36, 0, 0.36]) {
       mesh(new THREE.CylinderGeometry(0.006, 0.006, 0.05, 12), bareAluminium, pivot, [0, y, -0.002])
-      mesh(new THREE.BoxGeometry(reach - PANEL_W / 2 + 0.01, 0.03, 0.004), bareAluminium, pivot, [side * (reach - PANEL_W / 2) / 2, y, -0.004])
+      mesh(new THREE.BoxGeometry(reach - PANEL_W / 2 + 0.01, 0.03, 0.004), bareAluminium, pivot, [
+        (side * (reach - PANEL_W / 2)) / 2,
+        y,
+        -0.004
+      ])
     }
-    mesh(new THREE.BoxGeometry(0.014, 0.03, 0.01), delrin, leaf, [side * (PANEL_W / 2 - 0.01), PANEL_H / 2 - 0.05, -0.008])
+    mesh(new THREE.BoxGeometry(0.014, 0.03, 0.01), delrin, leaf, [
+      side * (PANEL_W / 2 - 0.01),
+      PANEL_H / 2 - 0.05,
+      -0.008
+    ])
     return { pivot, side, tip: anchor(leaf, [side * (PANEL_W / 2 - 0.03), -0.12, 0.004]) }
   })
 
   // Four tape antennas (UHF quarter-wave, ~17 cm), unrolling out of the top board.
-  const antennas = [[1, 0], [-1, 0], [0, 1], [0, -1]].map(([x, z]) => {
+  const antennas = [
+    [1, 0],
+    [-1, 0],
+    [0, 1],
+    [0, -1]
+  ].map(([x, z]) => {
     const pivot = new THREE.Group()
     pivot.position.set(x * 0.115, H / 2 + 0.012, z * 0.115)
     pivot.rotation.y = Math.atan2(-z, x)
     body.add(pivot)
-    const strip = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 1, 10, 1, true, -0.5, 1), tape)
+    const strip = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.012, 0.012, 1, 10, 1, true, -0.5, 1),
+      tape
+    )
     strip.geometry.rotateZ(-Math.PI / 2)
     strip.geometry.translate(0.5, 0.012, 0)
     pivot.add(strip)
@@ -208,7 +284,7 @@ export function createStoryCubeSat() {
     body,
     anchors,
     setDeploy(wingAmount, antennaAmount) {
-      for (const wing of wings) wing.pivot.rotation.y = wing.side * (1 - wingAmount) * Math.PI / 2
+      for (const wing of wings) wing.pivot.rotation.y = (wing.side * (1 - wingAmount) * Math.PI) / 2
       const length = 0.02 + antennaAmount * 0.55
       for (const antenna of antennas) {
         antenna.strip.scale.x = length

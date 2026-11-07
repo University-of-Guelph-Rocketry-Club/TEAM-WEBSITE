@@ -1,6 +1,6 @@
 // Google Analytics initialization and tracking utilities
 
-export const initGA = (measurementId) => {
+export const initGA = measurementId => {
   if (!measurementId) return
 
   // Load Google Analytics script
@@ -16,7 +16,7 @@ export const initGA = (measurementId) => {
   }
   window.gtag = gtag
   gtag('js', new Date())
-  
+
   // Default to denied until user consents
   gtag('consent', 'default', {
     analytics_storage: 'denied'
@@ -28,7 +28,7 @@ export const initGA = (measurementId) => {
   })
 }
 
-export const trackPageView = (path) => {
+export const trackPageView = path => {
   if (window.gtag) {
     window.gtag('config', import.meta.env.VITE_GA_MEASUREMENT_ID, {
       page_path: path
