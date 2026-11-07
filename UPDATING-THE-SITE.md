@@ -14,6 +14,7 @@ Most of the writing on the site lives in `frontend/src/content/`. There's one fi
 | Sponsors and "Where your support goes"                | `content/sponsors.js`                 |
 | The launch checklist and teams on the Join page       | `content/join.js`                     |
 | Projects page lists (subsystems, timeline, 3D labels) | `content/projects.js`                 |
+| The Photos page and the postcards on the home page    | `content/gallery.js`                  |
 | Any other heading or paragraph                        | the page itself in `src/pages/`       |
 
 For that last one, search the `src` folder for the sentence you want to change and it'll take you straight there
@@ -34,6 +35,10 @@ When the new execs take over, update `teamIntro` at the top of the same file too
 ## Adding a sponsor
 
 Add another entry to `sponsors` in `content/sponsors.js`. Each one gets its own block on the Sponsors page, and the first one in the list also shows near the bottom of the home page
+
+## Adding photos
+
+Photos live in `frontend/public/Images/launch-canada-2026/`. Each one has a big version (`name.webp`, 1600px on the long edge) for the viewer and a small one (`name-s.webp`, 720px) for the grids. Export both, drop them in that folder, then add the photo to a chapter in `content/gallery.js` with a caption. The comment at the top of that file explains the `size` options for the grid. The same names work for the home page too: `postcards` in `content/gallery.js` is the strip of prints, and each interest in `content/home.js` can have a `photo`
 
 ## Apostrophes
 
