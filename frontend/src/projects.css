@@ -100,6 +100,7 @@
 .beat-high { justify-content: flex-start; padding-top: clamp(80px, 15vh, 150px); }
 .beat-side { left: var(--gutter); top: 50%; width: min(470px, 40vw); translate: 0 -50%; }
 .beat-side > p { font-size: 18px; line-height: 1.65; color: var(--story-muted); }
+.beat-side > p + p { margin-top: 14px; }
 .beat-top { left: 24px; right: 24px; top: clamp(56px, 10vh, 110px); text-align: center; }
 
 .projects-story .mega, .projects-story .giant, .projects-story .giant-sm {
