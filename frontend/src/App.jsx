@@ -76,6 +76,7 @@ function App() {
             <Route path="/sponsors" element={<Sponsors />} />
             <Route path="/join" element={<Join />} />
             <Route path="/gallery" element={<Gallery />} />
+            <Route path="/gallery/:slug" element={<Gallery />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/teams" element={<Teams />} />
