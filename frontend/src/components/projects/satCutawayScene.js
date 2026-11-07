@@ -1303,7 +1303,7 @@ function buildCutaway(sectionPlane) {
       )
   anchor('attitude', attitude, [-0.045, 0.165, 0.09])
 
-  // ── Experiment: payload board and the sealed seed chamber pod in gold insulation ──
+  // ── Experiment: payload board and the sealed biology payload pod in gold insulation ──
   const payload = part('payload')
   const payloadBoard = createBoard(payload, -0.035, '#0e5a3a', 67, 'PAYLOAD')
   qfp(payloadBoard, 0.03, 0.04, 0.026, 12)

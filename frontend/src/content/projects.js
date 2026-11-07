@@ -55,8 +55,8 @@ export const storyLabels = [
   },
   {
     anchor: 'sat-payload',
-    title: 'Seed chambers',
-    text: 'Where the seeds ride',
+    title: 'Payload',
+    text: 'A biology based experiment',
     side: 'down',
     vside: 'left'
   },
@@ -114,7 +114,7 @@ export const subsystems = [
   {
     key: 'payload',
     title: 'Experiment',
-    text: 'Sealed seed chambers with their own sensors, wrapped in gold insulation. They’re the whole reason we’re going up!'
+    text: 'A sealed biology based payload with its own sensors, wrapped in gold insulation. It’s the whole reason we’re going up!'
   },
   {
     key: 'structure',
@@ -124,7 +124,7 @@ export const subsystems = [
   {
     key: 'thermal',
     title: 'Thermal',
-    text: 'Heaters and a radiator keep everything, especially the seeds, from getting too hot or too cold in sunlight and in shadow'
+    text: 'Heaters and a radiator keep everything, especially the payload, from getting too hot or too cold in sunlight and in shadow'
   },
   {
     key: 'ground',
@@ -160,8 +160,8 @@ export const cutawayLabels = [
     part: 'payload',
     key: 'payload',
     side: 'right',
-    title: 'Seed chambers',
-    text: 'The experiment'
+    title: 'Payload bay',
+    text: 'The biology based experiment'
   },
   {
     part: 'deorbit',

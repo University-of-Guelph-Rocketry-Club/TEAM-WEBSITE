@@ -112,7 +112,7 @@ export default function Hangar() {
           >
             <h3>{project.title}</h3>
             <p>{project.text}</p>
-            <Link to={project.link}>{project.linkText}</Link>
+            {project.link && <Link to={project.link}>{project.linkText}</Link>}
           </article>
         ))}
         <p className="hangar-note">

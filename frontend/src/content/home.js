@@ -21,9 +21,7 @@ export const hangarProjects = [
   {
     name: 'Engine',
     title: 'Liquid engine',
-    text: 'Let’s get this engine firing! We’re designing the liquid engine and its ground test stand',
-    link: '/projects#propulsion',
-    linkText: 'Check out the engine'
+    text: 'Let’s get this engine firing! We’re designing the liquid engine and its ground test stand'
   }
 ]
 
@@ -54,9 +52,9 @@ export const interests = [
     text: 'Airframes, fins, parachutes, the motor and the liquid engine'
   },
   {
-    label: 'plants',
+    label: 'biology',
     team: 'the CubeSat team',
-    text: 'There’s a seed experiment going up on the CubeSat (yes, really)'
+    text: 'There’s a biology based payload going up on the CubeSat (yes, really)'
   },
   {
     label: 'money stuff',

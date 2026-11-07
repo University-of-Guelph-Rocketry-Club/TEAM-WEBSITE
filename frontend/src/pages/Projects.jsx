@@ -229,7 +229,7 @@ export default function Projects() {
             <ul className="sr-only">
               <li>Solar panels: power from the sun</li>
               <li>UHF antennas: how we talk to it</li>
-              <li>Seed chambers: where the seeds ride</li>
+              <li>Payload: a biology based experiment</li>
             </ul>
           </Beat>
         </div>
@@ -253,11 +253,10 @@ export default function Projects() {
             </p>
           </Beat>
           <Beat at={[0.42, 0.6]} className="beat-side">
-            <h3 className="giant-sm">We’re sending seeds to space!</h3>
+            <h3 className="giant-sm">There’s a biology based payload on board</h3>
             <p>
-              They’ll launch dry and sealed up in tiny chambers. Once we’re in orbit, we add water
-              and sensors keep an eye on the seeds as they sprout, with no gravity to tell them
-              which way is up
+              It launches sealed up in its own chambers, and once we’re in orbit the sensors keep an
+              eye on it the whole time
             </p>
             <p>We’re still working out the details with our profs, so stay tuned!</p>
           </Beat>
@@ -320,7 +319,7 @@ export default function Projects() {
             </h2>
             <p className="lede">
               Never done any of this before? That’s totally fine! We need people for structures,
-              electronics, software, plant science, radio, business and outreach
+              electronics, software, biology, radio, business and outreach
             </p>
             <div className="story-actions">
               <Link className="club-button gold" to="/join">
