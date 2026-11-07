@@ -3,35 +3,26 @@ import { Link } from 'react-router-dom'
 import RocketGlyph, { ParachuteGlyph } from './RocketGlyph'
 import { site } from '../content/site'
 
+// The little rocket's flight, in ms after the button is clicked.
+const FLIGHT = [
+  ['burn', 0],
+  ['coast', 1700],
+  ['descent', 2600],
+  ['landed', 7400],
+  ['idle', 9200]
+]
+
 // A little rocket on the footer's pad. Launch it and it burns off the top of the screen, then
 // comes back down under its main chute (nose cone and body hanging off the shock cord) at a
 // steady descent rate, like the real thing.
-function PadRocket() {
-  const [phase, setPhase] = useState('idle')
-  const timers = useRef([])
-
-  useEffect(() => () => timers.current.forEach(clearTimeout), [])
-
-  const launch = () => {
-    if (phase !== 'idle') return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    const steps = [
-      ['burn', 0],
-      ['coast', 1700],
-      ['descent', 2600],
-      ['landed', 7400],
-      ['idle', 9200]
-    ]
-    timers.current = steps.map(([next, at]) => setTimeout(() => setPhase(next), at))
-  }
-
+function PadRocket({ phase, onLaunch }) {
   return (
     <div className={`pad-rocket is-${phase}`}>
       <span className="pad-smoke" aria-hidden="true" />
       <button
         type="button"
         className="pad-launch"
-        onClick={launch}
+        onClick={onLaunch}
         disabled={phase !== 'idle'}
         aria-label="Launch the little rocket"
       >
@@ -52,6 +43,17 @@ function PadRocket() {
 }
 
 export default function Footer() {
+  const [phase, setPhase] = useState('idle')
+  const timers = useRef([])
+
+  useEffect(() => () => timers.current.forEach(clearTimeout), [])
+
+  const launch = () => {
+    if (phase !== 'idle') return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    timers.current = FLIGHT.map(([next, at]) => setTimeout(() => setPhase(next), at))
+  }
+
   return (
     <footer className="club-footer">
       <div className="wrap footer-top">
@@ -88,8 +90,9 @@ export default function Footer() {
         </div>
       </div>
       <div className="wrap footer-ground">
-        <PadRocket />
-        <p className="footer-wordmark" aria-hidden="true">
+        <PadRocket phase={phase} onLaunch={launch} />
+        {/* The white copy of the wordmark fills up from the ground as the rocket climbs. */}
+        <p className={`footer-wordmark is-${phase}`} data-text="Guelph Rocketry" aria-hidden="true">
           Guelph Rocketry
         </p>
       </div>

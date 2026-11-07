@@ -115,6 +115,7 @@
   margin-top: 40px;
 }
 .footer-wordmark {
+  position: relative;
   margin: 0 0 -0.11em;
   font-family: var(--font);
   font-stretch: 125%;
@@ -125,6 +126,32 @@
   color: #101c30;
   white-space: nowrap;
   user-select: none;
+}
+/* The white letters sit on top of the dark ones and get uncovered from the bottom up. */
+.footer-wordmark::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  color: #fff;
+  clip-path: inset(100% 0 0 0);
+}
+.footer-wordmark.is-burn::after {
+  animation: wordmark-light 1.7s cubic-bezier(0.33, 0, 0.67, 0.33) both;
+}
+.footer-wordmark:is(.is-coast, .is-descent, .is-landed)::after {
+  clip-path: inset(0 0 0 0);
+}
+.footer-wordmark.is-idle::after {
+  transition: clip-path 1.2s ease;
+}
+@keyframes wordmark-light {
+  0%,
+  8% {
+    clip-path: inset(100% 0 0 0);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
 }
 .club-footer .footer-bottom {
   margin-top: 0;
@@ -264,6 +291,11 @@
   height: 26px;
   margin-top: -2px;
   background: #f2a40e;
+}
+/* These two show one slice of the rocket each, so don't let the rest of it spill out. */
+.pad-nose,
+.pad-body {
+  overflow: hidden;
 }
 .pad-nose {
   position: absolute;
