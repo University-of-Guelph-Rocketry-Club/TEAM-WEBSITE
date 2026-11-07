@@ -1,16 +1,15 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate, useParams } from 'react-router-dom'
 import Reveal from '../components/Reveal'
-import { allPhotos, chapters, gallery, photoSrc } from '../content/gallery'
-import { site } from '../content/site'
+import { events, photoSrc } from '../content/gallery'
 
 const pad = n => String(n).padStart(2, '0')
 
 // Full-screen viewer. Arrow keys and swipes move between photos, Escape (or the backdrop) closes.
-function Lightbox({ index, onClose, onMove }) {
+function Lightbox({ photos, index, onClose, onMove }) {
   const dialogRef = useRef(null)
   const touch = useRef(null)
-  const photo = index >= 0 ? allPhotos[index] : null
+  const photo = index >= 0 ? photos[index] : null
 
   useEffect(() => {
     const dialog = dialogRef.current
@@ -29,13 +28,13 @@ function Lightbox({ index, onClose, onMove }) {
     document.body.style.overflow = 'hidden'
     // Warm up the neighbours so the next click doesn't wait on the network.
     ;[index + 1, index - 1].forEach(i => {
-      if (allPhotos[i]) new Image().src = photoSrc(allPhotos[i].name)
+      if (photos[i]) new Image().src = photoSrc(photos[i].src)
     })
     return () => {
       window.removeEventListener('keydown', onKey)
       document.body.style.overflow = ''
     }
-  }, [photo, index, onMove])
+  }, [photo, photos, index, onMove])
 
   return (
     <dialog
@@ -57,16 +56,16 @@ function Lightbox({ index, onClose, onMove }) {
       }}
     >
       {photo && (
-        <figure className="lightbox-figure" key={photo.name}>
+        <figure className="lightbox-figure" key={photo.src}>
           <img
-            src={photoSrc(photo.name)}
+            src={photoSrc(photo.src)}
             alt={photo.caption}
             style={{ aspectRatio: photo.ratio }}
             draggable="false"
           />
           <figcaption>
             <span className="lightbox-count">
-              {pad(index + 1)} / {pad(allPhotos.length)}
+              {pad(index + 1)} / {pad(photos.length)}
             </span>
             <span className="lightbox-caption">{photo.caption}</span>
             <span className="lightbox-chapter">{photo.chapter}</span>
@@ -96,13 +95,66 @@ function Lightbox({ index, onClose, onMove }) {
   )
 }
 
-export default function Gallery() {
+const eventPhotos = event =>
+  event.chapters.flatMap(chapter =>
+    chapter.photos.map(photo => ({
+      ...photo,
+      src: `${event.slug}/${photo.name}`,
+      chapter: chapter.title
+    }))
+  )
+
+const stamp = event => [event.when, event.where].filter(Boolean).join(' · ')
+
+// /gallery: one cover per event, newest first, each with a peek at what's inside.
+function GalleryIndex() {
+  return (
+    <div className="club-page gallery-page">
+      <section className="wrap gallery-index-head">
+        <p className="gallery-eyebrow">Photos</p>
+        <h1>Where we’ve been</h1>
+        <p>Competitions, conferences and everything in between. Pick a roll</p>
+      </section>
+      <section className="wrap gallery-covers" aria-label="Events">
+        {events.map((event, i) => {
+          const photos = eventPhotos(event)
+          const peek = photos.filter(photo => photo.name !== event.hero).slice(0, 4)
+          return (
+            <Reveal key={event.slug} delay={i * 90}>
+              <Link to={`/gallery/${event.slug}`} className="gallery-cover">
+                <span className="gallery-cover-photo">
+                  <img src={photoSrc(`${event.slug}/${event.hero}`)} alt="" />
+                </span>
+                <span className="gallery-cover-copy">
+                  <span className="gallery-eyebrow">{stamp(event)}</span>
+                  <span className="gallery-cover-title">{event.title}</span>
+                  <span className="gallery-cover-intro">{event.intro}</span>
+                  <span className="gallery-cover-peek" aria-hidden="true">
+                    {peek.map(photo => (
+                      <img key={photo.src} src={photoSrc(photo.src, true)} alt="" loading="lazy" />
+                    ))}
+                    <span>+{photos.length - peek.length}</span>
+                  </span>
+                </span>
+              </Link>
+            </Reveal>
+          )
+        })}
+      </section>
+    </div>
+  )
+}
+
+function EventPage({ event }) {
+  const photos = eventPhotos(event)
   const [open, setOpen] = useState(-1)
   const onMove = useCallback(
-    step => setOpen(i => (i < 0 ? i : (i + step + allPhotos.length) % allPhotos.length)),
-    []
+    step => setOpen(i => (i < 0 ? i : (i + step + photos.length) % photos.length)),
+    [photos.length]
   )
   const onClose = useCallback(() => setOpen(-1), [])
+  const others = events.filter(other => other.slug !== event.slug)
+  const { chapters } = event
   let counter = 0
 
   return (
@@ -110,21 +162,22 @@ export default function Gallery() {
       <section className="gallery-hero" aria-labelledby="gallery-title">
         <img
           className="gallery-hero-photo"
-          src={photoSrc(gallery.hero)}
+          src={photoSrc(`${event.slug}/${event.hero}`)}
           alt=""
           fetchpriority="high"
         />
         <div className="wrap gallery-hero-copy">
-          <p className="gallery-eyebrow">
-            {gallery.when} · {gallery.where}
-          </p>
-          <h1 id="gallery-title">{gallery.title}</h1>
-          <p className="gallery-intro">{gallery.intro}</p>
+          <Link className="gallery-back" to="/gallery">
+            ← All photos
+          </Link>
+          <p className="gallery-eyebrow">{stamp(event)}</p>
+          <h1 id="gallery-title">{event.title}</h1>
+          <p className="gallery-intro">{event.intro}</p>
         </div>
       </section>
 
       <section className="wrap gallery-lead">
-        <p>{gallery.text}</p>
+        <p>{event.text}</p>
         <nav className="gallery-roll" aria-label="Chapters">
           {chapters.map((chapter, i) => (
             <a key={chapter.id} href={`#${chapter.id}`}>
@@ -161,14 +214,14 @@ export default function Gallery() {
                   delay={Math.min(i, 5) * 60}
                   className={`gallery-tile${photo.size ? ` is-${photo.size}` : ''}`}
                   onClick={() => setOpen(index)}
-                  aria-label={`${photo.caption}. Open photo ${index + 1} of ${allPhotos.length}`}
+                  aria-label={`${photo.caption}. Open photo ${index + 1} of ${photos.length}`}
                 >
                   <img
-                    src={photoSrc(photo.name, true)}
+                    src={photoSrc(`${event.slug}/${photo.name}`, true)}
                     alt=""
                     loading="lazy"
                     decoding="async"
-                    style={{ '--ratio': photo.ratio }}
+                    style={{ '--ratio': photo.ratio, objectPosition: photo.focus }}
                   />
                   <span className="gallery-tile-caption" aria-hidden="true">
                     <small>{pad(index + 1)}</small>
@@ -181,13 +234,24 @@ export default function Gallery() {
         </section>
       ))}
 
+      {others.length > 0 && (
+        <section className="wrap gallery-more" aria-label="More photos">
+          {others.map(other => (
+            <Link key={other.slug} to={`/gallery/${other.slug}`} className="gallery-more-link">
+              <img src={photoSrc(`${other.slug}/${other.hero}`, true)} alt="" loading="lazy" />
+              <span>
+                <small>Next roll</small>
+                {other.title}
+              </span>
+            </Link>
+          ))}
+        </section>
+      )}
+
       <section className="gallery-next">
         <div className="wrap">
           <h2>Want in on the next one?</h2>
-          <p>
-            We’re already building for {site.competition}. Come help, and get yourself in these
-            photos
-          </p>
+          <p>Come build with us, and get yourself in these photos</p>
           <div className="gallery-next-actions">
             <Link className="club-button gold" to="/join">
               Join the club
@@ -199,7 +263,16 @@ export default function Gallery() {
         </div>
       </section>
 
-      <Lightbox index={open} onClose={onClose} onMove={onMove} />
+      <Lightbox photos={photos} index={open} onClose={onClose} onMove={onMove} />
     </div>
   )
+}
+
+export default function Gallery() {
+  const { slug } = useParams()
+  if (!slug) return <GalleryIndex />
+  const event = events.find(event => event.slug === slug)
+  if (!event) return <Navigate to="/gallery" replace />
+  // key resets the viewer and scroll-reveals when hopping from one event to another.
+  return <EventPage key={event.slug} event={event} />
 }

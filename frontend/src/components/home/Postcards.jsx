@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { gallery, photoSrc, postcards } from '../../content/gallery'
+import { eventFor, events, photoSrc, postcards } from '../../content/gallery'
 
-// A row of prints from the last competition that slides sideways as you scroll past it, like a
-// strip of photos being pulled across a table. Every print links to the gallery.
+// A row of prints from our trips that slides sideways as you scroll past it, like a strip of
+// photos being pulled across a table. Every print is stamped with its event and links to it.
 export default function Postcards() {
   const ref = useRef(null)
 
@@ -49,28 +49,30 @@ export default function Postcards() {
     <section ref={ref} className="postcards" aria-labelledby="postcards-title">
       <div className="wrap postcards-head">
         <div>
-          <p className="postcards-eyebrow">
-            {gallery.when} · {gallery.where}
-          </p>
-          <h2 id="postcards-title">Postcards from {gallery.title}</h2>
+          <p className="postcards-eyebrow">{events.map(event => event.title).join(' · ')}</p>
+          <h2 id="postcards-title">Postcards from the road</h2>
         </div>
         <Link className="text-link" to="/gallery">
-          See the whole roll
+          See all the photos
         </Link>
       </div>
       <div className="postcards-strip">
-        {postcards.map((card, i) => (
-          <Link
-            key={card.name}
-            to="/gallery"
-            className="postcard"
-            style={{ '--tilt': `${card.tilt}deg`, '--i': i }}
-            aria-label={`${card.caption}, open the photo gallery`}
-          >
-            <img src={photoSrc(card.name, true)} alt="" loading="lazy" decoding="async" />
-            <span>{card.caption}</span>
-          </Link>
-        ))}
+        {postcards.map((card, i) => {
+          const event = eventFor(card.photo)
+          return (
+            <Link
+              key={card.photo}
+              to={event ? `/gallery/${event.slug}` : '/gallery'}
+              className="postcard"
+              style={{ '--tilt': `${card.tilt}deg`, '--i': i }}
+              aria-label={`${card.caption}, from ${event?.title ?? 'our photos'}`}
+            >
+              <img src={photoSrc(card.photo, true)} alt="" loading="lazy" decoding="async" />
+              <span>{card.caption}</span>
+              {event && <em aria-hidden="true">{event.short ?? event.title}</em>}
+            </Link>
+          )
+        })}
       </div>
     </section>
   )

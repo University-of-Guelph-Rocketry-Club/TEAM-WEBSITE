@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { interests } from '../../content/home'
-import { photoSrc } from '../../content/gallery'
+import { eventFor, photoSrc } from '../../content/gallery'
 
-// "New to this?" as a sentence you finish yourself. Each answer comes with a print from the
-// last competition, if the interest has a `photo`.
+// "New to this?" as a sentence you finish yourself. Each answer comes with a print from one of our
+// trips, if the interest has a `photo`.
 export default function InterestPicker() {
   const [pick, setPick] = useState(0)
   const { team, text, photo } = interests[pick]
@@ -42,7 +42,7 @@ export default function InterestPicker() {
         </div>
         <div className="interest-print" aria-hidden="true">
           {photo && (
-            <Link to="/gallery" key={photo} tabIndex={-1}>
+            <Link to={`/gallery/${eventFor(photo)?.slug ?? ''}`} key={photo} tabIndex={-1}>
               <img src={photoSrc(photo, true)} alt="" loading="lazy" decoding="async" />
               <span>{team}</span>
             </Link>

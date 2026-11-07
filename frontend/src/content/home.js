@@ -26,42 +26,42 @@ export const hangarProjects = [
 ]
 
 // The "I'm into ___" picker. `label` is the button, then it says "You'd fit right in on
-// {team}!" followed by `text`. `photo` is one of the photo names in content/gallery.js and shows
+// {team}!" followed by `text`. `photo` is a photo from content/gallery.js, written '<event>/<name>', and shows
 // up next to the answer (leave it out and there's just no photo). Add or remove as many as you like.
 export const interests = [
   {
     label: 'writing code',
-    photo: 'checklist',
+    photo: 'cubesat-conference-2026/booth-2',
     team: 'Software',
     text: 'Flight software, the ground station, flight sims and even this website'
   },
   {
     label: 'circuits',
-    photo: 'avionics-table',
+    photo: 'launch-canada-2026/avionics-table',
     team: 'Avionics',
     text: 'Flight computers, sensors, radios and designing our own PCBs'
   },
   {
     label: 'building stuff',
-    photo: 'aft-end',
+    photo: 'launch-canada-2026/aft-end',
     team: 'Rocketry',
     text: 'Airframes, fins, parachutes, the motor and the liquid engine'
   },
   {
     label: 'biology',
-    photo: 'crew-2',
+    photo: 'cubesat-conference-2026/booth',
     team: 'the CubeSat team',
     text: 'There’s a biology based payload going up on the CubeSat (yes, really)'
   },
   {
     label: 'money stuff',
-    photo: 'arena',
+    photo: 'launch-canada-2026/arena',
     team: 'Finance',
     text: 'Sponsors, budgets and getting the whole team to competition'
   },
   {
     label: 'social media',
-    photo: 'gopro',
+    photo: 'launch-canada-2026/gopro',
     team: 'Outreach',
     text: 'Running our Instagram and LinkedIn, taking photos at launches and telling everyone what we’re up to'
   }

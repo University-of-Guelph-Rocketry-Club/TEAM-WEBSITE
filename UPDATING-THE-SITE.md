@@ -38,7 +38,13 @@ Add another entry to `sponsors` in `content/sponsors.js`. Each one gets its own 
 
 ## Adding photos
 
-Photos live in `frontend/public/Images/launch-canada-2026/`. Each one has a big version (`name.webp`, 1600px on the long edge) for the viewer and a small one (`name-s.webp`, 720px) for the grids. Export both, drop them in that folder, then add the photo to a chapter in `content/gallery.js` with a caption. The comment at the top of that file explains the `size` options for the grid. The same names work for the home page too: `postcards` in `content/gallery.js` is the strip of prints, and each interest in `content/home.js` can have a `photo`
+Each event (a competition, a conference, whatever) is one entry in `events` in `content/gallery.js`. It gets a cover on the Photos page and its own page at `/gallery/<slug>`. Its photos live in `frontend/public/Images/<slug>/`, and each photo has a big version (`name.webp`, 1600px on the long edge) for the viewer and a small one (`name-s.webp`, 720px) for the grids.
+
+- **New photos for an event that's already there:** export both sizes into its folder and add them to a chapter with a caption. The comment at the top of `content/gallery.js` explains the `size` and `focus` options
+- **A whole new event:** make a new folder, then copy one of the entries in `events` and change it. Newest goes first
+- **On the home page:** `postcards` in `content/gallery.js` is the strip of prints, and each interest in `content/home.js` can have a `photo`. Both write photos as `'<slug>/<name>'`, like `'launch-canada-2026/pad-2'`
+
+Keep the original full-size photos out of git. The `Launch Canada 2026` and `Canadian Cubesat Conference 2026` folders at the top of the repo are already ignored
 
 ## Apostrophes
 
