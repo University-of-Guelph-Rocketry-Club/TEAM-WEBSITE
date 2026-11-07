@@ -1,5 +1,3 @@
-import { useState } from 'react'
-import CrewPatch from '../components/team/CrewPatch'
 import Reveal from '../components/Reveal'
 
 const crew = [
@@ -12,18 +10,13 @@ const crew = [
 ]
 
 const Team = () => {
-  const [active, setActive] = useState(null)
-
   return <div className="club-page team-page">
     <section className="crew-hero wrap">
-      <div className="crew-intro">
-        <h1>Meet the crew!</h1>
-        <p>Say hi to our 2025 execs and department leads. Every mission gets a patch, so we made one with all our names on it</p>
-      </div>
-      <CrewPatch crew={crew} active={active} onHover={setActive} />
+      <h1>Meet the crew!</h1>
+      <p>Say hi to our 2025 execs and department leads</p>
     </section>
-    <section className="wrap crew-roster" aria-label="Executive team" onMouseLeave={() => setActive(null)}>
-      {crew.map((person, i) => <Reveal as="article" key={person.id} delay={i * 60} className={active === person.id ? 'is-active' : ''} onMouseEnter={() => setActive(person.id)} onFocus={() => setActive(person.id)}>
+    <section className="wrap crew-roster" aria-label="Executive team">
+      {crew.map((person, i) => <Reveal as="article" key={person.id} delay={i * 60}>
         <div className="crew-photo">
           {person.image_url
             ? <img src={person.image_url} alt={person.name} loading="lazy" />

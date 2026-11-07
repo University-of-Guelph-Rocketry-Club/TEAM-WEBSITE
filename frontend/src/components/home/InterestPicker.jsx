@@ -6,7 +6,8 @@ const INTERESTS = [
   ['circuits', 'Avionics', 'Flight computers, sensors, radios and designing our own PCBs'],
   ['building stuff', 'Rocketry', 'Airframes, fins, parachutes, the motor and the liquid engine'],
   ['plants', 'the CubeSat team', 'There’s a seed experiment going up on the CubeSat (yes, really)'],
-  ['money stuff', 'Finance', 'Sponsors, budgets and getting the whole team to competition']
+  ['money stuff', 'Finance', 'Sponsors, budgets and getting the whole team to competition'],
+  ['social media', 'Outreach', 'Running our Instagram and LinkedIn, taking photos at launches and telling everyone what we’re up to']
 ]
 
 // "New to this?" as a sentence you finish yourself.
