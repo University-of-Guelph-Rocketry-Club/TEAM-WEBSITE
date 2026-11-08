@@ -14,6 +14,7 @@ Most of the writing on the site lives in `frontend/src/content/`. There's one fi
 | Sponsors and "Where your support goes"                | `content/sponsors.js`                 |
 | The launch checklist and teams on the Join page       | `content/join.js`                     |
 | Projects page lists (subsystems, timeline, 3D labels) | `content/projects.js`                 |
+| The Photos page and the postcards on the home page    | `content/gallery.js`                  |
 | Any other heading or paragraph                        | the page itself in `src/pages/`       |
 
 For that last one, search the `src` folder for the sentence you want to change and it'll take you straight there
@@ -34,6 +35,16 @@ When the new execs take over, update `teamIntro` at the top of the same file too
 ## Adding a sponsor
 
 Add another entry to `sponsors` in `content/sponsors.js`. Each one gets its own block on the Sponsors page, and the first one in the list also shows near the bottom of the home page
+
+## Adding photos
+
+Each event (a competition, a conference, whatever) is one entry in `events` in `content/gallery.js`. It gets a cover on the Photos page and its own page at `/gallery/<slug>`. Its photos live in `frontend/public/Images/<slug>/`, and each photo has a big version (`name.webp`, 1600px on the long edge) for the viewer and a small one (`name-s.webp`, 720px) for the grids.
+
+- **New photos for an event that's already there:** export both sizes into its folder and add them to a chapter with a caption. The comment at the top of `content/gallery.js` explains the `size` and `focus` options
+- **A whole new event:** make a new folder, then copy one of the entries in `events` and change it. Newest goes first
+- **On the home page:** `postcards` in `content/gallery.js` is the strip of prints, and each interest in `content/home.js` can have a `photo`. Both write photos as `'<slug>/<name>'`, like `'launch-canada-2026/pad-2'`
+
+Keep the original full-size photos out of git. The `Launch Canada 2026` and `Canadian Cubesat Conference 2026` folders at the top of the repo are already ignored
 
 ## Apostrophes
 

@@ -8,6 +8,7 @@ const PAGES = [
   { to: '/projects', label: 'Projects' },
   { to: '/team', label: 'Our team' },
   { to: '/sponsors', label: 'Sponsors' },
+  { to: '/gallery', label: 'Photos' },
   { to: '/join', label: 'Join the club' }
 ]
 

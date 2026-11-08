@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import Hero from '../components/Hero'
 import Hangar from '../components/home/Hangar'
 import InterestPicker from '../components/home/InterestPicker'
+import Postcards from '../components/home/Postcards'
 import ProjectsSignpost from '../components/ProjectsSignpost'
 import { sponsors } from '../content/sponsors'
 
@@ -11,6 +12,7 @@ export default function Home() {
     <div className="club-home">
       <Hero />
       <Hangar />
+      <Postcards />
       <InterestPicker />
       {sponsor && (
         <section className="wrap supporter-strip">

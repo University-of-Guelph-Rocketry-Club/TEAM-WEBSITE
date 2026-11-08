@@ -14,6 +14,7 @@ import Projects from './pages/Projects'
 import Team from './pages/Team'
 import Sponsors from './pages/Sponsors'
 import Join from './pages/Join'
+import Gallery from './pages/Gallery'
 import Privacy from './pages/Privacy'
 import NotFound from './pages/NotFound'
 
@@ -74,6 +75,8 @@ function App() {
             <Route path="/team" element={<Team />} />
             <Route path="/sponsors" element={<Sponsors />} />
             <Route path="/join" element={<Join />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/gallery/:slug" element={<Gallery />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/teams" element={<Teams />} />
