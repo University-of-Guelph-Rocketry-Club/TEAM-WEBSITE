@@ -8,9 +8,9 @@ export const teamIntro = 'Say hi to our 2025 execs and department leads'
 
 export const team = [
   { name: 'Julian', role: 'Club President', photo: '/Images/Julian.png' },
-  { name: 'Marko', role: 'VP Operations' },
+  { name: 'Marko', role: 'VP Operations', photo: '/Images/marko.webp' },
   { name: 'Rachel', role: 'VP Regulatory', photo: '/Images/Rachel.jpg' },
   { name: 'Nick', role: 'Software Team Lead', photo: '/Images/IMG_6239.jpeg' },
   { name: 'Aban', role: 'Avionics Team Lead', photo: '/Images/aban.png' },
-  { name: 'Sohum', role: 'Outreach Lead' }
+  { name: 'Sohum', role: 'Outreach Lead', photo: '/Images/sohum.webp' }
 ]
