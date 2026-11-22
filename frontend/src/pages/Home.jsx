@@ -17,7 +17,7 @@ export default function Home() {
       {sponsor && (
         <section className="wrap supporter-strip">
           <div>
-            <p>Supporting the build</p>
+            <p>Sponsored by</p>
             <h2>{sponsor.name}</h2>
           </div>
           <p>{sponsor.homeText}</p>

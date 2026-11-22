@@ -19,7 +19,7 @@
 export const events = [
   {
     slug: 'launch-canada-2026',
-    // Stamped on its prints in the home page strip.
+    // Written under its prints in the home page strip.
     short: 'Launch Canada ’26',
     title: 'Launch Canada 2026',
     // Short line on the cover and under the title, then the longer intro.
@@ -134,7 +134,7 @@ export const events = [
   },
   {
     slug: 'cubesat-conference-2026',
-    // Stamped on its prints in the home page strip.
+    // Written under its prints in the home page strip.
     short: 'CubeSat Conf ’26',
     title: 'Canadian CubeSat Conference 2026',
     intro: 'Two days of satellites, talks and a lot of snow',

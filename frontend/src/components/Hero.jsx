@@ -114,38 +114,27 @@ export default function Hero() {
           )}
         </div>
         <div className="hero-copy">
-          <p className="hero-intro">University of Guelph Rocketry Club</p>
           <h1>
-            Built here
+            We build
             <br />
-            Bound for
+            rockets and
             <br />
-            the beyond!
+            satellites
           </h1>
           <p className="hero-description">
-            Come build rockets and satellites with us at Guelph! We’re getting ready for{' '}
-            {site.competition}
+            We’re a student club at the University of Guelph, getting ready for {site.competition}.
+            Anyone in any program can join
           </p>
           <div className="hero-actions">
             <Link className="club-button gold" to="/join">
               Join the club
             </Link>
             <Link className="hero-project-link" to="/projects">
-              Explore our projects
+              See our projects
             </Link>
           </div>
-          <div className="hero-footnote">
-            <span className="brand-stripe" aria-hidden="true" />
-            Run by students, open to every major
-          </div>
         </div>
-        <div className="launch-bottom">
-          <a href="#home-projects" className="launch-scroll-cue">
-            <span aria-hidden="true">↓</span>
-            {animated ? 'Scroll for more' : 'Discover the projects'}
-          </a>
-        </div>
-        <p className="launch-footage-caption">*actual footage from one of our launches</p>
+        <p className="launch-footage-caption">Footage from one of our launches</p>
         <div className="launch-progress" aria-hidden="true">
           <span />
         </div>

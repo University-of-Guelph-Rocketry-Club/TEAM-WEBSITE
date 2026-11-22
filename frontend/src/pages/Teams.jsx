@@ -143,7 +143,7 @@ const Teams = () => {
                   <h4 className="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-2">
                     Meeting Info
                   </h4>
-                  <p className="text-sm text-gray-600">Weekly meetings · Time TBD</p>
+                  <p className="text-sm text-gray-600">Weekly meetings, time TBD</p>
                   <p className="text-sm text-gray-600">Discord & Lab</p>
                 </div>
                 <div>
@@ -160,7 +160,7 @@ const Teams = () => {
                   <h4 className="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-2">
                     Team Lead
                   </h4>
-                  <p className="text-sm text-gray-600">Nick — Software Lead</p>
+                  <p className="text-sm text-gray-600">Nick, Software Lead</p>
                 </div>
               </div>
             </div>
@@ -176,7 +176,7 @@ const Teams = () => {
                   <h4 className="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-2">
                     Meeting Info
                   </h4>
-                  <p className="text-sm text-gray-600">Weekly meetings · Time TBD</p>
+                  <p className="text-sm text-gray-600">Weekly meetings, time TBD</p>
                   <p className="text-sm text-gray-600">Discord & Lab</p>
                 </div>
                 <div>
@@ -193,7 +193,7 @@ const Teams = () => {
                   <h4 className="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-2">
                     Team Lead
                   </h4>
-                  <p className="text-sm text-gray-600">Aban — Avionics Lead</p>
+                  <p className="text-sm text-gray-600">Aban, Avionics Lead</p>
                 </div>
               </div>
             </div>
@@ -209,7 +209,7 @@ const Teams = () => {
                   <h4 className="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-2">
                     Meeting Info
                   </h4>
-                  <p className="text-sm text-gray-600">Weekly meetings · Time TBD</p>
+                  <p className="text-sm text-gray-600">Weekly meetings, time TBD</p>
                   <p className="text-sm text-gray-600">Discord & Lab</p>
                 </div>
                 <div>

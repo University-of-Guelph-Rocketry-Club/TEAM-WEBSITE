@@ -2,7 +2,7 @@ import { site } from '../content/site'
 
 const Privacy = () => {
   return (
-    <div className="page-transition privacy-page">
+    <div className="privacy-page">
       {/* Header */}
       <section className="pt-24 pb-16 bg-slate-50">
         <div className="max-w-4xl mx-auto px-6">

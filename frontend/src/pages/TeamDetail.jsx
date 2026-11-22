@@ -148,7 +148,7 @@ const TeamDetail = () => {
             <div className="flex-1">
               <div className="flex items-center mb-4">
                 <Link to="/teams" className="text-gray-500 hover:text-gray-700 mr-4">
-                  ← Back to Teams
+                  Back to teams
                 </Link>
                 {isTeamMember() && (
                   <span className="bg-green-100 text-green-800 text-sm px-3 py-1 rounded-full">

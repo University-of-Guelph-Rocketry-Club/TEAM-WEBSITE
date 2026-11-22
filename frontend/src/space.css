@@ -116,11 +116,6 @@ video:focus-visible {
   padding: clamp(48px, 8vh, 100px) 0 32px;
   justify-content: center;
 }
-.launch-stage .hero-intro {
-  color: #b6c9e1;
-  font-size: 16px;
-  margin-bottom: 24px;
-}
 .launch-stage h1 {
   font-size: clamp(50px, 5.4vw, 84px);
   line-height: 0.98;
@@ -136,39 +131,9 @@ video:focus-visible {
   margin-top: 24px;
   gap: 24px;
 }
-.launch-stage .hero-footnote {
-  margin-top: 0;
-  padding-top: 35px;
-  color: #aebdd0;
-}
-.launch-bottom {
-  position: absolute;
-  bottom: 36px;
-  left: max(48px, calc((100% - 1200px) / 2));
-  right: max(48px, calc((100% - 1200px) / 2));
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 20px;
-  font-size: 14px;
-}
-.launch-scroll-cue {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-.launch-scroll-cue > span {
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 44px;
-  border: 1px solid #61728a;
-  border-radius: 24px;
-  font-size: 24px;
-}
 .launch-footage-caption {
   position: absolute;
-  right: max(48px, calc((100% - 1200px) / 2));
+  left: max(48px, calc((100% - 1200px) / 2));
   bottom: 42px;
   margin: 0;
   color: #c4d0df;
@@ -319,10 +284,6 @@ video:focus-visible {
   .launch-visual {
     left: 35%;
   }
-  .launch-bottom {
-    left: 24px;
-    right: 24px;
-  }
 }
 @media (max-width: 760px) {
   .club-links {
@@ -354,9 +315,6 @@ video:focus-visible {
   .launch-stage h1 {
     font-size: clamp(34px, 9.6vw, 50px);
   }
-  .launch-stage .hero-intro {
-    font-size: 14px;
-  }
   .launch-stage .hero-description {
     max-width: 330px;
     color: #d4deed;
@@ -364,23 +322,9 @@ video:focus-visible {
   .launch-stage .hero-actions {
     gap: 20px;
   }
-  .launch-stage .hero-footnote {
-    font-size: 12px;
-    color: #c1cddd;
-  }
-  .launch-bottom {
-    left: 20px;
-    right: 20px;
-    bottom: 26px;
-    gap: 12px;
-    font-size: 12px;
-  }
-  .launch-scroll-cue {
-    gap: 8px;
-  }
   .launch-footage-caption {
-    right: 20px;
-    bottom: 88px;
+    left: 20px;
+    bottom: 78px;
     font-size: 10px;
   }
   .club-home h2 {
@@ -419,14 +363,8 @@ video:focus-visible {
     font-size: min(clamp(40px, 7svh, 62px), 9.6vw);
     margin-bottom: 20px;
   }
-  .launch-stage .hero-intro {
-    margin-bottom: 16px;
-  }
   .launch-stage .hero-actions {
     margin-top: 18px;
-  }
-  .launch-stage .hero-footnote {
-    padding-top: 22px;
   }
 }
 
@@ -442,21 +380,8 @@ video:focus-visible {
     font-size: 15px;
     line-height: 1.4;
   }
-  .launch-stage .hero-intro {
-    margin-bottom: 12px;
-    font-size: 13px;
-  }
   .launch-stage .hero-actions {
     margin-top: 12px;
     gap: 14px;
-  }
-  .launch-stage .hero-footnote {
-    padding-top: 16px;
-  }
-  .launch-bottom {
-    bottom: 16px;
-  }
-  .launch-footage-caption {
-    bottom: 68px;
   }
 }

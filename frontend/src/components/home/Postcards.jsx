@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { eventFor, events, photoSrc, postcards } from '../../content/gallery'
+import { eventFor, photoSrc, postcards } from '../../content/gallery'
 
 // A row of prints from our trips that slides sideways as you scroll past it, like a strip of
-// photos being pulled across a table. Every print is stamped with its event and links to it.
+// photos being pulled across a table. Each print says which trip it's from and links to it.
 export default function Postcards() {
   const ref = useRef(null)
 
@@ -48,10 +48,7 @@ export default function Postcards() {
   return (
     <section ref={ref} className="postcards" aria-labelledby="postcards-title">
       <div className="wrap postcards-head">
-        <div>
-          <p className="postcards-eyebrow">{events.map(event => event.title).join(' · ')}</p>
-          <h2 id="postcards-title">Postcards from the road</h2>
-        </div>
+        <h2 id="postcards-title">Postcards from the road</h2>
         <Link className="text-link" to="/gallery">
           See all the photos
         </Link>
@@ -68,8 +65,10 @@ export default function Postcards() {
               aria-label={`${card.caption}, from ${event?.title ?? 'our photos'}`}
             >
               <img src={photoSrc(card.photo, true)} alt="" loading="lazy" decoding="async" />
-              <span>{card.caption}</span>
-              {event && <em aria-hidden="true">{event.short ?? event.title}</em>}
+              <span className="postcard-caption">
+                {card.caption}
+                {event && <small>{event.short ?? event.title}</small>}
+              </span>
             </Link>
           )
         })}

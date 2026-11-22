@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-import Reveal from '../components/Reveal'
 import { sponsorNeeds, sponsors } from '../content/sponsors'
 import { site } from '../content/site'
 
@@ -61,7 +60,7 @@ export default function Sponsors() {
       <NameOnRocket />
 
       {sponsors.map((sponsor, i) => (
-        <Reveal as="section" key={sponsor.name} className="wrap sponsor-feature">
+        <section key={sponsor.name} className="wrap sponsor-feature">
           <div>
             {i === 0 && <p>Thanks to our sponsors!</p>}
             <h2>{sponsor.name}</h2>
@@ -70,23 +69,23 @@ export default function Sponsors() {
             <h3>{sponsor.headline}</h3>
             <p>{sponsor.text}</p>
           </div>
-        </Reveal>
+        </section>
       ))}
 
       <section className="wrap sponsor-needs" aria-labelledby="needs-title">
         <h2 id="needs-title">Where your support goes</h2>
         <ol className="parts-list">
-          {sponsorNeeds.map((need, i) => (
-            <Reveal as="li" key={need.item} delay={i * 50}>
+          {sponsorNeeds.map(need => (
+            <li key={need.item}>
               <strong>{need.item}</strong>
               <span className="parts-leader" aria-hidden="true" />
               <span className="parts-text">{need.text}</span>
-            </Reveal>
+            </li>
           ))}
         </ol>
       </section>
 
-      <Reveal as="section" className="club-invitation">
+      <section className="club-invitation">
         <div className="wrap invitation-layout">
           <h2>Want your logo up there for real?</h2>
           <div>
@@ -100,7 +99,7 @@ export default function Sponsors() {
             </a>
           </div>
         </div>
-      </Reveal>
+      </section>
     </div>
   )
 }

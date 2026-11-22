@@ -1,9 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
-import Reveal from '../components/Reveal'
 import { events, photoSrc } from '../content/gallery'
-
-const pad = n => String(n).padStart(2, '0')
 
 // Full-screen viewer. Arrow keys and swipes move between photos, Escape (or the backdrop) closes.
 function Lightbox({ photos, index, onClose, onMove }) {
@@ -65,7 +62,7 @@ function Lightbox({ photos, index, onClose, onMove }) {
           />
           <figcaption>
             <span className="lightbox-count">
-              {pad(index + 1)} / {pad(photos.length)}
+              {index + 1} of {photos.length}
             </span>
             <span className="lightbox-caption">{photo.caption}</span>
             <span className="lightbox-chapter">{photo.chapter}</span>
@@ -104,40 +101,38 @@ const eventPhotos = event =>
     }))
   )
 
-const stamp = event => [event.when, event.where].filter(Boolean).join(' · ')
+// 'August 2026 in Timmins, Ontario', or just the date when there's no place.
+const whenAndWhere = event => [event.when, event.where].filter(Boolean).join(' in ')
 
-// /gallery: one cover per event, newest first, each with a peek at what's inside.
+// /gallery: one cover per event, newest first, with a few of its photos.
 function GalleryIndex() {
   return (
     <div className="club-page gallery-page">
       <section className="wrap gallery-index-head">
-        <p className="gallery-eyebrow">Photos</p>
         <h1>Where we’ve been</h1>
-        <p>Competitions, conferences and everything in between. Pick a roll</p>
+        <p>Photos from our trips, newest first</p>
       </section>
       <section className="wrap gallery-covers" aria-label="Events">
-        {events.map((event, i) => {
+        {events.map(event => {
           const photos = eventPhotos(event)
           const peek = photos.filter(photo => photo.name !== event.hero).slice(0, 4)
           return (
-            <Reveal key={event.slug} delay={i * 90}>
-              <Link to={`/gallery/${event.slug}`} className="gallery-cover">
-                <span className="gallery-cover-photo">
-                  <img src={photoSrc(`${event.slug}/${event.hero}`)} alt="" />
+            <Link key={event.slug} to={`/gallery/${event.slug}`} className="gallery-cover">
+              <span className="gallery-cover-photo">
+                <img src={photoSrc(`${event.slug}/${event.hero}`)} alt="" />
+              </span>
+              <span className="gallery-cover-copy">
+                <span className="gallery-cover-title">{event.title}</span>
+                <span className="gallery-cover-when">{whenAndWhere(event)}</span>
+                <span className="gallery-cover-intro">{event.intro}</span>
+                <span className="gallery-cover-peek" aria-hidden="true">
+                  {peek.map(photo => (
+                    <img key={photo.src} src={photoSrc(photo.src, true)} alt="" loading="lazy" />
+                  ))}
+                  <span>{photos.length} photos</span>
                 </span>
-                <span className="gallery-cover-copy">
-                  <span className="gallery-eyebrow">{stamp(event)}</span>
-                  <span className="gallery-cover-title">{event.title}</span>
-                  <span className="gallery-cover-intro">{event.intro}</span>
-                  <span className="gallery-cover-peek" aria-hidden="true">
-                    {peek.map(photo => (
-                      <img key={photo.src} src={photoSrc(photo.src, true)} alt="" loading="lazy" />
-                    ))}
-                    <span>+{photos.length - peek.length}</span>
-                  </span>
-                </span>
-              </Link>
-            </Reveal>
+              </span>
+            </Link>
           )
         })}
       </section>
@@ -168,50 +163,43 @@ function EventPage({ event }) {
         />
         <div className="wrap gallery-hero-copy">
           <Link className="gallery-back" to="/gallery">
-            ← All photos
+            All photos
           </Link>
-          <p className="gallery-eyebrow">{stamp(event)}</p>
           <h1 id="gallery-title">{event.title}</h1>
           <p className="gallery-intro">{event.intro}</p>
+          <p className="gallery-when">{whenAndWhere(event)}</p>
         </div>
       </section>
 
       <section className="wrap gallery-lead">
         <p>{event.text}</p>
         <nav className="gallery-roll" aria-label="Chapters">
-          {chapters.map((chapter, i) => (
+          {chapters.map(chapter => (
             <a key={chapter.id} href={`#${chapter.id}`}>
-              <small>{pad(i + 1)}</small>
               {chapter.title}
-              <span>{chapter.photos.length}</span>
             </a>
           ))}
         </nav>
       </section>
 
-      {chapters.map((chapter, c) => (
+      {chapters.map(chapter => (
         <section
           key={chapter.id}
           id={chapter.id}
           className="wrap gallery-chapter"
           aria-labelledby={`${chapter.id}-title`}
         >
-          <Reveal className="gallery-chapter-head">
-            <p className="gallery-eyebrow">
-              {pad(c + 1)} / {pad(chapters.length)}
-            </p>
+          <div className="gallery-chapter-head">
             <h2 id={`${chapter.id}-title`}>{chapter.title}</h2>
             <p>{chapter.text}</p>
-          </Reveal>
+          </div>
           <div className="gallery-grid">
-            {chapter.photos.map((photo, i) => {
+            {chapter.photos.map(photo => {
               const index = counter++
               return (
-                <Reveal
-                  as="button"
+                <button
                   type="button"
                   key={photo.name}
-                  delay={Math.min(i, 5) * 60}
                   className={`gallery-tile${photo.size ? ` is-${photo.size}` : ''}`}
                   onClick={() => setOpen(index)}
                   aria-label={`${photo.caption}. Open photo ${index + 1} of ${photos.length}`}
@@ -224,10 +212,9 @@ function EventPage({ event }) {
                     style={{ '--ratio': photo.ratio, objectPosition: photo.focus }}
                   />
                   <span className="gallery-tile-caption" aria-hidden="true">
-                    <small>{pad(index + 1)}</small>
                     {photo.caption}
                   </span>
-                </Reveal>
+                </button>
               )
             })}
           </div>
@@ -240,7 +227,7 @@ function EventPage({ event }) {
             <Link key={other.slug} to={`/gallery/${other.slug}`} className="gallery-more-link">
               <img src={photoSrc(`${other.slug}/${other.hero}`, true)} alt="" loading="lazy" />
               <span>
-                <small>Next roll</small>
+                <small>More photos</small>
                 {other.title}
               </span>
             </Link>
@@ -273,6 +260,6 @@ export default function Gallery() {
   if (!slug) return <GalleryIndex />
   const event = events.find(event => event.slug === slug)
   if (!event) return <Navigate to="/gallery" replace />
-  // key resets the viewer and scroll-reveals when hopping from one event to another.
+  // key resets the viewer when hopping from one event to another.
   return <EventPage key={event.slug} event={event} />
 }

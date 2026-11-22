@@ -444,17 +444,14 @@ const ChatbotWidget = () => {
       {!isOpen && (chatbotEnabled || adminMode) && (
         <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 pointer-events-auto">
           <div className="relative">
-            <button
-              onClick={() => setIsOpen(true)}
-              className="bg-primary-600 hover:bg-primary-700 text-white rounded-full p-3 sm:p-4 shadow-lg transition-all duration-300 hover:scale-110"
-              title="Chat with the club assistant"
-            >
+            <button onClick={() => setIsOpen(true)} className="club-button gold chat-launcher">
               <svg
-                className="w-6 h-6"
+                className="w-5 h-5"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={2}
                 stroke="currentColor"
+                aria-hidden="true"
               >
                 <path
                   strokeLinecap="round"
@@ -462,6 +459,7 @@ const ChatbotWidget = () => {
                   d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"
                 />
               </svg>
+              Ask a question
             </button>
           </div>
         </div>
@@ -471,9 +469,9 @@ const ChatbotWidget = () => {
       {isOpen && (
         <div className="fixed inset-4 sm:inset-auto sm:bottom-6 sm:right-6 z-50 sm:w-[420px] sm:h-[620px] pointer-events-auto">
           <div className="w-full h-full flex flex-col" style={{ pointerEvents: 'auto' }}>
-            <div className="w-full h-full rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl chat-backdrop flex flex-col">
+            <div className="w-full h-full overflow-hidden shadow-2xl chat-backdrop flex flex-col">
               {/* Header (sticky) */}
-              <div className="bg-primary-700 text-white p-3 sm:p-4 flex justify-between items-center rounded-t-2xl sm:rounded-t-3xl sticky top-0 z-30 flex-shrink-0">
+              <div className="bg-primary-700 text-white p-3 sm:p-4 flex justify-between items-center sticky top-0 z-30 flex-shrink-0">
                 <div className="flex items-center space-x-2 sm:space-x-3">
                   <svg
                     className="w-6 h-6 sm:w-7 sm:h-7"
@@ -490,18 +488,18 @@ const ChatbotWidget = () => {
                   </svg>
                   <div>
                     <h3 className="font-semibold text-sm sm:text-base">
-                      Rocketry Club Assistant
+                      Ask the club
                       {adminMode && (
                         <span className="ml-2 text-xs bg-yellow-400 text-slate-900 px-2 py-0.5 rounded-full font-bold">
                           ADMIN
                         </span>
                       )}
                     </h3>
-                    <p className="text-xs opacity-90">
-                      {adminMode
-                        ? `Executive: ${adminInfo?.name} - ${adminInfo?.role}`
-                        : 'Ask me anything!'}
-                    </p>
+                    {adminMode && (
+                      <p className="text-xs opacity-90">
+                        Executive: {adminInfo?.name}, {adminInfo?.role}
+                      </p>
+                    )}
                   </div>
                 </div>
 
@@ -922,13 +920,13 @@ const ChatbotWidget = () => {
                             ? 'Admin access - unlimited messages...'
                             : 'Ask about the club...'
                         }
-                        className="flex-1 px-4 py-2 border rounded-full text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                        className="flex-1 px-4 py-2 border rounded text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500"
                         disabled={loading}
                       />
                       <button
                         type="submit"
                         disabled={loading || !inputMessage.trim()}
-                        className="bg-primary-600 hover:bg-primary-700 disabled:bg-gray-300 text-white px-4 py-2 rounded-full text-sm transition-colors"
+                        className="bg-primary-600 hover:bg-primary-700 disabled:bg-gray-300 text-white px-4 py-2 rounded text-sm transition-colors"
                       >
                         Send
                       </button>
