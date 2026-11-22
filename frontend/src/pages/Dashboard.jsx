@@ -138,7 +138,7 @@ const Dashboard = () => {
                   to="/teams"
                   className="text-primary-600 hover:text-primary-800 text-sm font-medium"
                 >
-                  View All →
+                  View all
                 </Link>
               </div>
             </div>
@@ -192,7 +192,7 @@ const Dashboard = () => {
                   to="/updates"
                   className="text-primary-600 hover:text-primary-800 text-sm font-medium"
                 >
-                  View All →
+                  View all
                 </Link>
               </div>
             </div>

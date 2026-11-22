@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import Reveal from '../components/Reveal'
 import GitHubJoin from '../components/GitHubJoin'
 import LaunchChecklist from '../components/join/LaunchChecklist'
 import { departments } from '../content/join'
@@ -25,13 +24,13 @@ export default function Join() {
       <section id="departments" className="wrap departments" aria-labelledby="departments-title">
         <h2 id="departments-title">Where will you start?</h2>
         <div className="department-list">
-          {departments.map((department, i) => (
-            <Reveal as="article" key={department.name} delay={i * 60}>
+          {departments.map(department => (
+            <article key={department.name}>
               <h3>{department.name}</h3>
               <p>{department.summary}</p>
               <p className="department-more">{department.details}</p>
               <Link to={department.link}>See what they’re up to</Link>
-            </Reveal>
+            </article>
           ))}
         </div>
         <p className="departments-note">

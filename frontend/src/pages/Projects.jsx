@@ -98,7 +98,7 @@ export default function Projects() {
             </ul>
           </Beat>
           <Beat at={[0.86, 2]} className="beat-side">
-            <h3 className="giant-sm">Built by students</h3>
+            <h3 className="giant-sm">Tested before it flies</h3>
             <p>
               We design everything in SOLIDWORKS, run sims on it, then build it and test it before
               it goes anywhere near the launch rail

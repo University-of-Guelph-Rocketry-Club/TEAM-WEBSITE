@@ -1,4 +1,3 @@
-import Reveal from '../components/Reveal'
 import { team, teamIntro } from '../content/team'
 import { site } from '../content/site'
 
@@ -10,8 +9,8 @@ export default function Team() {
         <p>{teamIntro}</p>
       </section>
       <section className="wrap crew-roster" aria-label="Executive team">
-        {team.map((person, i) => (
-          <Reveal as="article" key={`${person.name}-${person.role}`} delay={i * 60}>
+        {team.map(person => (
+          <article key={`${person.name}-${person.role}`}>
             <div className="crew-photo">
               {person.photo ? (
                 <img src={person.photo} alt={person.name} loading="lazy" />
@@ -23,7 +22,7 @@ export default function Team() {
             </div>
             <h3>{person.name}</h3>
             <p>{person.role}</p>
-          </Reveal>
+          </article>
         ))}
       </section>
       <section className="club-invitation">
@@ -35,8 +34,8 @@ export default function Team() {
           </h2>
           <div>
             <p>
-              See a team you’d like to join? Come say hi on Discord! Ask what’s being built and how
-              you can get involved
+              See a team you’d like to join? Come say hi on Discord! Ask what’s being built and
+              where you can help
             </p>
             <a
               className="club-button red"
